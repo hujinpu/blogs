@@ -1,0 +1,19 @@
+<p>从方法上说，有两种方法可以切换样式，一个是直接删除已有样式的节点，再动态载入新的样式；另一种就是利用w3c里的对link中rel和title的说明，只要是<code>rel=alternate stylesheet</code>，且有title属性的，默认情况下就不会利用这个样式了。但这只是实现了换样式，在Firefox3和IE8下都没有问题了，关键是Safari和Chrome貌似很为用户省资源，都cache得严严实实，所以这招就还不够，所谓高手对招，从欣赏性上，也要多个回合不是？ok，下面我就要重点讲讲怎么让css的cache失效。</p><!--more-->
+<p>任何一个网页中全局样式表都可以通过document的styleSheets属性获得。这个属性返回的是一个集合对象，其中的元素是head里的link节点或是style节点。然后最关键的就是可以利用中间每个元素的rules（ie）或者cssRules（非ie）来得到一个CSSRulelist对象。而且只要你读到这个规则对象，即使不做进一步的规则便利，都会迫使浏览器重新应用css规则里的样式，也就是实现了页面重新渲染样式的效果，那么cache也就完蛋。</p>
+<pre class="brush: js">
+//刷新CSS缓存
+function refreshCache() {
+    var ds = document.styleSheets;
+    for (var i =0, len = ds.length; i < len; i++){
+        try {
+           ds[i].cssRules || ds[i].rules;
+        } catch (e) {} 
+    }
+}
+</pre>
+<p>其中IE支持rules，而其他的浏览器至少支持cssRules，不信可以测试。<code>javascript:void(alert(document.styleSheets[0].rules))</code></p>
+<p>好了，这里说可以完美解决缓存问题，但如果是实现裸奔和有样式浏览，那么最佳的方法就不是这样了。其实只要设置link或者style的disabled属性为true或者false就行了，一样是兼容所有的浏览器。其实这样可以结合title成为第三种切换样式的方法。</p>
+<pre class="brush: js">
+$('link[rel=stylesheet]').attr('disabled', false); //穿上装备
+$('link[rel=stylesheet]').attr('disabled', true); //裸奔
+</pre>

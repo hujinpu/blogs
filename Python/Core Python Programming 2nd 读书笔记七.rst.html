@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第七章：映射和集合类型</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>映射类型: 字典<ul>
+<li>操作符</li>
+<li>内建函数</li>
+<li>内建方法</li>
+<li>字典的键</li>
+</ul>
+</li>
+<li>集合类型<ul>
+<li>操作符</li>
+<li>内建函数</li>
+<li>内建方法</li>
+</ul>
+</li>
+<li>相关模块</li>
+</ul>
+<p>哈希表的算法是获取键，对键执行一个叫做哈希函数的操作，并根据计算的结果，选择在数据结构的某个地址中来存储你的值</p>
+<p>从Python 2.3版本起，可以用一个很方便的内建方法 <tt class="docutils literal"><span class="pre">fromkeys()</span></tt> 来创建一个“默认”字典，字典中元素具有相同的值（如果没有给出， 默认为None）</p>
+<pre class="literal-block">
+&gt;&gt;&gt; a = {}.fromkeys(('x', 'y'), -1)
+&gt;&gt;&gt; a
+{'y': -1, 'x': -1}
+</pre>
+<p>从Python 2.2开始，你可以不必再用 <tt class="docutils literal"><span class="pre">keys()</span></tt> 方法获取供循环使用的键值列表了，直接用字典名字就好了：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; a = {'x': 'xxx', 'y': 'yyy'}
+&gt;&gt;&gt; a
+{'y': 'yyy', 'x': 'xxx'}
+&gt;&gt;&gt; for k in a:
+...     print k, a[k]
+...
+y yyy
+x xxx
+</pre>
+<p><tt class="docutils literal"><span class="pre">has_key()</span></tt> 方法将会在未来的Python版本中弃用，所以用 <tt class="docutils literal"><span class="pre">in</span></tt> 或 <tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt> 是最好的方法</p>
+<p>字典不支持拼接（concatenation）和重复(repetition)操作</p>
+<p><strong>这里对字符串、列表、元组和字典的比较操作做一个总结：</strong></p>
+<ul class="simple">
+<li>字符：按照ASCII值的大小来比较</li>
+<li>列表：<ol class="arabic">
+<li>对两个列表的元素进行比较</li>
+<li>如果两个列表比较的元素是同类型的，则比较其值，返回结果</li>
+<li>如果两个列表的元素不是同一种类型，则检查它们是否是数字<ol class="loweralpha">
+<li>如果是数字,执行必要的数字强制类型转换，然后比较</li>
+<li>如果有一方的元素是数字，则另一方的元素“大”（数字是“最小的”）</li>
+<li>否则，通过类型名字的字母顺序进行比较</li>
+</ol>
+</li>
+<li>如果有一个列表首先到达末尾，则另一个长一点的列表“大”</li>
+<li>如果我们用尽了两个列表的元素而且所有元素都是相等的，那么结果就是个平局，就是说返回一个0</li>
+</ol>
+</li>
+<li>元组：和列表的比较一样</li>
+<li>字典：<ol class="arabic">
+<li>比较字典长度：字典中的键的个数越多，这个字典就越大</li>
+<li>比较字典的键</li>
+<li>比较字典的值</li>
+</ol>
+</li>
+</ul>
+<p><tt class="docutils literal"><span class="pre">dict()</span></tt> 工厂函数被用来创建字典，如果不提供参数，会生成空字典；如果参数是可以迭代的，即，一个序列，或是一个迭代器，或是一个支持迭代的对象，那每个可迭代的元素必须成对出现。在每个值对中，第一个元素是字典的键、第二个元素是字典中的值；如果输入参数是(另)一个映射对象，比如，一个字典对象，对其调用dict()会从存在的字典里复制内容来生成新的字典。新生成的字典是原来字典对象的浅复制版本，它与用字典的内建方法 <tt class="docutils literal"><span class="pre">copy()</span></tt> 生成的字典对象是一样的但是从已存在的字典生成新的字典速度比用 <tt class="docutils literal"><span class="pre">copy()</span></tt> 方法慢，推荐使用 <tt class="docutils literal"><span class="pre">copy()</span></tt> ，同时从Python 2.3开始，调用dict()方法可以接受字典或关键字参数字典</p>
+<pre class="literal-block">
+&gt;&gt;&gt; dict1 = dict(x=1, y=2)
+&gt;&gt;&gt; dict1
+{'y': 2, 'x': 1}
+&gt;&gt;&gt; id(dict1)
+2146535052
+&gt;&gt;&gt; dict2 = dict(dict1)
+&gt;&gt;&gt; dict2
+{'y': 2, 'x': 1}
+&gt;&gt;&gt; id(dict2)
+2146535188
+&gt;&gt;&gt; dict3 = dict(**dict1)
+&gt;&gt;&gt; dict3
+{'y': 2, 'x': 1}
+&gt;&gt;&gt; id(dict3)
+2146535324
+&gt;&gt;&gt; dict4 = dict1.copy()
+&gt;&gt;&gt; dict4
+{'y': 2, 'x': 1}
+&gt;&gt;&gt; id(dict4)
+2146534508
+</pre>
+<p>内建函数 <tt class="docutils literal"><span class="pre">hash()</span></tt> 本身并不是为字典设计的方法，但它可以判断某个对象是否可以做一个字典的键。将一个对象作为参数传递给 <tt class="docutils literal"><span class="pre">hash()</span></tt> ，会返回这个对象的哈希值。只有这个对象是可哈希的，才可作为字典的键（函数的返回值是整数，不产生错误或异常）</p>
+<p><strong>注意：只要值相等， hash()就会返回相同的值，即使类型不一样。比如1和1.0的哈希值是一样的，但它们类型不一样，一个是整型，一个是浮点型。</strong></p>
+<p>字典类型方法：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">方法名字</th>
+<th class="head">操作</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>dict.clear()</td>
+<td>删除字典中所有元素</td>
+</tr>
+<tr><td>dict.copy()</td>
+<td>返回字典（浅复制）的一个副本</td>
+</tr>
+<tr><td>dict.fromkeysc(seq,val=None)</td>
+<td>创建并返回一个新字典，以seq中的元素做该字典的键，val做该字
+典中所有键对应的初始值（如果不提供此值，则默认为None）</td>
+</tr>
+<tr><td>dict.get(key,default=None)</td>
+<td>对字典dict中的键key，返回它对应的值value，如果字典中不存在此
+键，则返回default的值（注意，参数default的默认值为None）</td>
+</tr>
+<tr><td>dict.has_key(key)</td>
+<td>如果键（key）在字典中存在，返回True，否则返回False。在Python2.2
+版本引入in和not in后，此方法几乎已废弃不用了，但仍提供一个
+可工作的接口。</td>
+</tr>
+<tr><td>dict.items()</td>
+<td>返回一个包含字典中（键，值）对元组的列表</td>
+</tr>
+<tr><td>dict.keys()</td>
+<td>返回一个包含字典中键的列表</td>
+</tr>
+<tr><td>dict.iterxxx()</td>
+<td>方法iteritems()，iterkeys()，itervalues()与它们对应的非迭代方法
+一样，不同的是它们返回的是一个迭代器，而不是一个列表。</td>
+</tr>
+<tr><td>dict.pop(key [,default])</td>
+<td>和方法get()相似，如果字典中key键存在，删除并返回dict[key]，
+如果key 键不存在，且没有给出default的值，引发KeyError异常。</td>
+</tr>
+<tr><td>dict.setdefault(key,</td>
+<td>和方法set()相似，如果字典中不存在key键，由dict[key]=default为</td>
+</tr>
+<tr><td>default=None)</td>
+<td>它赋值。</td>
+</tr>
+<tr><td>dict.update(dict2)</td>
+<td>将字典dict2的键-值对添加到字典dict，重复键所对应的原有条目的值
+将被新键所对应的值所覆盖</td>
+</tr>
+<tr><td>dict.values()</td>
+<td>返回一个包含字典中所有值的列表</td>
+</tr>
+</tbody>
+</table>
+<p><tt class="docutils literal"><span class="pre">sorted()</span></tt> 内建函数可以返回有序的迭代器</p>
+<p>一般情况下，字典的键是必须为不变的对象，也就是可哈希的，但部分（很少数的）可变对象也可以哈希，也就可以做字典的键。比如一个类，实现了 <tt class="docutils literal"><span class="pre">__hash__()</span></tt> 特殊方法。因为 <tt class="docutils literal"><span class="pre">__hash__()</span></tt> 方法返回一个整数，所以仍然是用不可变。</p>
+<p><strong>用元组做有效的键，必须要加限制：元组中只包括像数字和字符串这样的不可变参数，才可以作为字典中有效的键。</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; a = (1,2,3,range(10))
+&gt;&gt;&gt; a
+(1, 2, 3, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+&gt;&gt;&gt; hash(a)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: list objects are unhashable
+&gt;&gt;&gt; b = (1,2,3)
+&gt;&gt;&gt; hash(b)
+2528502973977326415
+</pre>
+<p><strong>集合（set）对象是一组无序排列的可哈希的值</strong> ，也就是说集合对象作为容器不是任何对象都包容的。集合（sets）有两种不同的类型，可变集合（set）和不可变集合（frozenset）。如你所想，对可变集合（set），你可以添加和删除元素，对不可变集合（frozenset）则不允许这样做。请注意，可变集合（set）不是可哈希的，因此既不能用做字典的键也不能做其他集合中的元素。不可变集合（frozenset）则正好相反，即，他们有哈希值，能被用做字典的键或是作为集合中的一个成员。</p>
+<p>集合被创建的唯一方法是：用集合的工厂方法 <tt class="docutils literal"><span class="pre">set()</span></tt> 和 <tt class="docutils literal"><span class="pre">frozenset()</span></tt></p>
+<pre class="literal-block">
+&gt;&gt;&gt; s = set('abcdefg')
+&gt;&gt;&gt; s
+set(['a', 'c', 'b', 'e', 'd', 'g', 'f'])
+&gt;&gt;&gt; t = frozenset('abcdefg')
+&gt;&gt;&gt; t
+frozenset(['a', 'c', 'b', 'e', 'd', 'g', 'f'])
+</pre>
+<p>可以通过集合的更新方法来更新集合： <tt class="docutils literal"><span class="pre">add()</span></tt> 增加一个元素， <tt class="docutils literal"><span class="pre">update()</span></tt> 方法如果没有传入的元素，就增加该元素， <tt class="docutils literal"><span class="pre">remove()</span></tt> 删除指定元素。</p>
+<p>注意：只有可变集合才能更新。</p>
+<p>集合等价/不等价与集合的类型或集合成员的顺序无关，只与集合的元素有关。注意与前面的比较大总结作对应。两个集合相等是指，对每个集合而言，当且仅当其中一个集合中的每个成员同时也是另一个集合中的成员。</p>
+<p>集合还支持一些有意思的操作符（联合 <tt class="docutils literal"><span class="pre">union()</span></tt> 、交集 <tt class="docutils literal"><span class="pre">intersection()</span></tt> 、差补 <tt class="docutils literal"><span class="pre">difference()</span></tt> 和对称差分 <tt class="docutils literal"><span class="pre">symmetric_difference()</span></tt> ）：:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; s = set('cheeseshop')
+&gt;&gt;&gt; t = frozenset('bookshop')
+&gt;&gt;&gt; s | t
+set(['c', 'b', 'e', 'h', 'k', 'o', 'p', 's'])
+&gt;&gt;&gt; s &amp; t
+set(['h', 's', 'o', 'p'])
+&gt;&gt;&gt; s - t
+set(['c', 'e'])
+&gt;&gt;&gt; s ^ t
+set(['b', 'e', 'k', 'c'])
+&gt;&gt;&gt; t | s
+frozenset(['c', 'b', 'e', 'h', 'k', 'o', 'p', 's'])
+&gt;&gt;&gt; t ^ s
+frozenset(['c', 'b', 'e', 'k'])
+&gt;&gt;&gt; t - s
+frozenset(['k', 'b'])
+</pre>
+<p><strong>如果左右两个操作数的类型相同，既都是可变集合或不可变集合，则所产生的结果类型是相同的，但如果左右两个操作数的类型不相同（左操作数是set，右操作数是frozenset，或相反情况），则所产生的结果类型与左操作数的类型相同。</strong></p>
+<p><strong>还要注意，加号不是集合类型的运算符，做连接应该使用联合操作符（|）。</strong></p>
+<p>还有一些集合对象特有的运算符：</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">|=</span></tt> 和 <tt class="docutils literal"><span class="pre">update()</span></tt> 方法等价</li>
+<li><tt class="docutils literal"><span class="pre">&amp;=</span></tt> 和 <tt class="docutils literal"><span class="pre">intersection_update()()</span></tt> 方法等价</li>
+<li><tt class="docutils literal"><span class="pre">-=</span></tt> 和 <tt class="docutils literal"><span class="pre">difference_update()</span></tt> 方法等价</li>
+<li><tt class="docutils literal"><span class="pre">^=</span></tt> 和 <tt class="docutils literal"><span class="pre">symmetric_difference_update()</span></tt> 方法等价</li>
+</ul>
+<p>为什么有了运算符还要方法呢？有两个原因，一是为了更加重要容易理解，二是当用操作符时，操作符两边的操作数必须是集合。在使用内建方法时，对象也可以是迭代类型的。</p>
+<p><tt class="docutils literal"><span class="pre">set()</span></tt> 和 <tt class="docutils literal"><span class="pre">frozenset()</span></tt> 工厂函数分别用来生成可变和不可变的集合。如果不提供任何参数，默认会生成空集合。如果提供一个参数，则该参数必须是可迭代的，即，一个序列，或迭代器，或支持迭代的一个对象</p>
+<p>集合类型方法：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">方法名称</th>
+<th class="head">操作</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>s.issubset(t)</td>
+<td>如果s是t的子集，则返回True,否则返回False</td>
+</tr>
+<tr><td>s.issuperset(t)</td>
+<td>如果t是s的超集，则返回True,否则返回False</td>
+</tr>
+<tr><td>s.union(t)</td>
+<td>返回一个新集合，该集合是s和t的并集</td>
+</tr>
+<tr><td>s.intersection(t)</td>
+<td>返回一个新集合，该集合是s和t的交集</td>
+</tr>
+<tr><td>s.difference(t)</td>
+<td>返回一个新集合，该集合是s的成员，但不是t的成员</td>
+</tr>
+<tr><td>s.symmetric_difference(t)</td>
+<td>返回一个新集合，该集合是s或t的成员，但不是s和t共有的成员</td>
+</tr>
+<tr><td>s.copy()</td>
+<td>返回一个新集合，它是集合s的浅复制</td>
+</tr>
+</tbody>
+</table>
+<p>可变集合类型的方法：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">方法名</th>
+<th class="head">操作</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>s.update(t)</td>
+<td>用t中的元素修改s, 即，s现在包含s或t的成员</td>
+</tr>
+<tr><td>s.intersection_update(t)</td>
+<td>s中的成员是共同属于s和t的元素。</td>
+</tr>
+<tr><td>s.difference_update(t)</td>
+<td>s中的成员是属于s但不包含在t中的元素</td>
+</tr>
+<tr><td>s.symmetric_difference_update(t)</td>
+<td>s中的成员更新为那些包含在s或t中，但不是s和t共有的元素</td>
+</tr>
+<tr><td>s.add(obj)</td>
+<td>在集合s中添加对象obj</td>
+</tr>
+<tr><td>s.remove(obj)</td>
+<td>从集合s中删除对象obj；如果obj 不是集合s中的元素(obj not in s)，将引发KeyError 错误</td>
+</tr>
+<tr><td>s.discard(obj)</td>
+<td>如果obj是集合s中的元素，从集合s中删除对象obj；</td>
+</tr>
+<tr><td>s.pop()</td>
+<td>删除集合s中的任意一个对象，并返回它</td>
+</tr>
+<tr><td>s.clear()</td>
+<td>删除集合s中的所有元素</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

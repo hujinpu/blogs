@@ -1,0 +1,166 @@
+<p>这里再说明下，我讲解的顺序基本就是按jQuery源码的顺序一行行来看，如果有值得讲解的就拿出来表以为文，如果其中有调用其他的api，且这个api也值得一提，就会跳到这个api去给大家做讲解，这个过程会递归下去。</p><!--more-->
+<p>这里开始讲下jQuery.fn.text函数，觉得这个函数写得贴心的地方也有点问题。</p>
+<pre class="brush: js">
+text: function( text ) {
+    if ( typeof text !== "object" && text != null )
+        return this.empty().append( (this[0] && this[0].ownerDocument || document).createTextNode( text ) );
+
+    var ret = "";
+
+    jQuery.each( text || this, function(){
+        jQuery.each( this.childNodes, function(){
+            if ( this.nodeType != 8 )
+                ret += this.nodeType != 1 ?
+                    this.nodeValue :
+                    jQuery.fn.text( [ this ] );
+        });
+    });
+
+    return ret;
+},
+</pre>
+<p>这里对于我传入的text为一个函数就会直接把这个函数设置为值，但这个似乎不太合理，我可能想做一个函数，利用闭包来做一些text的生成，所以应该做一个回调。但写得贴心的是下面那段，两个jQuery.each加里层的递归就可以遍历完所有的这个jQuery对象集合里的元素的所有内部节点的文本元素。如果做类似功能可以借鉴。</p>
+<p>wrapAll是个大家伙，会牵扯出一系列的函数api，我们一起来看看：</p>
+<pre class="brush: js">
+wrapAll: function( html ) {
+    if ( this[0] ) {
+        // The elements to wrap the target around
+        var wrap = jQuery( html, this[0].ownerDocument ).clone();
+
+        if ( this[0].parentNode )
+            wrap.insertBefore( this[0] );
+
+        wrap.map(function(){
+            var elem = this;
+
+            while ( elem.firstChild )
+                elem = elem.firstChild;
+
+            return elem;
+        }).append(this);
+    }
+
+    return this;
+},
+</pre>
+<p>这里要讲下map和clone方法。在jQuery.fn.map方法里实际又调用了jQuery.map方法，所以要先讲下jQuery.map方法。</p>
+<pre class="brush: js">
+map: function( elems, callback ) {
+    var ret = [];
+
+    // Go through the array, translating each of the items to their
+    // new value (or values).
+    for ( var i = 0, length = elems.length; i < length; i++ ) {
+        var value = callback( elems[ i ], i );
+
+        if ( value != null )
+            ret[ ret.length ] = value;
+    }
+
+    return ret.concat.apply( [], ret );
+}
+</pre>
+<p>这个方法值得讲的地方就最后一句return，看到手册里有这样一个应用<code>$.map( [0,1,2], function(n){
+return [n, n+1]}</code>，会得到<code>[0, 1, 1, 2, 2, 3]</code>。因为<a href="http://msdn.microsoft.com/zh-cn/library/k55b14b3.aspx" title="微软MSDN中关于concat方法的参考" target="_blank">concat</a>方法会把ret中的每个元素拆成单个元素来追加到[]里。</p>
+<p>那再看下jQuery.fn.map方法</p>
+<pre class="brush: js">
+map: function( callback ) {
+    return this.pushStack( jQuery.map(this, function(elem, i){
+        return callback.call( elem, i, elem );
+    }));
+},
+</pre>
+<p>有了我前面讲的jQuery.map方法，其实只要看下jQuery.fn.pushStack了，而这个方法我想把曾经jQuery.fn.init方法里调用的jQuery.fn.setArray一起讲讲。</p>
+<pre class="brush: js">
+// Take an array of elements and push it onto the stack
+// (returning the new matched element set)
+pushStack: function( elems, name, selector ) {
+    // Build a new jQuery matched element set
+    var ret = jQuery( elems );
+
+    // Add the old object onto the stack (as a reference)
+    ret.prevObject = this;
+
+    ret.context = this.context;
+
+    if ( name === "find" )
+        ret.selector = this.selector + (this.selector ? " " : "") + selector;
+    else if ( name )
+        ret.selector = this.selector + "." + name + "(" + selector + ")";
+
+    // Return the newly-formed element set
+    return ret;
+},
+
+// Force the current matched set of elements to become
+// the specified array of elements (destroying the stack in the process)
+// You should use pushStack() in order to do this, but maintain the stack
+setArray: function( elems ) {
+    // Resetting the length to 0, then using the native Array push
+    // is a super-fast way to populate an object with array-like properties
+    this.length = 0;
+    Array.prototype.push.apply( this, elems );
+
+    return this;
+},
+</pre>
+<p>pushStack是构造新的jQuery对象，但保留老的引用（prevObject），而setArray是直接变为以标准数组，不保存老的引用。现在回过头再看jQuery.fn.clone方法。这个方法有点复杂，要点耐心。</p>
+<pre class="brush: js">
+clone: function( events ) {
+    // Do the clone
+    var ret = this.map(function(){
+        if ( !jQuery.support.noCloneEvent && !jQuery.isXMLDoc(this) ) {
+            // IE copies events bound via attachEvent when
+            // using cloneNode. Calling detachEvent on the
+            // clone will also remove the events from the orignal
+            // In order to get around this, we use innerHTML.
+            // Unfortunately, this means some modifications to
+            // attributes in IE that are actually only stored
+            // as properties will not be copied (such as the
+            // the name attribute on an input).
+            var html = this.outerHTML;
+            if ( !html ) {
+                var div = this.ownerDocument.createElement("div");
+                div.appendChild( this.cloneNode(true) );
+                html = div.innerHTML;
+            }
+
+            return jQuery.clean([html.replace(/ jQuery\d+="(?:\d+|null)"/g, "").replace(/^\s*/, "")])[0];
+        } else
+            return this.cloneNode(true);
+    });
+
+    // Copy the events from the original to the clone
+    if ( events === true ) {
+        var orig = this.find("*").andSelf(), i = 0;
+
+        ret.find("*").andSelf().each(function(){
+            if ( this.nodeName !== orig[i].nodeName )
+                return;
+
+            var events = jQuery.data( orig[i], "events" );
+
+            for ( var type in events ) {
+                for ( var handler in events[ type ] ) {
+                    jQuery.event.add( this, type, events[ type ][ handler ], events[ type ][ handler ].data );
+                }
+            }
+
+            i++;
+        });
+    }
+
+    // Return the cloned set
+    return ret;
+},
+</pre>
+<p>这里说下innerHTML、outerHTML和innerText、outerText的区别。
+<ul>
+    <li>innerHTML：取的是调用对象的所有子节点的html标签表示，当然包括了文本节点；</li>
+    <li>outerHTML：取的是innerHTML的内容还加上了调用对象自身的html标签；Firefox不支持；</li>
+    <li>innerText：取的是调用对象的所有子节点中的文本；Firefox不支持，用textContent代替；</li>
+    <li>outerText：取的是调用对象自身和子节点中的文本，如果修改outerText的值，那么调用对象自身也会被破坏。Firefox不支持。</li>
+</ul>
+</p>
+<p>然后那段长长的注释表明了ie的态度，我就不翻译了。如果是文本节点就没有outerHTML，所以要多做些处理。如果events为true就连同事件一起克隆。关于事件我放到后面讲解。</p>
+<p>好，整个wrapAll的api细节就只有insertBefore和append了，因为会比较长。我会放到后面去讲。由于跳跃很多，这里总结下wrapAll的流程。假如是<code>$('p').wrapAll('&lt;div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;')</code>，那第一步就是要把html构建为dom对象然后执行克隆，克隆的目的是保证如果html传入的是一个选择符不会移动原来的选择符对应的对象，而是复制一份拷贝。然后如果可以的话插入到this[0]之前，然后通过while循环找到这个克隆对象的最内层节点，再把this插入（append）到这个最内层节点里。这里还发现一个bug，就是如果这个选择符取得的是这样的一个Dom结构<code>div->textNode</code>，那就好然this无法append上去，从页面表示来说就会有两个这样的div出现，但this里的东西不见了。这里显然是由于文本节点无法挂载element元素。所以应该在while里做nodeType的判断。</p>

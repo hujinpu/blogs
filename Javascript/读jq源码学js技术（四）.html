@@ -1,0 +1,60 @@
+<p>上篇说了要讲insertBefore和append的，这里先讲insertBefore。</p><!--more-->
+<pre class="brush: js">
+jQuery.each({
+	appendTo: "append",
+	prependTo: "prepend",
+	insertBefore: "before",
+	insertAfter: "after",
+	replaceAll: "replaceWith"
+}, function(name, original){
+	jQuery.fn[ name ] = function( selector ) {
+		var ret = [], insert = jQuery( selector );
+
+		for ( var i = 0, l = insert.length; i < l; i++ ) {
+			var elems = (i > 0 ? this.clone(true) : this).get();
+			jQuery.fn[ original ].apply( jQuery(insert[i]), elems );
+			ret = ret.concat( elems );
+		}
+
+		return this.pushStack( ret, name, selector );
+	};
+});
+</pre>
+<p>这个写得很有意思，实际上只是由先前定义在jQuery.fn中的五个函数生成了新的5个反过来操作的函数。再看下append，其实主要是讲jQuery.fn.domManip函数</p>
+<pre class="brush: js">
+append: function() {
+    return this.domManip(arguments, true, function(elem){
+        if (this.nodeType == 1)
+            this.appendChild( elem );
+    });
+},
+
+domManip: function( args, table, callback ) {
+    if ( this[0] ) {
+        var fragment = (this[0].ownerDocument || this[0]).createDocumentFragment(),
+            scripts = jQuery.clean( args, (this[0].ownerDocument || this[0]), fragment ),
+            first = fragment.firstChild;
+
+        if ( first )
+            for ( var i = 0, l = this.length; i < l; i++ )
+                callback.call( root(this[i], first), this.length > 1 || i > 0 ?
+                        fragment.cloneNode(true) : fragment );
+    
+        if ( scripts )
+            jQuery.each( scripts, evalScript );
+    }
+
+    return this;
+    
+    function root( elem, cur ) {
+        return table && jQuery.nodeName(elem, "table") && jQuery.nodeName(cur, "tr") ?
+            (elem.getElementsByTagName("tbody")[0] ||
+            elem.appendChild(elem.ownerDocument.createElement("tbody"))) :
+            elem;
+    }
+}
+</pre>
+<p>要知道，如果你往document.body里append 100次，意味着页面局部会渲染100次，这样从性能上说是低效率的，应该做集中在一起做一次append。所以jQuery这里使用的是文档碎片，即调用了Dom1的方法createDocumentFragment，把100次要append的节点都放到文档碎片里，然后做一次append，这就只有一次局部渲染了。关于jQuery.clean这是个很重要的方法，我在这里更详细地分析一次。（语法高亮有些问题，所以我就不贴出clean的代码了，如有不便请见谅）</p>
+<p>如果是单独的一个标签，就直接调用createElement方法，并返回一个Dom数组。如果是多个元素，那就要先拿一个div包住，再做一些特殊处理。第一个就是修订为符合xhtml的风格，然后就是修订select、table和link script的问题。到了<code>if (fragment)</code>那里的else里面的内容，有意思。如果不是script，那就去分析一下是否可能ret[i]里面包含了script，如果有，从i后面的位置开始加上，然后挂到fragment里，供以后使用。其实只要存在script，也就说明返回的只能是一个scripts数组了。如果没有fragment那就返回一个Dom数组（里面可以包含script）。</p>
+<p>好了，现在再看对于Dom核心操作的domManip就简单了，先创建文本碎片，然后对this里的每个元素做callback的回调，这里的root保证了如果table为true就要加入tbody，而不是直接就tr了。如果this长度很多，那就要克隆多分碎片，因为是多个地方要做同样碎片的处理（callback）。然后对应scripts做evalScript处理。而evalScript就是如果有src属性就发一个同步请求，没有就globalEval了。这两个函数比较简单就不直接说了，且就在domManip下面不远，读者可以看下。</p>
+<p>那最后回到我要说的jQuery.fn.append上，这其实对应参数做回调，回调处理就是如果是element元素就直接appendChild。当然这里都有table要加tbody。好了，这篇就到这里了。</p>

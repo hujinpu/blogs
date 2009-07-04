@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第十六章：网络编程</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>引言：客户/服务器架构</li>
+<li>套接字：通信终点<ul>
+<li>套接字地址</li>
+<li>面向连接与无连接套接字</li>
+</ul>
+</li>
+<li>Python中的网络编程<ul>
+<li>Socket模块</li>
+<li>套接字对象方法</li>
+<li>TCP/IP客户端和服务器</li>
+<li>UDP/IP客户端和服务器</li>
+</ul>
+</li>
+<li>SocketServer模块</li>
+<li>Twisted框架介绍</li>
+<li>相关模块</li>
+</ul>
+<p>有两种客户服务端架构：</p>
+<ul class="simple">
+<li>硬件的客户端/服务器架构，一些常见的例子：<ol class="arabic">
+<li>打印（机）服务器</li>
+<li>文件服务器（Sun的Network File System）</li>
+</ol>
+</li>
+<li>软件客户端/服务器架构，一些常见的例子：<ol class="arabic">
+<li>Web服务器</li>
+<li>数据库服务器</li>
+<li>窗口服务器（X Window）</li>
+</ol>
+</li>
+</ul>
+<p>套接字是一种具有之前所说的“通信端点”概念的计算机网络数据结构。有两种，分别是基于文件型的和基于网络型的。</p>
+<p><strong>网络化的应用程序在开始任何通讯之前都必需要创建套接字。</strong></p>
+<ul class="simple">
+<li>文件型：Unix套接字在Python中使用 <cite>AF_UNIX</cite> 作为其家族名，表示“地址家族：UNIX”。 （尽管 <cite>AF_LOCAL</cite> 在2000-2001年被列为标准）</li>
+<li>网络型： <cite>AF_INET</cite> ，或叫“地址家族：Internet”，还有一种地址家族 <cite>AF_INET6</cite> 被用于网际协议第6版（IPv6）寻址上。Python 2.5中加入了一种Linux套接字的支持： <cite>AF_NETLINK</cite></li>
+</ul>
+<p>Python只支持 <cite>AF_UNIX</cite> ， <cite>AF_NETLINK</cite> ，和 <cite>AF_INET</cite> 家族。</p>
+<p><a class="reference" href="http://www.iana.org/assignments/port-numbers">http://www.iana.org/assignments/port-numbers</a> 列出了常用端口。</p>
+<p>无论你使用哪一种地址家族，套接字的类型只有两种：</p>
+<ul class="simple">
+<li>一种是面向连接的套接字，即在通信之前一定要建立一条连接，就像跟朋友打电话时那样。这种通信方式也被称为“虚电路”或“流套接字”。面向连接的通信方式提供了顺序的、可靠的、不会重复的数据传输，而且也不会被加上数据边界。这也意味着，每一个要发送的信息，可能会被拆分成多份，每一份都会不多不少地正确到达目的地。然后被重新按顺序拼装起来，传给正在等待的应用程序。实现这种连接的主要协议就是传输控制协议（即TCP）。要创建TCP套接字就得在创建的时候指定套接字类型为 <tt class="docutils literal"><span class="pre">SOCK_STREAM</span></tt> 。TCP套接字采用 <tt class="docutils literal"><span class="pre">SOCK_STREAM</span></tt> 这个名字，表达了它作为流套接字的特点。由于这些套接字使用网际协议（IP）来查找网络中的主机，所以这样形成的整个系统，一般会由这两个协议（TCP和IP）名的组合来描述，即TCP/IP。</li>
+<li>另一种是与虚电路完全相反的数据报型的无连接套接字。这意味着，无需建立连接就可以进行通讯。但这时，数据到达的顺序、可靠性及不重复性就无法保证了。数据报会保留数据边界，这就表示，数据是整个发送的，不会像面向连接的协议那样被先拆分成小块。使用数据报来传输数据就像邮政服务一样。邮件和包裹不一定会按它们发送的顺序到达。事实上，它们还有可能根本到达不了！而且，在网络中报文甚至会重复发送，这也增加了复杂性。既然数据报有这么多缺点，为什么还要使用它呢？（一定有能胜过流套接字的功能！）由于面向连接套接字要提供一些保证，以及要维持虚电路连接，这都是很重的额外负担。数据报没有这些负担，所以它更“便宜”。通常能提供更好的性能，更适合某些应用场合。实现这种连接的主要协议就是用户数据报协议（即UDP）。要创建UDP套接字就得在创建的时候指定套接字类型为 <tt class="docutils literal"><span class="pre">SOCK_DGRAM</span></tt> 。 <tt class="docutils literal"><span class="pre">SOCK_DGRAM</span></tt> 这个名字，也许你已经猜到了，来自于单词“datagram”（“数据报”）。由于这些套接字使用网际协议来查找网络中的主机，这样形成的整个系统，一般会由这两个协议（UDP和IP）名的组合来描述，即UDP/IP。</li>
+</ul>
+<p>创建套接字： <tt class="docutils literal"><span class="pre">socket(socket_family,</span> <span class="pre">socket_type,</span> <span class="pre">protocol=0)</span></tt></p>
+<p>其中 <tt class="docutils literal"><span class="pre">socket_family</span></tt> 不是AF_VNIX就是AF_INET， <tt class="docutils literal"><span class="pre">socket_type</span></tt> 可以是SOCK_STREAM或SOCK_DGRAM， <tt class="docutils literal"><span class="pre">protocol</span></tt> 一般不填，默认值为0。</p>
+<p>由于 <tt class="docutils literal"><span class="pre">socket</span></tt> 模块中有太多的属性，所以可以破例使用 <tt class="docutils literal"><span class="pre">from</span> <span class="pre">socket</span> <span class="pre">import</span> <span class="pre">*</span></tt> 语句。</p>
+<p>看一个TCP的例子：</p>
+<p>TCP服务端代码：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+创建一个TCP服务器程序，这个程序会把客户端发送过来的字符串
+加上一个时间戳（格式：'[时间]数据'）返回给客户端
+'''
+from socket import *
+from time import ctime
+
+HOST = ''   #HOST变量为空，表示bind()函数可以绑定在所有有效的地址上
+PORT = 21567    #服务器的端口号
+BUFSIZ = 1024   #缓冲区
+ADDR = (HOST, PORT)
+
+tcpSerSock = socket(AF_INET, SOCK_STREAM)   #创建TCP服务端套接字
+tcpSerSock.bind(ADDR)   #绑定地址
+tcpSerSock.listen(5)    #开始监听
+#listen()函数的参数只是表示最多允许多少个连接同时连进来，而后来的连接就会被拒绝掉。
+
+try:
+    while True:
+        print 'waiting for connection...'   #等待连接的到来
+        #接受处理一个连接返回一个新的socket对象和客户端的地址
+        tcpCliSock, addr = tcpSerSock.accept()
+        print '...connected from:', addr    #显示客户端的地址
+
+        while True:
+            data = tcpCliSock.recv(BUFSIZ)
+            if not data:
+                break
+            tcpCliSock.send('[%s] %s' % (
+                ctime(), data))
+
+        tcpCliSock.close()
+
+except (KeyboardInterrupt, EOFError), reason:
+        tcpSerSock.close()  #友好地退出
+</pre>
+<p>TCP客户端代码：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+'''
+创建一个TCP客户端，程序会提示用户输入要传给服务器的信息，
+显示服务器返回的加了时间戳的结果。
+'''
+
+from socket import *
+
+HOST = 'localhost'  #服务器的主机名
+PORT = 21567    #服务器的端口号
+BUFSIZ = 1024   #缓冲区的大小还是设为1K
+ADDR = (HOST, PORT)
+
+tcpCliSock = socket(AF_INET, SOCK_STREAM)   #创建TCP客户端套接字
+tcpCliSock.connect(ADDR)    #连接服务器
+
+'''
+客户端的循环在以下两个条件的任意一个发生后就退出：用户没有输入任何内容
+或服务器由于某种原因退出，导致recv()函数失败
+同时支持用户Ctrl-C结束
+'''
+
+try:
+    while True:
+        data = raw_input('&gt; ')
+        if not data:
+            break
+        tcpCliSock.send(data)   #把用户输入的字符串发给服务器
+        data = tcpCliSock.recv(BUFSIZ)  #接收服务器传回来的加了时间戳的字符串
+        if not data:
+            break
+        print data
+        tcpCliSock.close()
+except (EOFError, KeyboardInterrupt), reason:
+    tcpCliSock.close()
+</pre>
+<p>再看一个UDP的例子：</p>
+<p>UDP服务端代码：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from socket import *
+from time import ctime
+
+HOST = ''
+PORT = 21567
+BUFSIZ = 1024
+ADDR = (HOST, PORT)
+
+udpSerSock = socket(AF_INET, SOCK_DGRAM)
+udpSerSock.bind(ADDR)
+#UDP服务端不需要监听，因为根本就是无连接的
+
+while True:
+    print 'waiting for message...'
+    #只能得到数据和地址，不能得到新的socket对象
+    data, addr = udpSerSock.recvfrom(BUFSIZ)
+    #注意这里没有调用accept方法
+    udpSerSock.sendto('[%s] %s' % (
+        ctime(), data), addr)
+    #服务器可能会得到并回复多个客户端消息，这时，输出就可以让我们了解消息来自哪里。
+    print '...received from and returned to:', addr
+
+udpSerSock.close()
+</pre>
+<p>UDP客户端代码：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from socket import *
+
+HOST = 'localhost'
+PORT = 21567
+BUFSIZ = 1024
+ADDR = (HOST, PORT)
+
+udpCliSock = socket(AF_INET, SOCK_DGRAM)
+
+while True:
+    data = raw_input('&gt; ')
+    if not data:
+        break
+    udpCliSock.sendto(data, ADDR)
+    #这里使用的是无连接的sendto方法
+    data, ADDR = udpCliSock.recvfrom(BUFSIZ)
+    if not data:
+        break
+    print data
+
+udpCliSock.close()
+</pre>
+<p><tt class="docutils literal"><span class="pre">socket</span></tt> 模块更多的信息可以参看： <a class="reference" href="http://docs.python.org/lib/module-socket.html">http://docs.python.org/lib/module-socket.html</a></p>
+<p><tt class="docutils literal"><span class="pre">SocketServer</span></tt> 模块是一个简化网络客户端与服务器代码行的框架</p>
+<p>基于 <tt class="docutils literal"><span class="pre">SocketServer</span></tt> 的一个TCP服务端实现：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from SocketServer import (TCPServer as TCP,
+    StreamRequestHandler as SRH)
+from time import ctime
+
+HOST = ''
+PORT = 21567
+ADDR = (HOST, PORT)
+
+class MyRequestHandler(SRH):
+    '''
+        在有客户消息进来的时候，handle()函数就会被调用。
+   StreamRequestHandler类支持像操作文件对象那样操作输入输出套接字。
+    '''
+    def handle(self):
+        print '...connected from:', self.client_address #得到客户的地址
+        #readline()函数得到客户消息，write()函数把字符串发给客户端
+        self.wfile.write('[%s] %s' % (ctime(), self.rfile.readline()))
+
+tcpServ = TCP(ADDR, MyRequestHandler)
+print 'waiting for connection...'
+#用给定的主机信息和请求处理类创建TCP服务器，
+#然后进入等待客户端请求与处理客户请求的无限循环中
+tcpServ.serve_forever()
+</pre>
+<p>对应的TCP客户端实现：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+
+from socket import *
+
+HOST = 'localhost'
+PORT = 21567
+BUFSIZ = 1024
+ADDR = (HOST, PORT)
+
+while True:
+    tcpCliSock = socket(AF_INET, SOCK_STREAM)
+    tcpCliSock.connect(ADDR)
+    data = raw_input('&gt; ')
+    if not data:
+        break
+    #由于是在服务端使用了（rfile是input stream）readlines()方法，
+    #所以这里要加入标志行结束的\r\n
+    tcpCliSock.send('%s\r\n' % data)
+    data = tcpCliSock.recv(BUFSIZ)
+    if not data:
+        break
+    print data.strip()
+    tcpCliSock.close()
+</pre>
+<p>书中没有UDP的例子，我写了个：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from SocketServer import (UDPServer as UDP,
+    DatagramRequestHandler as DRH)
+from time import ctime
+
+HOST = ''
+PORT = 21567
+ADDR = (HOST, PORT)
+
+class MyRequestHandler(DRH):
+    '''
+        在有客户消息进来的时候，handle()函数就会被调用。
+    DatagramRequestHandler类支持像操作文件对象那样操作输入输出套接字。
+        注意这里使用的是DatagramRequestHandler而不是StreamRequestHandler
+    '''
+    def handle(self):
+        print '...connected from:', self.client_address #得到客户的地址
+        #readline()函数得到客户消息，write()函数把字符串发给客户端
+        self.wfile.write('[%s] %s' % (ctime(), self.rfile.readline()))
+
+udpServ = UDP(ADDR, MyRequestHandler)
+print 'waiting for connection...'
+#用给定的主机信息和请求处理类创建TCP服务器，
+#然后进入等待客户端请求与处理客户请求的无限循环中
+udpServ.serve_forever()
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from socket import *
+
+HOST = 'localhost'
+PORT = 21567
+BUFSIZ = 1024
+ADDR = (HOST, PORT)
+
+udpCliSock = socket(AF_INET, SOCK_DGRAM)
+
+while True:
+    data = raw_input('&gt; ')
+    if not data:
+        break
+    #同样加上\r\n做为行结束标志已方便readlines()方法
+    udpCliSock.sendto(data + '\r\n', ADDR)
+    #这里使用的是无连接的sendto方法
+    data, ADDR = udpCliSock.recvfrom(BUFSIZ)
+    if not data:
+        break
+    print data.strip()
+
+udpCliSock.close()
+</pre>
+<p>比较牛X的 <a class="reference" href="http://twistedmatrix.com/trac/">Twisted</a> 的一个TCP的例子：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from twisted.internet import protocol, reactor
+from time import ctime
+
+PORT = 21567
+
+class TSServProtocol(protocol.Protocol):
+    def connectionMade(self):
+        '''在有客户端连接的时候被调用'''
+        clnt = self.clnt = self.transport.getPeer().host
+        print '...connected from:', clnt
+    def dataReceived(self, data):
+        '''在客户端通过网络发送数据过来时被调用'''
+        self.transport.write('[%s] %s' % (
+        ctime(), data))
+
+factory = protocol.Factory()    #每次我们有连接进来的时候，它都会“生产”一个protocol对象
+factory.protocol = TSServProtocol
+print 'waiting for connection...'
+reactor.listenTCP(PORT, factory)
+reactor.run()   #当有请求进来时，创建一个TSServProtocol实例来服务那个客户端
+
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from twisted.internet import protocol, reactor
+
+HOST = 'localhost'
+PORT = 21567
+
+class TSClntProtocol(protocol.Protocol):
+    def sendData(self):
+        '''加一个自己的函数sendData()，用于在需要发送数据时调用'''
+        data = raw_input('&gt; ')
+        if data:
+            print '...sending %s...' % data
+            self.transport.write(data)
+        else:
+            self.transport.loseConnection()
+
+    def connectionMade(self):
+        self.sendData()
+
+    def dataReceived(self, data):
+        print data
+        self.sendData()
+
+class TSClntFactory(protocol.ClientFactory):
+    protocol = TSClntProtocol
+    clientConnectionLost = clientConnectionFailed = \
+        lambda self, connector, reason: reactor.stop()
+
+reactor.connectTCP(HOST, PORT, TSClntFactory())
+reactor.run()
+</pre>
+</div>
+</body>
+</html>

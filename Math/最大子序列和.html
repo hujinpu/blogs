@@ -1,0 +1,86 @@
+<p>如：-2, 11, -4, 13, -5, -2 的最大子序列和为20（11+(-4)+13）。不同的算法，不同的复杂度，具体见下面给出的代码。</p><!--more-->
+<pre class="brush: js">
+/*Program Language: Javascript*/
+/*
+ * 算法一 穷举所有可能
+ * 复杂度 O(N^3)
+ */
+function subSqequenceSum1(dataArray) {
+    var currentSum,  maxSum = 0, len = dataArray.length;
+
+    for (var i = 0; i < len; i++) {
+        for (var j = i ; j < len; j++) {
+            currentSum = 0;
+
+            for (var k = i; k <= j; k++) currentSum += dataArray[k]
+            
+            currentSum > maxSum ? (maxSum = currentSum) : '';            
+        }
+    }
+    return maxSum;
+}
+
+/*
+ * 算法二 部分穷举
+ * 复杂度 O(N^2)
+ */
+function subSqequenceSum2(dataArray) {
+    var currentSum, maxSum = 0, len = dataArray.length;
+
+    for (var i = 0; i < len; i++) {
+        currentSum = 0;
+        for (j = i; j < len; j++) {
+            currentSum += dataArray[j];
+            currentSum > maxSum ? (maxSum = currentSum) : '';            
+        }
+    }
+    return maxSum;
+}
+
+/*
+ * 算法三 分治算法
+ * 复杂度 O(N*logN)
+ */
+function subSqequenceSum3(dataArray, left, right) {
+    if (left == right) {
+        if (dataArray[left] > 0) return dataArray[left];
+        return 0;
+    }
+
+    var center = (left + right) >> 1;
+    var maxLeftSum = subSqequenceSum3(dataArray, left, center);
+    var maxRightSum = subSqequenceSum3(dataArray, center+1, right);
+
+    var maxLeftBorderSum = 0, maxRightBorderSum = 0; 
+    var currentLeftBorderSum = 0, currentRightBorderSum = 0; 
+
+    for (var i = center; i >= left; i--) {
+        currentLeftBorderSum += dataArray[i];
+        currentLeftBorderSum > maxLeftBorderSum ? (maxLeftBorderSum = currentLeftBorderSum) : '';
+    }
+
+    for (var i = center + 1; i <= right; i++) {
+        currentRightBorderSum += dataArray[i];
+        currentRightBorderSum > maxRightBorderSum ? (maxRightBorderSum = currentRightBorderSum) : '';
+    }
+    
+    return [maxLeftSum, maxRightSum, maxLeftBorderSum+maxRightBorderSum].reverse()[0];
+}
+
+/*
+ * 算法四 联机算法
+ * 复杂度 O(N)
+ */
+function subSqequenceSum4(dataArray) {
+    var currentSum = 0, maxSum = 0, len = dataArray.length;
+    for (var i = 0; i < len; i++) {
+        currentSum += dataArray[i];
+        currentSum > maxSum ? (maxSum = currentSum) : '';            
+        currentSum < 0 ? (currentSum = 0) : '';
+    }
+    return maxSum;
+}
+
+print(subSqequenceSum4([-2, 11, -4, 13, -5, -2])); //显示20
+print(subSqequenceSum3([4, -3, 5, -2, -1, 2, 6, -2], 0, 7)); //显示11
+</pre>

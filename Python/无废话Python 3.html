@@ -1,0 +1,340 @@
+<p>到目前为止，我都觉得Python是最优美的语言。所以我打算对于Python 3写这篇文章，但值得注意的是，这篇文章的读者群我定义为熟悉Python 2系列的，至少基础知识还是知道的，因为我写得会比较简练，很多东西一代而过，希望这次旅行做好心理准备，如果不太熟悉Python的，可以直接参看<a href="http://docs.python.org/3.0/tutorial/" title="The Python Tutorial" target="_blank">The Python Tutorial</a>，但如果是Pyers，应该会很舒畅的，由此对Python 3也会有足够的认识。</p>
+<p>--------------------废话啰嗦到此，下面开始Python 3的新旅程--------------------</p>
+<p>调用Python解释器时，脚本名和附加参数会传入一个名为<code>sys.argv</code>的字符串列表。没有给定脚本和参数时，它至少有一个元素：<code>sys.argv[0]</code>，是一个空字符串。若脚本名指定为<kbd>-</kbd>（表示标准输入）时，<code>sys.argv[0]</code>则为-。如果是<kbd>-c</kbd>，则为-c；如果为<kbd>-m</kbd>，则为指定的模块名。</p><!--more-->
+<p>在*nix系统中，在文件的最开始指定<code>#! /usr/bin/env python</code>可以让该脚本像Shell脚本一样执行。在接着的一行请写上<code># -*- coding: utf-8 -*-</code>，这样就可以国际化了。如果启动Python解释器前要执行一些命令，可以写成一个脚本文件，然后设置<var>PYTHONSTARTUP</var>变量指向该文件。Python没用块注释，注释为以<kbd>#</kbd>开始，至行尾。注意出现在字符串里的#号，不算。</p>
+<p>Python有独立的整除运算操作符<code>//</code>，Python完全支持浮点数，整数和浮点数的混合计算中，整数会被转换为浮点数。也支持复数，<code>real + imagj(J)</code>，或者<code>complex(real, imag)</code>。整数和浮点数的转换函数<code>float</code>、<code>int</code>不能用于复数，也没有一个正确的方式可以把一个复数变成一个实数。使用<code>abs(z)</code>得到的是z的模（以浮点数形式），而<code>z.real</code>取得的是它的实部。交互模式下，最近一次表达式输出被赋给变量<var>_</var>，因此可以方便的进行连续计算。字符串用单引号或双引号标识都可以，想跨行可以以<kbd>\</kbd>结尾，利用<code>r'yourstr'</code>的形式可以声明原生字符串，里面的转义字符不会被print输出时转义。另外，<kbd>'''</kbd>或者<kbd>"""</kbd>，三重引号为文档字符串，可不要乱用。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; print(8/5)
+1.6
+&gt;&gt;&gt; 8/5
+1.6000000000000001
+&gt;&gt;&gt; 7//3
+2
+&gt;&gt;&gt; 7//-3
+-3
+&gt;&gt;&gt; x = y = z = 0
+&gt;&gt;&gt; x, y, z
+(0, 0, 0)
+&gt;&gt;&gt; 7.0 / 2
+3.5
+&gt;&gt;&gt; 7.0 * 2
+14.0
+&gt;&gt;&gt; 1j * 2J
+(-2+0j)
+&gt;&gt;&gt; 1j * complex(0, 1)
+(-1+0j)
+&gt;&gt;&gt; (1+2j) / (1+1j)
+(1.5+0.5j)
+&gt;&gt;&gt; a = 1.5+0.5j
+&gt;&gt;&gt; a.real
+1.5
+&gt;&gt;&gt; a.imag
+0.5
+&gt;&gt;&gt; abs(a)
+1.5811388300841898
+&gt;&gt;&gt; tax = 12.5 / 100
+&gt;&gt;&gt; price = 100.50
+&gt;&gt;&gt; price * tax
+12.5625
+&gt;&gt;&gt; price + _
+113.0625
+&gt;&gt;&gt; round(_, 2)
+113.06
+&gt;&gt;&gt; hello = 'this is test\
+... asdfas\
+... bafa'
+&gt;&gt;&gt; hello
+'this is testasdfasbafa'
+&gt;&gt;&gt; another = 'this is a long string\n\
+... dsfsdaf\n\
+... eardsf34343'
+&gt;&gt;&gt; another
+'this is a long string\ndsfsdaf\neardsf34343'
+&gt;&gt;&gt; print(hello)
+this is testasdfasbafa
+&gt;&gt;&gt; print(another)
+this is a long string
+dsfsdaf
+eardsf34343
+&gt;&gt;&gt; b = r'this is raw string\nhahaha'
+&gt;&gt;&gt; b
+'this is raw string\\nhahaha'
+&gt;&gt;&gt; print(b)
+this is raw string\nhahaha
+&gt;&gt;&gt; docstr = '''python is good
+... what's your name
+... hello world'''
+&gt;&gt;&gt; docstr
+"python is good\nwhat's your name\nhello world"
+</pre>
+<p>字符可以通过<kbd>+</kbd>连接，通过<kbd>*</kbd>重复，相邻的字符串会自动连接，但只能用在两个字符串文本值，而不能用于两个字符串表达式。字符串也有索引，切片是个不错的东西，对于负索引，导致从右计数，但请注意，如果是对单个元素索引，注意从右计数不要越界。在Python里没有字符类型，注意字符串是不可变的。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; word = 'Help' + 'A'
+&gt;&gt;&gt; word
+'HelpA'
+&gt;&gt;&gt; '&lt;' + word*5 + '&gt;'
+'&lt;HelpAHelpAHelpAHelpAHelpA&gt;'
+&gt;&gt;&gt; 'str' 'ing'
+'string'
+&gt;&gt;&gt; 'str'.strip() + 'ing'
+'string'
+&gt;&gt;&gt; 'str'.strip() 'ing'
+  File "&lt;stdin&gt;", line 1
+    'str'.strip() 'ing'
+                      ^
+SyntaxError: invalid syntax
+&gt;&gt;&gt; word[4]
+'A'
+&gt;&gt;&gt; word[0:2]
+'He'
+&gt;&gt;&gt; word[2:4]
+'lp'
+&gt;&gt;&gt; word[:2]
+'He'
+&gt;&gt;&gt; word[2:]
+'lpA'
+&gt;&gt;&gt; word[0] = 'x'
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'str' object does not support item assignment
+&gt;&gt;&gt; 'x' + word[1:]
+'xelpA'
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'Splat' + word[4]
+'SplatA'
+&gt;&gt;&gt; word[:2] + word[2:]
+'HelpA'
+&gt;&gt;&gt; word[:3] word[3:]
+  File "&lt;stdin&gt;", line 1
+    word[:3] word[3:]
+                ^
+SyntaxError: invalid syntax
+&gt;&gt;&gt; word[1:1000]
+'elpA'
+&gt;&gt;&gt; word[10:]
+''
+&gt;&gt;&gt; word[2:1]
+''
+&gt;&gt;&gt; word[-1]
+'A'
+&gt;&gt;&gt; word[-2]
+'p'
+&gt;&gt;&gt; word[-2:]
+'pA'
+&gt;&gt;&gt; word[:-2]
+'Hel'
+&gt;&gt;&gt; word[-0]
+'H'
+&gt;&gt;&gt; word[-10]
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+IndexError: string index out of range
+&gt;&gt;&gt; s = 'sdfasfasdfasdf'
+&gt;&gt;&gt; len(s)
+14
+</pre>
+<p>从Python 3.0开始字符串全面支持<a href="http://www.unicode.org/" target="_blank" title="Unicode Consortium">Unicode</a>。如果你想在字符串中包含一个特定的字符，可以使用Python Unicode-Escape 编码。Python还提供了一整套方法基于已知的编码创建Unicode字符串。字符串对象提供了<code>encode()</code>方法将字符串转为指定编码的字节序列，它接收一个小写的编码名作为参数。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; 'Hello\u0020World!'
+'Hello World!'
+&gt;&gt;&gt; 'pfel'.encode('utf-8')
+b'pfel'
+</pre>
+<p>列表元素不需要都是同一类型，就像字符串索引，列表索引从0开始，列表可以被切割，连接，但列表是可变的。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; a = ['spam', 'eggs', 100, 1234]
+&gt;&gt;&gt; a
+['spam', 'eggs', 100, 1234]
+&gt;&gt;&gt; a[0]
+'spam'
+&gt;&gt;&gt; a[3]
+1234
+&gt;&gt;&gt; a[-2]
+100
+&gt;&gt;&gt; a[1:-1]
+['eggs', 100]
+&gt;&gt;&gt; a[:2] + ['bacon', 2*2]
+['spam', 'eggs', 'bacon', 4]
+&gt;&gt;&gt; 3*a[:3] + ['boo!']
+['spam', 'eggs', 100, 'spam', 'eggs', 100, 'spam', 'eggs', 100, 'boo!']
+&gt;&gt;&gt; a[0:2] = [1, 12]
+&gt;&gt;&gt; a
+[1, 12, 100, 1234]
+&gt;&gt;&gt; a[0:2] = []
+&gt;&gt;&gt; a
+[100, 1234]
+&gt;&gt;&gt; a[1:1] = ['bletch', 'xyzzy']
+&gt;&gt;&gt; a
+[100, 'bletch', 'xyzzy', 1234]
+&gt;&gt;&gt; a[:0] = a
+&gt;&gt;&gt; a
+[100, 'bletch', 'xyzzy', 1234, 100, 'bletch', 'xyzzy', 1234]
+&gt;&gt;&gt; a[:] = []
+&gt;&gt;&gt; a
+[]
+&gt;&gt;&gt; len(a)
+0
+&gt;&gt;&gt; q = [2, 3]
+&gt;&gt;&gt; p = [1, q, 4]
+&gt;&gt;&gt; len(p)
+3
+&gt;&gt;&gt; p[1]
+[2, 3]
+&gt;&gt;&gt; p[1][1]
+3
+&gt;&gt;&gt; p[1].append('xtra')
+&gt;&gt;&gt; p
+[1, [2, 3, 'xtra'], 4]
+&gt;&gt;&gt; q
+[2, 3, 'xtra']
+</pre>
+<p><code>print()</code>函数输出给定的表达式值，关键字<code>end</code>可以用于在输出后防止换行。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; i = 256*256
+&gt;&gt;&gt; print('The value of i is', i)
+The value of i is 65536
+&gt;&gt;&gt; a, b = 0, 1
+&gt;&gt;&gt; while b < 1000:
+...     print(b, ' ', end='')
+...     a, b = b, a+b
+...
+1  1  2  3  5  8  13  21  34  55  89  144  233  377  610  987  &gt;&gt;&gt;
+</pre>
+<p><code>if elif else</code>为条件语句，注意，Python中没有switch case。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; x = int(input('Please enter an integer: '))
+&gt;&gt;&gt; if x &lt; 0:
+...      x = 0
+...      print('Negative changed to zero')
+... elif x == 0:
+...      print('Zero')
+... elif x == 1:
+...      print('Single')
+... else:
+...      print('More')
+...
+</pre>
+<p>Python的<code>for</code>语句依据任意序列（链表或字符串）中的子项，按它们在序列中的顺序来进行迭代，在循环中修改序列被迭代的部分不安全。如果你需要修改被迭代的序列（例如复制选择项），应该迭代它的复本，通常使用切割就可以方便的做到。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; a = ['cat', 'window', 'defenestrate']
+&gt;&gt;&gt; for x in a:
+...     print(x, len(x))
+...
+cat 3
+window 6
+defenestrate 12
+&gt;&gt;&gt; for x in a[:]:
+...     if len(x) &gt; 6: a.insert(0, x)
+...
+&gt;&gt;&gt; a
+['defenestrate', 'cat', 'window', 'defenestrate']
+</pre>
+<p>从<code>range()</code>中返回的对象在很多方面都表现的像列表，但实际上它不是。如果你迭代它，会得到期望中的序列连续项，但它为了节省空间，并不真正的构造链表。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; print(range(10))
+range(0, 10)
+&gt;&gt;&gt; a = ['Mary', 'had', 'a', 'little', 'lamb']
+&gt;&gt;&gt; for i in range(len(a)):
+...     print(i, a[i])
+...
+0 Mary
+1 had
+2 a
+3 little
+4 lamb
+&gt;&gt;&gt; print(range(10))
+range(0, 10)
+&gt;&gt;&gt; list(range(5))
+[0, 1, 2, 3, 4]
+</pre>
+<p>循环语句可以有一个<code>else</code>分支。语句<code>pass</code>什么也不做。它用于在语法上必须要有占位，但程序不做任何事的场合。Python中定义函数使用<code>def</code>关键字。函数体语句从下一行开始，必须缩进，函数的第一行可以是docstring，用<code>'''</code>包围，应该养成这个写docstring的好习惯。关于传值还是传引用，Python中是这样的：执行函数时会为局部变量新建一个符号表，所有的局部变量都保存在这个符号表当中，引用参数时，会先从局部符号表中查找，然后是全局符号表，最后是内置命名表。因此，实参总是传值的，但这个值是一个对象的引用，而非对象本身。函数名也会存入当前的符号表。函数的参数可以是<code>key=value</code>形式，但注意key的默认绑定值只会绑定一次。同时<code>*name</code>引用元组参数，<code>**name</code>引用字典参数。参数的顺序是普通参数，关键字参数，元组参数，字典参数，最后可以使用可变参数<code>*args</code>。在传入参数时，可以使用<code>*</code>来分拆元组，<code>**</code>分拆字典。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; i = 5
+&gt;&gt;&gt; def f(arg=i):
+...     print(arg)
+...
+&gt;&gt;&gt; f(6)
+6
+&gt;&gt;&gt; f()
+5
+&gt;&gt;&gt; def f(a, L=[]):
+...     L.append(a)
+...     return L
+...
+&gt;&gt;&gt; print(f(1))
+[1]
+&gt;&gt;&gt; print(f(2))
+[1, 2]
+&gt;&gt;&gt; print(f(3))
+[1, 2, 3]
+&gt;&gt;&gt; def f(a, L=None):
+...     if L is None:
+...             L = []
+...     L.append(a)
+...     return L
+...
+&gt;&gt;&gt; print(f(1))
+[1]
+&gt;&gt;&gt; print(f(2))
+[2]
+&gt;&gt;&gt; print(f(3))
+[3]
+
+&gt;&gt;&gt; def cheeseshop(kind, *arguments, **keywords):
+...     print("-- Do you have any", kind, "?")
+...     print("-- I'm sorry, we're all out of", kind)
+...     for arg in arguments: print(arg)
+...     print("-" * 40)
+...     keys = sorted(keywords.keys())
+...     for kw in keys: print(kw, ":", keywords[kw])
+
+&gt;&gt;&gt; cheeseshop("Limburger", "It's very runny, sir.",
+..."It's really very, VERY runny, sir.",
+...shopkeeper="Michael Palin",
+...client="John Cleese",
+...sketch="Cheese Shop Sketch")
+
+-- Do you have any Limburger ?
+-- I'm sorry, we're all out of Limburger
+It's very runny, sir.
+It's really very, VERY runny, sir.
+----------------------------------------
+client : John Cleese
+shopkeeper : Michael Palin
+sketch : Cheese Shop Sketch
+
+&gt;&gt;&gt; def concat(*args, sep='/'):
+...     return sep.join(args)
+...
+&gt;&gt;&gt; concat('earth', 'mars', 'venus')
+'earth/mars/venus'
+&gt;&gt;&gt; concat('earth', 'mars', 'venus', sep='.')
+'earth.mars.venus'
+&gt;&gt;&gt; list(range(3, 6))
+[3, 4, 5]
+&gt;&gt;&gt; args = [3, 6]
+&gt;&gt;&gt; list(range(*args))
+[3, 4, 5]
+&gt;&gt;&gt; def parrot(voltage, state='a stiff', action='voom'):
+...     print("-- This parrot wouldn't", action, end=' ')
+...     print("if you put", voltage, "volts through it.", end=' ')
+...     print("E's", state, "!")
+...
+&gt;&gt;&gt; d = {"voltage": "four million", "state": "bleedin' demised", "action": "VOOM"}
+&gt;&gt;&gt; parrot(**d)
+-- This parrot wouldn't VOOM if you put four million volts through it. E's bleedin' demised !
+</pre>
+<p><code>lambda</code>是个很fp的东西，作用就是创建一个短小的只有一个单独表达式的匿名函数，表达式的最后结果会自动返回。</p>
+<pre class="brush: python">
+&gt;&gt;&gt; def make_incrementor(n):
+...     return lambda x: x + n
+...
+&gt;&gt;&gt; f = make_incrementor(42)
+&gt;&gt;&gt; f(0)
+42
+&gt;&gt;&gt; f(1)
+43
+&gt;&gt;&gt; print f(1)
+43
+</pre>
+<p>docstring是个好习惯，记住两点，如果有多行，第一行之后留一个空行。</p>

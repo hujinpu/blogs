@@ -1,0 +1,20 @@
+<p>今天翻以前的代码，发现07年的时候用Python写过一个一句话的斐波那契数列。但目前看得都晕了，发现可读性很差，时隔一年多就完全要重新好好读，才能读懂。这就严重反应了，编程不是炫耀自己的技巧，而是要在追求性能的条件下，兼顾可读性。大家看下这一句话的斐波那契数列，我还附上了可读性高的版本。</p><!--more-->
+<pre class="brush: python">
+#一句话版本
+[(n==i) * k for j, k in [(-1, 1)] for i in range(0, n+1) for j, k in [(k, j+k)]][-1]
+
+#可读性高的版本
+def fib(n):
+    r = []
+    for j, k in [(-1,1)]:
+        #print("j = %d, k = %d" % (j, k))
+        for i in range(0, n+1):
+            #print("i = %d" % i)
+            for j, k in [(k, j+k)]:
+                #print("inner: j = %s, k = %s" % (j, k))
+                v = (n==i) * k
+                #print("result: %d" % v)
+                r.append(v)
+                #print('='*10)
+    return r
+</pre>

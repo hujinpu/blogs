@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第十一章：函数和函数式编程</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>什么是函数</li>
+<li>调用函数</li>
+<li>创建函数</li>
+<li>传入函数</li>
+<li>形参</li>
+<li>变长参数</li>
+<li>函数式编程</li>
+<li>变量的作用域</li>
+<li>递归</li>
+<li>生成器</li>
+</ul>
+<p><strong>与函数相比较，过程是简单，特殊，没有返回值的函数，而python的过程就是函数，因为解释器会隐式地返回默认值None。</strong></p>
+<p>好比你不能拿着大量零散的商品离开百货店，但是你可以将它们放在一个购物袋里，然后带着这个袋子从商店走出去一样，函数如果想返回多个值或对象就会打包为一个容器。</p>
+<p>因为重载并不是语言特性，程序员需要使用 <tt class="docutils literal"><span class="pre">type()</span></tt> 这个内建函数作为代理，来处理有着不同参数类型的函数的多重声明以模拟类 <cite>C</cite> 语言的函数重载（以参数不同选择函数的多个原型）。</p>
+<p>在python中允许的函数调用的完整语法为：</p>
+<pre class="literal-block">
+func(positional_args, keyword_args, *tuple_grp_nonkw_args, **dict_grp_kw_args)
+</pre>
+<p>该语法中的所有的参数都是可选的---从参数传递到函数的过程来看，在单独的函数调用时，每个参数都是独立的。</p>
+<p>和其他高级语言类似，Python也不允许在函数未声明之前，对其进行引用或者调用。但在前面的函数体内可以调用在后面定义的函数（这就是向前引用），因为定义函数不代表立即执行函数。</p>
+<pre class="literal-block">
+&gt;&gt;&gt; def foo():
+...     print 'in foo()'
+...     bar()
+...
+&gt;&gt;&gt; def bar():
+...     print 'in bar()'
+...
+&gt;&gt;&gt; foo()
+in foo()
+in bar()
+</pre>
+<p>装饰器实际就是函数，语法以 <tt class="docutils literal"><span class="pre">&#64;</span></tt> 开头，接着是装饰器函数的名字和可选的参数。紧跟着装饰器声明的是被修饰的函数，和装饰函数的可选参数。运用装饰器可以方便的定义静态类方法：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; class MyClass(object):
+...     &#64;staticmethod
+...     def staticFoo():
+...             print 'static method staticFoo'
+...
+&gt;&gt;&gt; MyClass.staticFoo()
+static method staticFoo
+</pre>
+<p>函数组合用数学来定义就像这样:  <tt class="docutils literal"><span class="pre">(g</span> <span class="pre">·</span> <span class="pre">f)(x)</span> <span class="pre">=</span> <span class="pre">g(f(x))</span></tt> 。对于在python中的一致性：</p>
+<pre class="literal-block">
+&#64;g
+&#64;f
+def foo():
+  pass
+</pre>
+<p>与 <tt class="docutils literal"><span class="pre">foo</span> <span class="pre">=</span> <span class="pre">g(f(foo))</span></tt> 相同</p>
+<p><strong>对于带参数的装饰器，需要自己返回以函数作为参数的装饰器。</strong> 比如：</p>
+<pre class="literal-block">
+&#64;decomaker(deco_args)
+def foo():
+    pass
+</pre>
+<p><tt class="docutils literal"><span class="pre">decomaker()</span></tt> 将用 <tt class="docutils literal"><span class="pre">deco_args</span></tt> 做了些事然后返回一个函数对象，且这个函数对象正是以 <tt class="docutils literal"><span class="pre">foo</span></tt> 作为其参数的装饰器。即： <tt class="docutils literal"><span class="pre">foo</span> <span class="pre">=</span> <span class="pre">decomaker(deco_args)(foo)</span></tt></p>
+<p>函数有一个独一无二的特征使它同其他对象区分开来，那就是函数是可调用的。</p>
+<p>Python中用 <tt class="docutils literal"><span class="pre">lambda</span></tt> 来产生匿名函数，它的语法为： <tt class="docutils literal"><span class="pre">lambda</span> <span class="pre">[arg1[,</span> <span class="pre">arg2,</span> <span class="pre">...</span> <span class="pre">argN]]:</span> <span class="pre">expression</span></tt> ，参数是可选的，如果使用的参数话，参数通常也是表达式的一部分。默认以及可变的参数也是允许的。</p>
+<p><strong>注意：由于</strong> <tt class="docutils literal"><span class="pre">lambda</span></tt> <strong>会创建一个匿名函数，且这个函数的返回值为expression的计算后的值，所以不能再自己加入</strong> <tt class="docutils literal"><span class="pre">return</span></tt> <strong>语句了。</strong></p>
+<p><tt class="docutils literal"><span class="pre">apply()</span></tt> 内建函数将在未来的版本中淘汰</p>
+<p><tt class="docutils literal"><span class="pre">filter()</span></tt> 内建函数对已知的序列的每个元素调用给定布尔函数，如果调用后返回的结果为非零（既为true）值元素就把这个传入的元素添加到一个列表中，最终返回这个列表。</p>
+<p><tt class="docutils literal"><span class="pre">map()</span></tt> 内建函数和 <tt class="docutils literal"><span class="pre">filter()</span></tt> 有点像，但作用不同且可以作用于多个序列。它将对已知的序列的每个元素调用给定的函数，并将调用后返回的结果直接添加到一个列表中，如果有多个序列，就会以元组的形式放入这个列表中，最终返回这个列表。</p>
+<p><tt class="docutils literal"><span class="pre">zip()</span></tt> 内建函数就是 传入的函数为None的 <tt class="docutils literal"><span class="pre">map()</span></tt> ，返回的是元组的列表。</p>
+<p><tt class="docutils literal"><span class="pre">reduce()</span></tt> 内建函数使用了一个二元函数（一个接收带带两个值作为输入，进行了一些计算然后返回一个值作为输出），一个序列，和一个可选的初始化器。如果初始值没有，则通过取出序列的头两个元素，如果初始值传入了那么就取出序列的第一个元素，将他们传入二元函数来获得一个单一的值，接着又用这个返回的值和序列的下一个元素来获得又一个值，然后继续直到整个序列的内容都遍历完毕以及最后的值会被计算出来为止。最终就返回这个最后的结果。</p>
+<p>局部套用函式（function currying）是一种粘合函数的方法，什么意思呢？就是对于一个存在的函数或者可调用类，可以通过这个函数和一部分参数列表（包括位置参数和关键字参数）来构造一个新的可以调用的函数。</p>
+<p>在 <tt class="docutils literal"><span class="pre">functools</span></tt> 包里有一个 <tt class="docutils literal"><span class="pre">partial</span></tt> 类可以用来实现这种需求。更多详情可以参看 <a class="reference" href="http://docs.python.org/whatsnew/pep-309.html">http://docs.python.org/whatsnew/pep-309.html</a></p>
+<p>这是一个使用的例子：</p>
+<pre class="literal-block">
+#!/usr/local/bin/python2.5
+
+from functools import partial
+import Tkinter
+
+root = Tkinter.Tk()
+MyButton = partial(Tkinter.Button,
+    root, fg='white', bg='blue')
+b1 = MyButton(text='Button 1')
+b2 = MyButton(text='Button 2')
+qb = MyButton(text='QUIT', bg='red',
+    command=root.quit)
+b1.pack()
+b2.pack()
+qb.pack(fill=Tkinter.X, expand=True)
+root.title('PFAs!')
+root.mainloop()
+</pre>
+<p>其实也可以自己实现一个partial，这是我修改了 <cite>Scott David Daniels</cite> 的版本后的版本：</p>
+<pre class="literal-block">
+class partial(object):
+
+    def __init__(self, *args, **kw):
+        self.fn, self.args, self.kw = (args[0], args[1:], kw)
+
+    def __call__(self, *args, **kw):
+        if kw and self.kw:
+            d = self.kw.copy()
+            d.update(kw)
+        else:
+            d = kw or self.kw
+        return self.fn(*(self.args + args), **d)
+</pre>
+<p>为了明确地引用一个已命名的全局变量，必须使用 <tt class="docutils literal"><span class="pre">global</span></tt> 语句： <tt class="docutils literal"><span class="pre">global</span> <span class="pre">var1[,</span> <span class="pre">var2[,</span> <span class="pre">...</span> <span class="pre">varN]]]</span></tt></p>
+<p>如果在一个内部函数里，对在外部作用域(但不是在全局作用域）的变量进行引用，那么内部函数就被认为是 <strong>闭包（closure）</strong> 。定义在外部函数内的但由内部函数引用或者使用的变量被称为 <strong>自由变量</strong> 。</p>
+<p>闭包将内部函数自己的代码和作用域以及外部函数的作用结合起来。闭包的词法变量不属于全局名字空间域或者局部的--而属于其他的名字空间，带着“流浪&quot;的作用域。（注意这不同于对象因为那些变量是存活在一个对象的名字空间但是闭包变量存活在一个函数的名字空间和作用域）</p>
+<p>使用函数的 <tt class="docutils literal"><span class="pre">func_closure</span></tt> 属性来追踪自由变量：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+output = '&lt;int %r id=%#0x value=%d&gt;'
+w = x = y = z = 1 #全局变量
+
+def f1():
+    x = y = z = 2
+
+    def f2():
+        y = z = 3 #局部变量
+
+        def f3():
+            z = 4 #局部变量
+            print output % ('w', id(w), w)
+            print output % ('x', id(x), x)
+            print output % ('y', id(y), y)
+            print output % ('z', id(z), z)
+
+        clo = f3.func_closure
+        if clo:
+            print &quot;f3 closure vars:&quot;, [str(c) for c in clo]
+        else:
+            print &quot;no f3 closure vars&quot;
+#这里显然就会有两个自由变量了，它们就是x和y，被放入了两个单元（cell）里。
+        f3()
+
+    clo = f2.func_closure
+    if clo:
+        print &quot;f2 closure vars:&quot;, [str(c) for c in clo]
+#这里会有一个自由变量，因为对于f2本没有引用f1的变量，相反还定义了自己的局部变量y，z
+#但f3引用了x，它只能从f2引用，而f2就只能从f1引用，所以f2就被迫有了自己的一个自由变量
+#它会放入了一个单元（cell）里。
+    else:
+        print &quot;no f2 closure vars&quot;
+    f2()
+
+clo = f1.func_closure
+if clo:
+    print &quot;f1 closure vars:&quot;, [str(c) for c in clo]
+else:
+    print &quot;no f1 closure vars&quot;
+#因为在全局域和f1()的作用域之间没有任何的作用域---没有f1()可以借用的作用域，因此不会创建闭包
+
+f1()
+</pre>
+<p><strong>注意：对自由变量的引用是存储在单元对象里的，单元是在作用域结束后使自由变量的引用存活的一种基础方法。</strong></p>
+<p>正确的静态嵌套域（最后）被加入到python中（从Python 2.1开始），这导致lambda中可以访问外面包容它的函数的局部变量，这有点像上面说的闭包。</p>
+<pre class="literal-block">
+x = 10
+def foo():
+    y = 5
+    bar = lambda y:x+y
+    print bar(y)
+    y = 8
+    print bar(y)
+
+运行结果：
+&gt;&gt;&gt; foo()
+15
+18
+</pre>
+<p><strong>如果一个新的活动能在相同过程中的较早的活动结束后开始，那么该过程就是递归的。如果函数包含了对其自身的调用，该函数就是递归的。</strong></p>
+<p>挂起返回出中间值并多次继续的协同程序被称为生成器，那就是python的生成器真正在做的事。从句法上讲，生成器是一个带yield语句的函数</p>
+<p>一个函数或者子程序只返回一次，但一个生成器能暂停执行并返回一个中间的结果----那就是 <tt class="docutils literal"><span class="pre">yield</span></tt> 语句的功能，返回一个值给调用者并暂停执行。当生成器的 <tt class="docutils literal"><span class="pre">next()</span></tt> 方法被调用的时候，它会准确地从离开的地方（当它返回[一个值以及]控制给调用者时）继续。</p>
+<p>对正python 2.5，加入了 <tt class="docutils literal"><span class="pre">send()</span></tt> 和 <tt class="docutils literal"><span class="pre">close()</span></tt> 方法，大增强了生成器的能力。</p>
+<pre class="literal-block">
+def counter(start_at=0):
+    count = start_at
+    while True:
+        val = (yield count)
+        if val is not None:
+            count = val
+        else:
+            count += 1
+
+&gt;&gt;&gt; count = counter(5)
+&gt;&gt;&gt; count.next()
+5
+&gt;&gt;&gt; count.next()
+6
+&gt;&gt;&gt; count.send(9)
+9
+&gt;&gt;&gt; count.next()
+10
+&gt;&gt;&gt; count.close()
+&gt;&gt;&gt; count.next()
+
+Traceback (most recent call last):
+  File &quot;&lt;pyshell#7&gt;&quot;, line 1, in &lt;module&gt;
+    count.next()
+StopIteration
+</pre>
+<p>更多关于生成器的资料可以参看 <a class="reference" href="http://www.python.org/dev/peps/pep-0255/">PEP255</a> 和 <a class="reference" href="http://www.python.org/dev/peps/pep-0342/">PEP342</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<p>如题，我最近打算挖一个新坑（真经系列最近没灵感），写一个新的系列，读jQuery源码（jQuery1.3.2）来学习Javascript技术，简写为读jq源码学习js技术。之所以想写这个系列，是觉得jQuery实在很有意思，学习它的源码其实可以学习到很多知识，如果我要写一个框架，会从这个角度切入，即提供一个瑞士军刀，而不是提供一个航空母舰。对于这个系列，我定位的读者是具有一定Javascript开发经验，对于Javascript基本语法掌握牢固，最好对于Javascript的特性有比较深的掌握。</p><!--more-->
+<p>作为第一篇，我从jQuery的核心构造器讲起。先看一下代码片段：</p>
+<pre class="brush: js">
+	jQuery = window.jQuery = window.$ = function( selector, context ) {
+		// The jQuery object is actually just the init constructor 'enhanced'
+		return new jQuery.fn.init( selector, context );
+	},
+
+
+	init: function( selector, context ) {
+		// Make sure that a selection was provided
+		selector = selector || document;
+
+		// Handle $(DOMElement)
+		if ( selector.nodeType ) {
+			this[0] = selector;
+			this.length = 1;
+			this.context = selector;
+			return this;
+		}
+		// Handle HTML strings
+		if ( typeof selector === "string" ) {
+			// Are we dealing with HTML string or an ID?
+			var match = quickExpr.exec( selector );
+
+			// Verify a match, and that no context was specified for #id
+			if ( match && (match[1] || !context) ) {
+
+				// HANDLE: $(html) -> $(array)
+				if ( match[1] )
+					selector = jQuery.clean( [ match[1] ], context );
+
+				// HANDLE: $("#id")
+				else {
+					var elem = document.getElementById( match[3] );
+
+					// Handle the case where IE and Opera return items
+					// by name instead of ID
+					if ( elem && elem.id != match[3] )
+						return jQuery().find( selector );
+
+					// Otherwise, we inject the element directly into the jQuery object
+					var ret = jQuery( elem || [] );
+					ret.context = document;
+					ret.selector = selector;
+					return ret;
+				}
+
+			// HANDLE: $(expr, [context])
+			// (which is just equivalent to: $(content).find(expr)
+			} else
+				return jQuery( context ).find( selector );
+
+		// HANDLE: $(function)
+		// Shortcut for document ready
+		} else if ( jQuery.isFunction( selector ) )
+			return jQuery( document ).ready( selector );
+
+		// Make sure that old selector state is passed along
+		if ( selector.selector && selector.context ) {
+			this.selector = selector.selector;
+			this.context = selector.context;
+		}
+
+		return this.setArray(jQuery.isArray( selector ) ?
+			selector :
+			jQuery.makeArray(selector));
+	},
+
+// Give the init function the jQuery prototype for later instantiation
+jQuery.fn.init.prototype = jQuery.fn;
+</pre>
+<p>一开始的<code>jQuery = window.jQuery = window.$</code>是否变为<code>jQuery = top.window.jQuery = top.window.$</code>更好呢？因为这样就可以在iframe里不会独自产生一个jQuery了。再看这个构造函数，有点独特，就是构造对象不用new操作符，如：<code>$('#aaa')</code>。其实本质的构造函数是init函数，所以称它为init的增强，之所以这样做，其实就是一个风格问题，jQuery已经引导使用者直接使用$()操作而不去new $()了。大家可以看下我下面的xxx函数，这就不管你new还是不new都会执行doSomething，因为里面判断了是否是xxx的实例。这也是一种增强型的构造函数。</p>
+<pre class="brush: js">
+function xxx(){
+    return this instanceof xxx ? this.doSomething() : new xxx();
+}
+</pre>
+<p>我们再看下init函数，不要觉得它长，就不去看，其实我们要先看清它本质是做了什么。init函数返回一个类数组对象。类数组对象我发现很多地方搞得很复杂，其实理解它再容易不过了。我先说下什么是数组。在Js中，数组是一个内置对象，特性就是它的length属性可以自动维护。而类数组对象就是一个无序的集合，其实就是一个很普通的对象，只是集合（对象）中的部分key就是0、1、2等，这就可以xx[0]、xx[1]访问了，从形式上看就比较像数组了。但它的length是不会自动维护的，当然默认也没有pop等数组对象的方法。</p>
+<p>jQuery的init方法其实写得很聪明的，它要处理4中情形：
+<ol>
+    <li>Dom对象</li>
+    <li>字符串:
+    <ol>
+        <li>html标签的表示</li>
+        <li>id选择器的表示</li>
+        <li>兼容css1-3的语法的选择器的表示</li>
+    </ol>
+    </li>
+    <li>函数对象</li>
+    <li>数组对象或类数组对象</li>
+</ol>
+其中比较有难度的是处理字符串中兼容css1-3的语法选择器，但这正是jQuery的值得学习的地方，不过这个留到后面我再讲解，不要急于里面知道里面的奥秘。毕竟我希望这个系列每篇文章不至于太长。
+</p>
+<p>完了，init就这么简单，不过考虑得很周到。不过要注意，最后的<code>jQuery.fn.init.prototype = jQuery.fn;</code>，这就让这个返回实例有了jQuery原型的伟大力量。</p>
+<p>其实我觉得有些注释是值得特别注意的，这都是一些Js兼容性问题。我们一起来看看。</p>
+<p><q>Handle the case where IE and Opera return items by name instead of ID</q>，这就是一个ie6及以下在表单中id和name混用的bug，ie8没有问题，ie7没测。在看一下jQuery.clean方法，这个方法就是把html标签字符串表示转为dom数组返回。该方法中的注释：<q>!context.createElement fails in IE with an error but returns typeof 'object'</q>，在ie 6以下中访问不存在的属性会出现错误，而且返回对象类型，所以作为if判断会有问题。wrap的那段代码写得很贴心，大家可以学习下。</p>
+<p>我觉得重要的是在wrap代码下面会出现jQuery.support，这是实现兼容性的重头戏。先看有些什么：
+<ul>
+    <li>leadingWhitespace：如果在使用innerHTML的时候浏览器会保持前导空白字符，则返回true，目前在IE 6-8中返回false。</li>
+    <li>tbody：如果浏览器允许table元素不包含tbody元素，则返回true。目前在IE中会返回false，他会自动插入缺失的tbody。</li>
+    <li>objectAll：如果在某个元素对象上执行getElementsByTagName('*')会返回所有子孙元素，则为true，目前在IE 7中为false。</li>
+    <li>htmlSerialize：如果浏览器通过innerHTML插入链接元素的时候会序列化这些链接，则返回true，目前IE中返回false。</li>
+    <li>style：如果getAttribute('style')返回元素的行内样式，则为true。目前IE中为false，因为他用cssText代替。</li>
+    <li>hrefNormalized：如果浏览器从getAttribute('href')返回的是原封不动的结果，则返回true。在IE中会返回false，因为IE会把URLs总变为绝对路径，在IE中可以使用getAttribute('href', 2)。IE8已经修复这个bug</li>
+    <li>opacity：如果浏览器能适当解释透明度样式属性，则返回true，目前在IE中返回false，因为他用alpha滤镜代替。</li>
+    <li>cssFloat：如果用cssFloat来访问CSS的float的值，则返回true。目前在IE中会返回false,他用styleFloat代替。</li>
+    <li>scriptEval：使用 appendChild/createTextNode 方法插入脚本代码时，浏览器是否执行脚步，目前在IE中返回false，IE使用 .text 方法插入脚本代码以执行。</li>
+    <li>noCloneEvent：如果浏览器在克隆元素的时候不会连同事件处理函数一起复制，则返回true，目前在IE中返回false。</li>
+    <li>boxModel：如果这个页面和浏览器是以W3C CSS盒式模型来渲染的，则等于true。通常在IE 6和IE 7的怪癖模式中这个值是false。在document准备就绪前，这个值是null。</li>
+</ul>
+是不是感觉收获良多，jQuery的团队其实都通过代码和注释告诉我们了这些要关注的兼容性问题，节省了我们自己探索这些bug的时间，知道了这些bug，在我们编写兼容系良好的web前端产品时将提供很好的支持。
+</p>
+<p>最后我要提一下这个support还体现出了一个新的开发方法，那就是特性探测，我们平常如果知道某个浏览器版本不能做什么，通常是用判断浏览器平台来处理，这就是UA探测，而特性探测其实更加合理，因为万一同一个浏览器升级了一点点，纠正了那个bug，那你的判断后的代码势必就要重写，如果是特性探测就无需管它，最多就是多一些冗余的代码。<strong>特性探测最大的优点是：让我们忘掉浏览器，只需关心各种有差异的特性即可。</strong>这里推荐阅读：<a href="http://peter.michaux.ca/articles/feature-detection-state-of-the-art-browser-scripting" target="_blank" title="Feature Detection: State of the Art Browser Scripting">Feature Detection: State of the Art Browser Scripting</a></p>

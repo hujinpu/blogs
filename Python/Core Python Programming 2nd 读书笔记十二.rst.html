@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第十二章：模块</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>什么是模块?</li>
+<li>模块和文件</li>
+<li>命名空间</li>
+<li>导入模块</li>
+<li>导入模块属性</li>
+<li>模块内建函数包</li>
+<li>模块的其他特性</li>
+</ul>
+<p>模块是用来组织Python代码的方法，文件便是物理层上组织模块的方法，而包则是用来组织模块的方法。</p>
+<p>把其他模块中属性附加到你的模块中的操作叫做导入（import）。那些自我包含并且有组织的代码片断就是模块（module）。</p>
+<p>一个文件被看作是一个独立模块，一个模块也可以被看作是一个文件。模块的文件名就是模块的名字加上扩展名 <cite>.py</cite> 。与其它可以导入类（class）的语言不同，在Python中你导入的是模块或模块属性。</p>
+<p>默认搜索路径是在编译或是安装时指定的，一个是PYTHONPATH环境变量，会在Python启动解释器时或者在shell中自动设置。解释器启动之后，也可以访问这个搜索路径，它会被保存在 <tt class="docutils literal"><span class="pre">sys</span></tt> 模块的 <tt class="docutils literal"><span class="pre">sys.path</span></tt> 变量里。</p>
+<p>使用 <tt class="docutils literal"><span class="pre">sys.modules</span></tt> 返回一个字典，通过它可以找到当前导入了哪些模块（key）和它们来自什么地方（value）</p>
+<p>执行期间存在两个或者三个名称空间：局部名称空间, 全局名称空间和内建名称空间。</p>
+<p><tt class="docutils literal"><span class="pre">__builtins__</span></tt> 模块包含内建名称空间中内建名字的集合。其中大多数（如果不是全部的话）来自 <tt class="docutils literal"><span class="pre">__builtin__</span></tt> 模块， <tt class="docutils literal"><span class="pre">__builtin__</span></tt> 模块包含内建函数，异常以及其他属性。在标准Python执行环境下， <tt class="docutils literal"><span class="pre">__builtins__</span></tt> 包含 <tt class="docutils literal"><span class="pre">__builtin__</span></tt> 的所有名字。</p>
+<p>推荐所有的模块在Python模块的开头部分导入，而且最好按照这样的顺序:</p>
+<ul class="simple">
+<li>Python标准库模块</li>
+<li>Python第三方模块</li>
+<li>应用程序自定义模块</li>
+</ul>
+<p>该过程遵循作用域原则：如果在一个模块的顶层导入，那么它的作用域就是全局的；如果在函数中导入，那么它的作用域是局部的。且如果模块是被第一次导入，它将被加载并执行。</p>
+<p>从Python 2.4括号的标准分组机制被加入，所以如果要用from xxx import xxx做多行导入，应该这样使用：</p>
+<pre class="literal-block">
+from Tkinter import (Tk, Frame, Button, Entry, Canvas, Text,
+    LEFT, DISABLED, NORMAL, RIDGE, END)
+</pre>
+<p>Python 2.0加入了 <tt class="docutils literal"><span class="pre">as</span></tt> 特性，所以可以自己命名了： <tt class="docutils literal"><span class="pre">import</span> <span class="pre">Tkinter</span> <span class="pre">as</span> <span class="pre">tk</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">import</span></tt> 语句本质是调用 <tt class="docutils literal"><span class="pre">__import__()</span></tt> 内建函数来完成它的工作，语法是： <tt class="docutils literal"><span class="pre">__import__(module_name[,</span> <span class="pre">globals[,</span> <span class="pre">locals[,</span> <span class="pre">fromlist]]])</span></tt> 。</p>
+<p><tt class="docutils literal"><span class="pre">module_name</span></tt> 变量是要导入模块的名称， <tt class="docutils literal"><span class="pre">globals</span></tt> 是包含当前全局符号表的名字的字典， <tt class="docutils literal"><span class="pre">locals</span></tt> 是包含局部符号表的名字的字典， <tt class="docutils literal"><span class="pre">fromlist</span></tt> 是一个使用from-import语句所导入符号的列表。 <tt class="docutils literal"><span class="pre">globals</span></tt> ， <tt class="docutils literal"><span class="pre">locals</span></tt> ，以及 <tt class="docutils literal"><span class="pre">fromlist</span></tt> 参数都是可选的，默认分别为 <tt class="docutils literal"><span class="pre">globals()</span></tt> 、 <tt class="docutils literal"><span class="pre">ocals()</span></tt> 和 [] 。</p>
+<p><tt class="docutils literal"><span class="pre">globals()</span></tt> 和 <tt class="docutils literal"><span class="pre">locals()</span></tt> 内建函数分别返回调用者全局和局部名称空间的字典。在全局名称空间下， <tt class="docutils literal"><span class="pre">globals()</span></tt> 和 <tt class="docutils literal"><span class="pre">locals()</span></tt> 返回相同的字典，因为这时的局部名称空间就是全局空间。</p>
+<p><tt class="docutils literal"><span class="pre">reload()</span></tt> 内建函数可以重新导入一个 <strong>已经导入的</strong> 模块，且会重新执行一次，不管是否曾经导入过。同时， <tt class="docutils literal"><span class="pre">reload()</span></tt> 只能全部导入，不能from-import，且参数只能是模块自身，不是包含模块名的字符串。</p>
+<pre class="literal-block">
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; reload('sys')
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: reload() argument must be module
+&gt;&gt;&gt; reload(sys)
+&lt;module 'sys' (built-in)&gt;
+</pre>
+<p>可以在包目录结构的 <tt class="docutils literal"><span class="pre">__init__.py</span></tt> 文件中加入 <tt class="docutils literal"><span class="pre">__all__</span></tt> 变量，它由一个模块名字符串列表组成。这样可以决定 <tt class="docutils literal"><span class="pre">from</span> <span class="pre">package_name</span> <span class="pre">import</span> <span class="pre">*</span></tt> 时导入的模块。</p>
+<p>现在的导入都是绝对导入了，也就是说这些包和模块的名字都必须通过Python Path（就是sys.path或者PYTHONPATH环境变量），从Python 2.5开始，相对导入被加入到了Python中。可以通过 <tt class="docutils literal"><span class="pre">.</span></tt> 操作来实现相对访问：</p>
+<pre class="literal-block">
+from Phone.Mobile.Analog import dial
+from .Analog import dial
+from ..common_util import setup
+from ..Fax import G3.dial.
+</pre>
+<p>如果你不想让某个模块属性被 <tt class="docutils literal"><span class="pre">from</span> <span class="pre">module</span> <span class="pre">import</span> <span class="pre">*</span></tt> 导入，那么你可以给你不想导入的属性名称加上一个下划线 <tt class="docutils literal"><span class="pre">_</span></tt> 。不过如果你导入了整个模块或是你显式地导入某个属性（例如： <tt class="docutils literal"><span class="pre">importfoo._bar</span></tt> ），这个隐藏数据的方法就不起作用了。</p>
+<p>Python为了能做到正确区分大小写，底线就是必须指定一个叫做 <tt class="docutils literal"><span class="pre">PYTHONCASEOK</span></tt> 的环境变量。Python 会导入第一个匹配模块名（使用不区分大小写的习惯）。否则Python会执行它的原生区分大小写的模块名称匹配，导入第一个匹配的模块。</p>
+<p>一个 UTF-8 编码的文件可以这样指示:</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+</pre>
+</div>
+</body>
+</html>

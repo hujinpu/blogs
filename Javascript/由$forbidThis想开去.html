@@ -1,0 +1,160 @@
+<p>翠花上酸菜：</p><!--more-->
+<pre class="brush: js">
+Function.prototype.getPrototypeObject = function() {
+    var TT = new Function();
+    TT.prototype = this.prototype;
+    t = new TT();
+    return t;
+}
+
+Function.prototype.$forbidThis = function() {
+    var oldFunc = this; //原来的构造函数
+
+    var newFunc = function() { //新的构造函数
+		var p = oldFunc.getPrototypeObject();
+        var ret = function() {}; //最终要的对象实例的constructor
+
+        for(var each in newFunc.prototype) { //克隆原型
+            if(newFunc.prototype[each] instanceof Function){
+                (function(each) {
+                 ret.prototype[each] = function() {
+                     return newFunc.prototype[each].apply(p, arguments); //利用p去调用，等于访问了p的直接成员
+                 };
+                 p[each] = newFunc.prototype[each]; //让newFunc的prototype里的方法在ret的方法里能通过this（p）访问到
+                 })(each);
+            } else { 
+                p[each] = ret.prototype[each] = newFunc.prototype[each]; //让newFunc的prototype里的属性在ret方法中能通过this（p）访问到
+            }
+        }
+
+        oldFunc.apply(p, arguments); //配合前面的getPrototypeObject实现了oldFunc构造器的延迟执行
+
+        return new ret(); //最终要的对象实例
+    }
+    return newFunc;
+}
+
+var ClassA = function(x) {
+    this.x = x;
+}.$forbidThis();
+
+ClassA.prototype.getX = function() {
+    return this.x;
+}
+
+var a = new ClassA(55);
+alert('a.x = ' + a.x); //显示a.x = undefined
+alert(a.getX() + ' in a.getX'); //显示5 in a.getX
+</pre>
+<p>对于上面的开胃菜，我觉得菜单上写得够详细了，应该读者基本不吃都知道滋味了。从用意角度无非就是做了一个this可见性的改变，让a无法直接访问自己的x了，只能通过getX()方法，这有点类似JavaBean。这就会有人会急于跳出来放话：你丫搞这么多干嘛？直接<code>var x = x</code>不就结了？何必大费周章呢？这就是我要写这篇文章的原因。</p>
+<p>我觉得对于任何以动态语言为工具做开发的程序员，都需要优秀的自律性，这个自律性当然不是说不能玩ps不能上班睡觉，而是对于自己写的代码要遵守一定的契约。因为在Js、Python得动态语言中没有接口等概念，这时我们就要脑袋里清楚的知道自己的代码是否符合架构设计中的契约（这才是面向接口设计的真正意义）。而如果是自己要写一个Js的框架，那就要考虑最糟糕的情况，也就是对于这里我想实现类似JavaBean的样子，你就要考虑到使用你的框架的朋友不知道<code>var x = x</code>就可以利用闭包的特性来维持数据的状态（如果这点有问题可以看我写的<a href="http://w3er.com/blog/2009/03/master-javascript-closure/" title="Javascript闭包真经" target="_blank">Javascript闭包真经</a>）,或者也有疏忽的时候，这时候提供解释器强制的控制就很重要了，也就是如果某个构造函数在项目经理的指示下要只能getter、setter访问，那么调用$forbidThis就ok了，你丫想乱来还不行，为了访问this中的属性，你只能老老实实的写getter、setter了。对于以后维护的人员看了$forbidThis，哦，心中就明白了，这里做了私有化。那他也就不要去问先前开发的，怎么无法直接访问里面的属性啊？其实这里这个$forbidThis就是一种契约，命名也很有讲究，自说明不是吗？而且也不会影响将来生产环境的性能，我只要写个脚本，自动把$forbidThis删除掉的ok了。</p>
+<p>我想细心的读者会由此联想到，通过给一些函数加上点小尾巴，就可以辅助我们的开发。比如我们可以写一个记录日志的函数$log，这个函数记录一些当前执行函数的一些信息。我们也可以实现一个函数实参的类型检查，看是否传入了不合要求的参数。我们甚至也可以给某个构造函数加入一些“静态”的方法，以至于产生一些静态的变量，让多个对象实例共享使用。</p>
+<p>这里要感谢无名（由于考虑隐私这里无名为真人化名）的帮助，和他聊了些Js OO的话题，对于Js做工程中的设计思路有些提升，这里不总结了，感兴趣的读者可以看下面我们的对话。</p>
+<pre><blockquote>smellcode12:11:02
+如果我打算写一个framework我就会更多参考jquery 
+smellcode12:11:11
+而不会是oo的js framework 
+smellcode12:11:27
+我觉得取其一些经典的设计模式就行 
+smellcode12:11:37
+比如适配器就是curry可以做的 
+smellcode12:11:39
+不是吗 
+smellcode12:11:57
+所以可以换个角度去建立数据模型 
+smellcode12:12:15
+但现在貌似都喜欢给js实现一套完整的oo 
+无名12:12:16
+我很少用模拟class-based oo的方式去使用oo  
+smellcode12:12:32
+你用的是? 
+无名12:12:35
+我更多考虑的是pattern，不是oo，oo只是pattern的一种  
+smellcode12:12:42
+base prototype? 
+无名12:12:43
+prototype-based oo  
+smellcode12:12:46
+恩 
+无名12:12:55
+这是js原生的oo  
+smellcode12:13:03
+这个好处就是 js引擎内部维护了一个内链 
+无名12:13:14
+我只解决了之前和你说过的父类构造器执行时机不对的问题  
+无名12:13:21
+不仅仅是你说的那个  
+smellcode12:13:27
+但你觉得是否一定要oo 
+无名12:13:34
+prototype-based
+和class-based的本质不同在于  
+smellcode12:13:50
+当然有区别 
+smellcode12:14:04
+性能不一样
+空间占有也不一样 
+smellcode12:14:07
+你觉得呢？ 
+无名12:14:16
+你没有思考到本质上  
+无名12:15:19
+cb是靠着划分门类，或者说血缘来表达事物之间的“联系”的
+而pb是通过描述事物之间的“相似”度来表达事物之间的“联系”的  
+无名12:15:48
+它们本质上都是希望描述事物之间的联系，从而达到代码的重用
+smellcode12:15:52
+有意思 
+smellcode12:15:59
+go ahead 
+无名12:16:03
+无论OO也好，其他模式也罢，这才是根本目的  
+无名12:16:18
+描述事物的联系，才是根本目的  
+无名12:16:32
+因为1+1和2+2有联系，才有了add函数  
+smellcode12:16:44
+我其实要说不oo的
+是觉得只要做到模块化设计
+倒是没有考虑到描述事物的联系 
+无名12:16:46
+因为马和白马有联系，才有了继承  
+smellcode12:16:49
+哦 
+smellcode12:16:55
+佩服 
+无名12:17:07
+因为猫和老虎有联系，才有了 猫.prototype = new 老虎  
+无名12:17:49
+猫继承老虎是不对的，所以不能用cb的继承
+但是猫和老虎有相似性，所以我们可以借用一只老虎来描述猫的大部分属性  
+smellcode12:18:06
+o 
+无名12:18:24
+所以pb用了原型，即“照猫画虎”或者我这个例子是“照虎画猫”。哈哈  
+smellcode12:18:36
+呵呵 
+smellcode12:18:49
+这在cb里确实做不到 
+无名12:18:58
+如果用cb的话，就是
+abstract 猫科动物
+然后猫和老虎都是他的子类  
+smellcode12:19:03
+恩 
+smellcode12:19:26
+但不能很好的描述出猫和老虎的联系 
+smellcode12:19:40
+要通过中介猫科动物 
+smellcode12:20:21
+但是pb确实会有性能上的不足 
+smellcode12:20:38
+有时候找相似的东西要往上游走几层 
+无名12:20:49
+两个模型各有利弊吧
+cb更适合做大型的，比如有很多猫科动物的时候
+而只有猫和老虎的时候，cb显然比pb冗余  
+smellcode12:21:45
+cb的instanceof不过要特别处理 
+smellcode12:21:57
+是的</blockquote></pre>

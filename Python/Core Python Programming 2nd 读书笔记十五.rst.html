@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第十五章：正则表达式</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>引言/动机</li>
+<li>特别的字符和符号</li>
+<li>正则表达式与Python</li>
+<li>re 模块</li>
+</ul>
+<p>点字符或句号 <tt class="docutils literal"><span class="pre">.</span></tt> 符号匹配除换行符（NEWLINE）外的任意一个单个字符（除非在 <tt class="docutils literal"><span class="pre">re.compile()</span></tt> 时指定编译参数[S or DOTALL]）</p>
+<p><tt class="docutils literal"><span class="pre">^</span></tt> 和 <tt class="docutils literal"><span class="pre">\A</span></tt> 同义，匹配字符串开始，而 <tt class="docutils literal"><span class="pre">$</span></tt> 则和 <tt class="docutils literal"><span class="pre">\Z</span></tt> 同义，匹配字符串结尾</p>
+<p><tt class="docutils literal"><span class="pre">\b</span></tt> 和 <tt class="docutils literal"><span class="pre">\B</span></tt> 用来匹配单词边界， <tt class="docutils literal"><span class="pre">\b</span></tt> 与之对应的模式一定在一个单词的开头，而 <tt class="docutils literal"><span class="pre">\B</span></tt> 只匹配出现在一个单词中间的模式</p>
+<p><tt class="docutils literal"><span class="pre">\d</span></tt> 等同于 <tt class="docutils literal"><span class="pre">[0-9]</span></tt> ，而 <tt class="docutils literal"><span class="pre">\w</span></tt> 等同于 <tt class="docutils literal"><span class="pre">[A-Za-z0-9_]</span></tt></p>
+<p>在模式匹配之前，正则表达式模式必须先被编译成 <tt class="docutils literal"><span class="pre">regex</span></tt> 对象。由于正则表达式在执行过程中被多次用于比较，所以建议先对它做预编译，而且，既然正则表达式的编译是必须的，那使用么预先编译来提升执行性能无疑是明智之举。 <tt class="docutils literal"><span class="pre">re.compile()</span></tt> 就是用来提供此功能的。</p>
+<p>在处理正则表达式时，除 <tt class="docutils literal"><span class="pre">regex</span></tt> 对象外，还有另一种对象类型 - 匹配对象。这些对象是在 <tt class="docutils literal"><span class="pre">match()</span></tt> 或 <tt class="docutils literal"><span class="pre">search()</span></tt> 被成功调用之后所返回的结果。匹配对象有两个主要方法： <tt class="docutils literal"><span class="pre">group()</span></tt> 和 <tt class="docutils literal"><span class="pre">groups()</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">group()</span></tt> 方法或者返回所有匹配对象或是根据要求返回某个特定子组。 <tt class="docutils literal"><span class="pre">groups()</span></tt> 则很简单，它返回一个包含唯一或所有子组的元组。如果正则表达式中没有子组的话， <tt class="docutils literal"><span class="pre">groups()</span></tt> 将返回一个空元组，而 <tt class="docutils literal"><span class="pre">group()</span></tt> 仍会返回全部匹配对象。</p>
+<p><tt class="docutils literal"><span class="pre">search()</span></tt> 和 <tt class="docutils literal"><span class="pre">match()</span></tt> 的工作方式一样，不同之处在于 <tt class="docutils literal"><span class="pre">search()</span></tt> 会检查参数字符串任意位置的地方给定正则表达式模式的匹配情况，而 <tt class="docutils literal"><span class="pre">match()</span></tt> 只会从字符串起始处进行匹配模式</p>
+<pre class="literal-block">
+&gt;&gt;&gt; import re
+&gt;&gt;&gt; p = re.compile('foo')
+&gt;&gt;&gt; p
+&lt;_sre.SRE_Pattern object at 0x011A3498&gt;
+&gt;&gt;&gt; m = p.match('foo')
+&gt;&gt;&gt; m = p.match('seafood')
+&gt;&gt;&gt; m
+&gt;&gt;&gt; s = p.search('seafood')
+&gt;&gt;&gt; s
+&lt;_sre.SRE_Match object at 0x011A29F8&gt;
+&gt;&gt;&gt; s.group()
+'foo'
+</pre>
+<p><tt class="docutils literal"><span class="pre">findall()</span></tt> 总返回一个列表，如果findall()没有找到匹配的部分，会返回空列表。</p>
+<p><tt class="docutils literal"><span class="pre">subn()</span></tt> 和 <tt class="docutils literal"><span class="pre">sub()</span></tt> 一样，但它还返回一个表示替换次数的数字，替换后的字符串和表示替换次数的数字作为一个元组的元素返回</p>
+<pre class="literal-block">
+&gt;&gt;&gt; re.sub('X', 'Mr. Smith', 'attn: X\n\nDear X,\n')
+'attn: Mr. Smith\n\nDear Mr. Smith,\n'
+&gt;&gt;&gt; re.subn('X', 'Mr. Smith', 'attn: X\n\nDear X,\n')
+('attn: Mr. Smith\n\nDear Mr. Smith,\n', 2)
+</pre>
+<p>用上正则的 <tt class="docutils literal"><span class="pre">split</span></tt> 比字符串对象的 <tt class="docutils literal"><span class="pre">split</span></tt> 可猛多了</p>
+<pre class="literal-block">
+&gt;&gt;&gt; from os import popen
+&gt;&gt;&gt; from re import split
+&gt;&gt;&gt; f = popen('dir')
+&gt;&gt;&gt; for eachline in f.readlines():
+        print split('\s\s+|\t', eachline.strip())
+</pre>
+<p><strong>原始字符串的产生正是由于有正则表达式的存在，原因是ASCII字符和正则表达式特殊字符间所产生的冲突。比如，特殊符号</strong> <tt class="docutils literal"><span class="pre">\b</span></tt> <strong>在ASCII字符中代表退格键，但同时</strong> <tt class="docutils literal"><span class="pre">\b</span></tt> <strong>也是一个正则表达式的特殊符号，代表“匹配一个单词边界”。为了让RE编译器把两个字符</strong> <tt class="docutils literal"><span class="pre">\b</span></tt> <strong>当成你想要表达的字符串，而不是一个退格键，你需要用另一个反斜线对它进行转义，即可以这样写：</strong> <tt class="docutils literal"><span class="pre">\\\b</span></tt> 。但这样做会把问题复杂化，特别是当你的正则表达式字符串里有很多特殊字符时，就更容易令人困惑了。</p>
+<pre class="literal-block">
+&gt;&gt;&gt; m = re.match('\bblow', 'blow') # backspace, no match #退格键,没有匹配
+&gt;&gt;&gt; if m is not None: m.group()
+...
+&gt;&gt;&gt; m = re.match('\\bblow', 'blow') # escaped \, now it works #用\转义后，现在匹配了
+&gt;&gt;&gt; if m is not None: m.group()
+...
+'blow'
+&gt;&gt;&gt; m = re.match(r'\bblow', 'blow') # use raw string instead #改用原始字符串
+&gt;&gt;&gt; if m is not None: m.group()
+...
+'blow'
+</pre>
+</div>
+</body>
+</html>

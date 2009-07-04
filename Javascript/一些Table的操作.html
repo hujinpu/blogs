@@ -1,0 +1,185 @@
+<p>对于经常使用<a href="http://extjs.com/" title="Extjs" target="_blank">Extjs</a>等Js框架的同学可能都从没有思考过那些树、表格是怎么出来的，完全就一拿来主义，昨天就有同事觉得没有必要了解那些底层，但让他实现一个很变态的页面他就无法完成了，因为Extjs中没有这样的组件，甚至都不会到Extjs的<a href="http://extjs.com/forum/" title="Extjs Offical Forum" target="_blank">forum</a>里求助。这里我以表格为例，讲解一些Table常用的操作的底层实现。<strong>读者注意</strong>：以下代码中使用了优秀的<a href="http://jquery.com/" title="write less do more" target="_blank">Jquery</a>，对于Jquery的学习可以参看Learning Jquery和官方文档，这里部分代码也来自Learning Jquery中的样列代码。</p><!--more-->
+<p>表格的斑马线：其实就是让奇数和偶数行显示不同的颜色。</p>
+<pre class="brush: js">
+$(document).ready(function() {
+    $('tr:nth-child(odd)').addClass('odd');
+    $('tr:nth-child(even)').addClass('even');
+});
+</pre>
+<p>客户端利用Javascript实现表格的按列排序：关键就是要利用Js数组对象的sort方法，收集指定的列的单元格的字符串文本，然后传入sort方法，同时如有必要自己定义一个比较函数，这里有一点要注意就是要先收集这些比较的key到一个数组，而不要再自定义的比较函数里再去读取，这样性能会降低，因为可能会有大量重复的计算。</p>
+<pre class="brush: js">
+jQuery.fn.alternateRowColors = function() {
+    $('tbody tr:odd', this).removeClass('even').addClass('odd');
+    $('tbody tr:even', this).removeClass('odd').addClass('even');
+    return this;
+};
+
+$(document).ready(function() {
+    $('table.sortable').each(function() {
+        var $table = $(this);
+        $table.alternateRowColors();
+        $('th', $table).each(function(column) {
+            var $header = $(this);
+            var findSortKey;
+            if ($header.is('.sort-alpha')) {
+                findSortKey = function($cell) {
+                    return $cell.find('.sort-key').text().toUpperCase()
+                    + ' ' + $cell.text().toUpperCase();
+                };
+            } else if ($header.is('.sort-numeric')) {
+                findSortKey = function($cell) {
+                    var key = $cell.text().replace(/^[^\d.]*/, '');
+                    key = parseFloat(key);
+                    return isNaN(key) ? 0: key;
+                };
+            } else if ($header.is('.sort-date')) {
+                findSortKey = function($cell) {
+                    return Date.parse('1 ' + $cell.text());
+                };
+            }
+
+            if (findSortKey) {
+                $header.addClass('clickable').hover(function() {
+                    $header.addClass('hover');
+                }, function() {
+                    $header.removeClass('hover');
+                }).click(function() {
+                    var sortDirection = 1;
+                    if ($header.is('.sorted-asc')) {
+                        sortDirection = -1;
+                    }
+                    var rows = $table.find('tbody > tr').get();
+                    $.each(rows,
+                    function(index, row) {
+                        var $cell = $(row).children('td').eq(column);
+                        row.sortKey = findSortKey($cell);
+                    });
+                    rows.sort(function(a, b) {
+                        if (a.sortKey < b.sortKey) return - sortDirection;
+                        if (a.sortKey > b.sortKey) return sortDirection;
+                        return 0;
+                    });
+                    $.each(rows,
+                    function(index, row) {
+                        $table.children('tbody').append(row);
+                        row.sortKey = null;
+                    });
+                    $table.find('th').removeClass('sorted-asc')
+                        .removeClass('sorted-desc');
+                    if (sortDirection == 1) {
+                        $header.addClass('sorted-asc');
+                    } else {
+                        $header.addClass('sorted-desc');
+                    }
+                    $table.find('td').removeClass('sorted')
+                        .filter(':nth-child(' + (column + 1) + ')')
+                        .addClass('sorted');
+                    $table.alternateRowColors();
+                });
+            }
+        });
+    });
+});
+</pre>
+<p>客户端利用Javascript实现表格分页：其实就是一个控制那些tr显示和不显示的问题。</p>
+<pre class="brush: js">
+$(document).ready(function() {
+    $('table.paginated').each(function() {
+        var currentPage = 0;
+        var numPerPage = 10;
+        var $table = $(this);
+        $table.bind('repaginate', function() {
+            $table.find('tbody tr').hide()
+            .slice(currentPage * numPerPage,
+            (currentPage + 1) * numPerPage)
+            .show();
+        });
+        var numRows = $table.find('tbody tr').length;
+        var numPages = Math.ceil(numRows / numPerPage);
+        var $pager = $('<div class="pager"></div>');
+        for (var page = 0; page < numPages; page++) {
+            $('<span class="page-number"></span>').text(page + 1)
+            .bind('click', {newPage: page}, function(event) { //注意这里的{xx:xx}，这里又和闭包有关系哦。
+                currentPage = event.data['newPage'];
+                $table.trigger('repaginate');
+                $(this).addClass('active')
+                .siblings().removeClass('active');
+            }).appendTo($pager).addClass('clickable');
+        }
+        $pager.insertBefore($table)
+        .find('span.page-number:first').addClass('active');
+    });
+});
+</pre>
+<p>实现同类型行高亮：其实就是一个筛选，然后加入hightlight的css类的过程，下面代码同时加入了一个tooltip，利用了div的z-index。</p>
+<pre class="brush: js">
+$(document).ready(function() {
+    var $authorCells = $('table.striped td:nth-child(3)');
+    var $tooltip = $('<div id="tooltip"></div>').appendTo('body');
+
+    var positionTooltip = function(event) {
+        var tPosX = event.pageX;
+        var tPosY = event.pageY + 20;
+        $tooltip.css({top: tPosY, left: tPosX});
+    };
+    var showTooltip = function(event) {
+        var authorName = $(this).text();
+        var action = 'Highlight';
+        if ($(this).parent().is('.highlight')) {
+            action = 'Unhighlight';
+        }
+        $tooltip.text(action + ' all articles by ' + authorName).show();
+        positionTooltip(event);
+    };
+    var hideTooltip = function() {
+        $tooltip.hide();
+    };
+
+    $authorCells.addClass('clickable')
+        .hover(showTooltip, hideTooltip)
+        .mousemove(positionTooltip)
+        .click(function(event) {
+            var authorName = $(this).text();
+            $authorCells.each(function(index) {
+                if (authorName == $(this).text()) {
+                    $(this).parent().toggleClass('highlight');
+                }
+                else {
+                    $(this).parent().removeClass('highlight');
+                }
+            });
+            showTooltip.call(this, event);
+        });
+});
+</pre>
+<p>实现分组折叠：其实就是利用多个tbody，然后每个tbody的第一个tr里是th，最为一个分组的标识，然后显示隐藏其余的tr。</p>
+<pre class="brush: js">
+$(document).ready(function() {
+    var collapseIcon = '../images/bullet_toggle_minus.png';
+    var collapseText = 'Collapse this section';
+    var expandIcon = '../images/bullet_toggle_plus.png';
+    var expandText = 'Expand this section';
+    $('table.collapsible tbody').each(function() {
+        var $section = $(this);
+        $('<img />').attr('src', collapseIcon)
+            .attr('alt', collapseText)
+            .prependTo($section.find('th'))
+            .addClass('clickable')
+            .click(function() {
+                if ($section.is('.collapsed')) {
+                    $section.removeClass('collapsed')
+                        .find('tr:not(:has(th)):not(.filtered)')
+                        .fadeIn('fast');
+                    $(this).attr('src', collapseIcon).attr('alt', collapseText);
+                } else {
+                    $section.addClass('collapsed').find('tr:not(:has(th))')
+                        .fadeOut('fast', function() {
+                            $(this).css('display', 'none');
+                        });
+                    $(this).attr('src', expandIcon).attr('alt', expandText);
+                }
+                $section.parent().trigger('stripe');
+            });
+    });
+});
+</pre>

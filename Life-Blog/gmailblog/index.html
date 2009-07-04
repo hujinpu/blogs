@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="zh-CN">
+    <head profile="http://gmpg.org/xfn/11">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>古月居</title>
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+        <link rel="alternate" type="application/rss+xml" title="互联网人 RSS Feed" href="#" />
+        <link rel="shortcut icon" href="images/favicon.ico"/>
+        <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+        <script type="text/javascript" src="trimpath-template-1.0.38.js"></script>
+        <script type="text/javascript" src="gyj.js"></script>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="navigation">
+                <ul>
+                    <li><a href="#" title="首页">首页</a></li>
+                    <li><a>关于</a></li>
+                </ul>
+                <a href="#"><span class="rss">订阅</span></a>
+            </div>
+
+            <div id="header">
+                <h1><a>古月居</a><sub>生活就是这样</sub></h1>
+            </div>
+
+            <form method="get" id="search-form" action="#">
+                <input type="text" size="22" value="" name="s" id="search-text" /><input type="submit" id="search-submit" value="搜索" />
+            </form>
+
+            <div id="footer">
+                Powered by <a href="http://api.openresty.org">Openresty</a> | Copyright &copy; 2009<br />
+                Client Made by <a href="http://w3er.com/">Jinpu Hu</a>
+            </div>
+        </div>
+
+        <textarea id="content-template" class="hidden">
+            <div id="content">
+                <div id="content-top"></div>
+
+                {if count > 5}
+                <div class="pagenavigator">
+                    <span>{if start > 5}<a href="#newer">&#171;较新的日志</a> {/if}<span>${start} - ${end}</span> of <span id="count">${count}</span> {if end  < count}<a href="#older">较早的日志&#187;</a>{/if}</span>
+                </div>
+                {/if}
+
+                {for p in posts}
+                <div class="entry-body-top"></div>
+                <div class="entry-body" id="post-${p.id}">
+                    <div class="entry-title">
+                        <h3><a href="#post-${p.id}" rel="bookmark" title="Permanent Link to ${p.title}">${p.title}</a></h3>
+                    </div>
+                    <div class="entry-date">${p.created.substring(0, 10)}</div>
+                    <div class="entry-content">${p.content}</div>
+                    <div class="entry-footer">
+                        <span class="entry-comment">${p.comments} 条留言</span>
+                        <span class="entry-category"><a href="#catalog-${p.catalog}">${p.catalog}</a></span>
+                    </div>
+                </div>
+                <div class="entry-body-bottom"></div>
+                {forelse}
+                <div class="entry-body-top"></div>
+                <div class="entry-body">
+                    <div class="entry-title">
+                        <h3><a title="没有发表任何日志">没有发表任何日志</h3>
+                    </div>
+                    <div class="entry-content">没有发表任何日志</div>
+                </div>
+                <div class="entry-body-bottom"></div>
+                {/for}
+
+                {if count > 5}
+                <div class="pagenavigator">
+                    <span>{if start > 5}<a href="#newer">&#171;较新的日志</a> {/if}<span>${start} - ${end}</span> of <span>${count}</span> {if end  < count}<a href="#older">较早的日志&#187;</a>{/if}</span>
+                </div>
+                {/if}
+
+                <div id="content-bottom"></div>
+            </div>
+        </textarea>
+
+
+        <textarea id="sidebar-template" class="hidden">
+            <div id="sidebar">
+                <div id="first-box">
+                    <h2>导航</h2>
+                    <ul>
+                        <li class="current-page-item"><a href="#" title="首页">首页</a></li>
+                        <li><a>关于</a></li>
+                    </ul>
+                </div>
+
+                <h2>一点说明</h2>
+                <ul>
+                    <li><p>本站主要记录我的一些生活琐事，比如旅游、摄影、吉他或者情感亦或者对生活的思考。</p></li>
+                    <li>由于页面全部基于Javascript驱动，所以禁用或者无法使用Javascript的客户端将无法浏览，如有不便，抱歉。</li>
+                </ul>
+
+                <h2>分类</h2>
+                <ul id="catalogs">
+                    {for c in catalogs}
+                    <li><a href="#catalog-${c.name}" title="${c.name}">${c.name}</a> ${c.posts}</li>
+                    {forelse}
+                    <li>暂无任何分类</li>
+                    {/for}
+                </ul>
+
+                <h2>链接</h2>
+                <ul>
+                    <li><a href="http://w3er.com/" title="互联网人">互联网人</a></li>
+                </ul>
+
+            </div>
+        </textarea>
+
+
+        <textarea id="comment-template" class="hidden">
+            <div id="content-top"></div>
+
+            <div class="pagenavigator">
+                <span><a href="#back" class="goback">&#171;后退</a></span>
+            </div>
+
+            <div class="entry-body-top"></div>
+            <div class="entry-body" id="post-${p.id}">
+                <div class="entry-title">
+                    <h3><a href="#post-${p.id}" rel="bookmark" title="Permanent Link to ${p.title}">${p.title}</a></h3>
+                </div>
+                <div class="entry-date">${p.created.substring(0, 10)}</div>
+                <div class="entry-content">${p.content}</div>
+                <div class="entry-footer">
+                    <span class="entry-comment">${p.comments} 条留言</span>
+                    <span class="entry-category"><a href="#catalog-${p.catalog}">${p.catalog}</a></span>
+                </div>
+
+
+                <div id="comment-box">
+                    <ul>
+                        {for c in comments}
+                        <li>
+                            <div>
+                                <div class="comment-author vcard">
+                                    <cite class="fn"><a href='${c.website}' rel='external nofollow' class='url'>${c.author}</a></cite>
+                                    <span class="says">说：</span>		
+                                </div>
+
+                                <div class="comment-metadata">${c.created}</div>
+                                <div class="comment-content">${c.content}</div>
+                            </div>
+                        </li>
+                        {forelse}
+                        <li>还没人留言</li>
+                        {/for}
+                    </ul>
+
+                    <div id="respond">
+                        <h3>给我留言</h3>
+
+                        <form action="#" method="post" id="comment-form">
+                            <p>
+                                <input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+                                <label for="author"><small>大名 (必须滴)</small></label>
+                            </p>
+                            <p>
+                                <input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+                                <label for="email"><small>电邮 (必须滴且格式为example@example.com)</small></label>
+                            </p>
+                            <p>
+                                <input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+                                <label for="url"><small>网站</small></label>
+                            </p>
+                            <p><textarea name="comment" id="comment" cols="50" rows="10" tabindex="4" /></p>
+                            <p><input name="submit" type="submit" id="comment-submit" tabindex="5" value="提交留言" /></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-body-bottom"></div>
+
+            <div class="pagenavigator">
+                <span><a href="#back" class="goback">&#171;后退</a></span>
+            </div>
+
+            <div id="content-bottom"></div>
+        </textarea>
+    </body>
+</html>

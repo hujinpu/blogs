@@ -1,0 +1,75 @@
+<p>当今的Web page或者Web app都日益庞大，在体验越来越好、功能越来越复杂的情况下，不可避免的加入了很多Js文件，而每个Js文件又可能几十上百k，常规的一个个script标签的加入会严重影响性能，无法做到很好的并发，所以这里提出一个个人觉得比较高效的方案。</p><!--more-->
+<p>方案为：全部采用动态加载，保证资源文件的并行化，且如果想加载完这个Js后立刻执行一些操作，把这个操作写入text属性，这样可以保证不等待html载入完成就执行text里面的脚步。</p>
+<pre class="brush: js">
+//动态加载Js文件到head头
+var script = document.createElement('script');
+script.src = 'your.js';
+script.text = '...你要执行的代码...'
+document.getElementsByTagName('head')[0].appendChild(script);
+
+//如果script的text不为空，则在这个your.js文件的最后加入
+var scripts = document.getElementsByTagName("script");
+eval(scripts[scripts.length - 1].innerHTML);
+//当然如果要考虑html加载完毕才执行，可以自行延迟
+</pre>
+<p>这里就不可避免的要解决一个问题，那就是通过上面这种方式加载的Js文件顺序是不可以预计的，那如果2.js依靠1.js，怎么办呢？其实可以利用对象检测，可以在2.js的末尾加入如下命令：</p>
+<pre class="brush: js">
+(function() {
+    if (!1.js中定义的对象名) {
+        setTimeout(arguments.callee, 0)
+    } else {
+        doSomething...
+    }
+})();
+</pre>
+<p>最后我推荐将脚本的动态加入全部推迟到html载入完全之后，当然不一定所有html中包含的图片也载入完全，为了实现这个目的可以借用jQuery的完美实现。</p>
+<pre class="brush: js">
+var readyBound = false;
+
+function bindReady(){
+	if ( readyBound ) return;
+	readyBound = true;
+
+	// Mozilla, Opera and webkit nightlies currently support this event
+	if ( document.addEventListener ) {
+		// Use the handy event callback
+		document.addEventListener( "DOMContentLoaded", function(){
+			document.removeEventListener( "DOMContentLoaded", arguments.callee, false );
+			jQuery.ready();
+		}, false );
+
+	// If IE event model is used
+	} else if ( document.attachEvent ) {
+		// ensure firing before onload,
+		// maybe late but safe also for iframes
+		document.attachEvent("onreadystatechange", function(){
+			if ( document.readyState === "complete" ) {
+				document.detachEvent( "onreadystatechange", arguments.callee );
+				jQuery.ready();
+			}
+		});
+
+		// If IE and not an iframe
+		// continually check to see if the document is ready
+		if ( document.documentElement.doScroll && window == window.top ) (function(){
+			if ( jQuery.isReady ) return;
+
+			try {
+				// If IE is used, use the trick by Diego Perini
+				// http://javascript.nwbox.com/IEContentLoaded/
+				document.documentElement.doScroll("left");
+			} catch( error ) {
+				setTimeout( arguments.callee, 0 );
+				return;
+			}
+
+			// and execute any waiting functions
+			jQuery.ready();
+		})();
+	}
+
+	// A fallback to window.onload, that will always work
+	jQuery.event.add( window, "load", jQuery.ready );
+}
+</pre>
+<p>当然对于浏览器并发下载线程数为2的问题，可以考虑把资源文件分布于多个域，这样就可以突破2的限制。</p>

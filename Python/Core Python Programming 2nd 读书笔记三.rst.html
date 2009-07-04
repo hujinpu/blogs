@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第三章：Python基础</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>语句和语法</li>
+<li>变量赋值</li>
+<li>标识符和关键字</li>
+<li>基本风格指南</li>
+<li>内存管理</li>
+<li>第一个 Python 程序</li>
+</ul>
+<p>Python语句中有一些基本规则和特殊字符：</p>
+<ul class="simple">
+<li>井号(#)表示之后的字符为 Python 注释</li>
+<li>换行 <tt class="docutils literal"><span class="pre">\n</span></tt> 是标准的行分隔符（通常一个语句一行）</li>
+<li>反斜线 <tt class="docutils literal"><span class="pre">\</span></tt> 继续上一行</li>
+<li>分号 <tt class="docutils literal"><span class="pre">;</span></tt> 将两个语句连接在一行中</li>
+<li>冒号 <tt class="docutils literal"><span class="pre">:</span></tt> 将代码块的头和体分开</li>
+<li>语句（代码块）用缩进块的方式体现</li>
+<li>不同的缩进深度分隔不同的代码块</li>
+<li>Python 文件以模块的形式组织</li>
+</ul>
+<p>有两种例外情况一个语句不使用反斜线也可以跨行：</p>
+<ul class="simple">
+<li>在使用闭合操作符时，单一语句可以跨多行，例如：在含有小括号、中括号、花括号时可以多行书写</li>
+<li>三引号包括下的docstring字符串也可以跨行书写</li>
+</ul>
+<p>建议缩进四个空格宽度，避免使用制表符</p>
+<p><strong>在Python语言中，对象是通过引用传递的。在赋值时，不管这个对象是新创建的，还是一个已经存在的，都是将该对象的引用（并不是值）赋值给变量。</strong></p>
+<p>Python中，赋值语句不会返回值，但链式赋值是被支持的。</p>
+<pre class="literal-block">
+&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = (x = x + 1)
+  File &quot;&lt;stdin&gt;&quot;, line 1
+    y = (x = x + 1)
+           ^
+SyntaxError: invalid syntax
+&gt;&gt;&gt; y = x = x + 1
+&gt;&gt;&gt; x, y
+(2, 2)
+&gt;&gt;&gt;
+</pre>
+<p>增量赋值：等号可以和一个算术运算符组合在一起，将计算结果重新赋值给左边的变量。 例如： <tt class="docutils literal"><span class="pre">x</span> <span class="pre">+=</span> <span class="pre">1</span></tt></p>
+<p>增量赋值相对普通赋值不仅仅是写法上的改变， <strong>最有意义的变化是第一个对象仅被处理一次</strong> 。可变对象会被就地修改（不会产生拷贝的引用），不可变对象则和 <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">x</span> <span class="pre">+</span> <span class="pre">1</span></tt> 的结果一样（分配一个新对象）</p>
+<p>在多元赋值中，建议左边也加上括号来增加可读性，如：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; (x, y, z) = (1, 2, &quot;hello&quot;)
+&gt;&gt;&gt; (x, y, z)
+(1, 2, 'hello')
+&gt;&gt;&gt;
+</pre>
+<p>标识符是电脑语言中允许作为名字的有效字符串集合，合法的标识符为：</p>
+<ul class="simple">
+<li>第一个字符必须是字母或下划线（_）</li>
+<li>剩下的字符可以是字母和数字或下划线</li>
+<li>大小写敏感</li>
+</ul>
+<p>所有的关键字列表可以通过keyword的kwlist属性来获得，该模块还有一个 <tt class="docutils literal"><span class="pre">iskeyword(str)</span></tt> 函数用来判断str是否为关键字</p>
+<p>除了关键字之外，Python还有可以在任何一级代码使用的“内建”的名字集合，这些名字可以由解释器设置或使用。虽然built-in不是关键字，但是应该把它当作“系统保留字”，不做他用。然而，有些情况要求覆盖（也就是：重定义，替换）它们。 <strong>Python不支持重载标识符，所以任何时刻都只有一个名字绑定。</strong></p>
+<p>built-in是__builtins__模块的成员，会在你的程序开始或在交互解释器中给出&gt;&gt;&gt;提示之前，由解释器自动导入， <tt class="docutils literal"><span class="pre">dir(__builtins__)</span></tt> 就可以得到这些内建的“系统保留字”的列表</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">_xxx</span></tt> 不会从'from module import *'导入</li>
+<li><tt class="docutils literal"><span class="pre">__xxx__</span></tt> 系统定义名字</li>
+<li><tt class="docutils literal"><span class="pre">__xxx</span></tt> 类中的私有变量名</li>
+</ul>
+<p>所以，当变量是私有的时候，用_xxx 来表示变量是很好的习惯，其他情况应该避免使用下划线为一个变量名的开始</p>
+<p>Python的代码风格指南可以见 <a class="reference" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a></p>
+<p>推荐一种模块的合理的布局：</p>
+<ol class="arabic simple">
+<li>起始行（Unix/Linux）</li>
+<li>模块文档（docstring）：模块外可通过 <tt class="docutils literal"><span class="pre">module.__doc__</span></tt> 访问这些内容</li>
+<li>模块导入：每个模块仅导入一次（当前模块被加载时），函数内部的模块导入代码不会被执行，除非该函数正在执行</li>
+<li>变量定义：除非必须，尽量使用局部变量代替全局变量，可使代码更易维护和提高性能并节省内存</li>
+<li>类定义：当模块被导入时class语句会被执行, 类也就会被定义</li>
+<li>函数定义：当模块被导入时 <tt class="docutils literal"><span class="pre">def</span></tt> 语句会被执行，函数也就都会定义好</li>
+<li>主程序：无论这个模块是被别的模块导入还是作为脚本直接执行，都会执行这部分代码</li>
+</ol>
+<p>贴一个完整的例子：</p>
+<pre class="literal-block">
+#/usr/bin/env python
+
+&quot;&quot;&quot;this is a test module&quot;&quot;&quot;
+
+import sys
+import os
+
+debug = True
+
+class FooClass(object):
+    &quot;&quot;&quot;Foo class&quot;&quot;&quot;
+    pass
+
+def test():
+    &quot;&quot;&quot;test function&quot;&quot;&quot;
+    foo = FooClass()
+
+    if debug:
+        print 'ran test()'
+
+if __name__ == '__main__':
+    test()
+</pre>
+<p>如果模块是被导入， <tt class="docutils literal"><span class="pre">__name__</span></tt> 的值为模块名字，如果模块是被直接执行， <tt class="docutils literal"><span class="pre">__name__</span></tt> 的值为 '__main__'</p>
+<ul class="simple">
+<li>变量无须事先声明</li>
+<li>变量无须指定类型</li>
+<li>程序员不用关心内存管理</li>
+<li>变量名会被“回收”</li>
+<li><tt class="docutils literal"><span class="pre">del</span></tt> 语句能够直接释放资源</li>
+</ul>
+<p>Python语言中，对象的类型和内存占用都是运行时确定的。在创建－－也就是赋值时，解释器会根据语法和右侧的操作数来决定新对象的类型。在对象创建后，一个该对象的引用会被赋值给左侧的变量。</p>
+<p>要保持追踪内存中的对象，Python使用了引用计数这一简单技术。一个内部跟踪变量，称为一个引用计数器。至于每个对象各有多少个引用，简称引用计数。对象被创建时， 就创建了一个引用计数，当这个对象不再需要时，也就是说，这个对象的引用计数变为0时，它被垃圾回收。</p>
+<p>对象的引用计数在以下情况会增加：</p>
+<ul class="simple">
+<li>对象被创建 <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">3.14</span></tt></li>
+<li>或另外的别名被创建 <tt class="docutils literal"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">x</span></tt></li>
+<li>或被作为参数传递给函数（新的本地引用） <tt class="docutils literal"><span class="pre">foobar(x)</span></tt></li>
+<li>或成为容器对象的一个元素 <tt class="docutils literal"><span class="pre">myList</span> <span class="pre">=</span> <span class="pre">[123,</span> <span class="pre">x,</span> <span class="pre">'xyz']</span></tt></li>
+</ul>
+<p>对象的引用计数在以下情况会减少:</p>
+<ul class="simple">
+<li>一个本地引用离开了其作用范围。比如foobar()函数结束时</li>
+<li>对象的别名被显式的销毁 <tt class="docutils literal"><span class="pre">del</span> <span class="pre">y</span> <span class="pre">#</span> <span class="pre">or</span> <span class="pre">del</span> <span class="pre">x</span></tt></li>
+<li>对象的一个别名被赋值给其它的对象 <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">123</span></tt></li>
+<li>对象被从一个窗口对象中移除 <tt class="docutils literal"><span class="pre">myList.remove(x)</span></tt></li>
+<li>窗口对象本身被销毁 <tt class="docutils literal"><span class="pre">del</span> <span class="pre">myList</span> <span class="pre">#</span> <span class="pre">or</span> <span class="pre">goes</span> <span class="pre">out-of-scope</span></tt></li>
+</ul>
+<p><strong>使用局部变量替换模块变量可以缩短变量名和提升性能</strong></p>
+</div>
+</body>
+</html>

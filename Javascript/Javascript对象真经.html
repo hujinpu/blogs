@@ -1,0 +1,153 @@
+<p>之所以用这样猛的一个名字，只是想表达我是想尽力的去讲透Javascript中对象的来龙去脉。既然是我尽力而不是你、他，就必然受我的知识结构的限制，所以如果有不妥不对的地方，请诚心指出，好让我参考学习。注意：以下文中我将使用Js代替Javascript，同时请多分耐心因为文章有点长。</p>
+<p>首先要明白的是：<strong>Js是使用是原型继承来实现对象系统的</strong>。那什么是这个原型呢？在Js中，其实<strong>原型也是一个对象实例</strong>，这点很关键，也就是说原型本身就具有了很多可读取的属性和可调用的方法，而不像一些基于类继承来实现的对象系统的语言（比如：Java）中的类，类不必持有这些，只要描叙一个蓝图就行。但就Javascript的语言和对象系统的实现来讲，<strong>对象实例并没有原型，而只有构造器才有原型。</strong></p><!--more-->
+<p>那<strong>原型继承的实质</strong>是什么呢？其实<strong>就是复制</strong>，对，就是形成的新对象实例从原型复制出对应的信息。不过谈到复制，很多大侠自然就会联想到它的性能问题，那我要说的是，目前Js引擎基本都是采用了读遍历。</p>
+<p><img src="/uploads/images/prototype1.png" alt="形成对象实例，只读不写时" title="形成对象实例，只读不写时" align="center" /></p>
+<p>我们看上面的图片，这是在形成对象时，由于我们并没有实际的需求去改变继承自的对象原型的属性，所以我们只要在系统中指明obj1和obj2等同于它们的原型，那么读取的时候，顺着指针去读原型即可。但当真正要写入一些属性时，Js的做法，和一般的写复制就有点不同了。情况就如下图所示。</p>
+<p><img src="/uploads/images/prototype2.png" alt="真正要写入一些属性时" title="真正要写入一些属性时" align="center" /></p>
+<p>整个过程，并没有完全像写复制那样克隆一个完全的原型对象实例的拷贝，而是创建了一张对象实例自己以后维护的成员表，这个列表记录obj1发生了修改的成员名、值与类型。其实上面有说过，原型也是一个对象实例，那就意味着它自身也要维护一个这样的表格，那这张表格和原型维护的表格就必然有可能冲突，于是就引出了要遵循的读遍历规则：
+    <ol>
+        <li>查找成员时，先读对象实例自己维护的表；</li>
+        <li>如果没有找到指定的成员，就要遍历整个原型链，直到原型为空的对象（{}），或者到找到该成员为止。</li>
+    </ol>
+</p>
+<p>这里我要讲一个问题，就是null和{}的区别。我们知道null也可以“理解为”是对象类型的，<code>typeof null</code>返回object可以说明这一点。它虽然可以“理解为”对象类型，但完全可以当成对象中的另类，它有几点特殊：
+    <ul>
+        <li>对象是彻底的空值的，这么说的含义是它连内置初始话的方法和属性都没有一个（如：toString），也没有原型（prototype）；</li>
+        <li>null是Js中的保留关键字；</li>
+        <li>也可以参与运算，其值会自动转换为0、"null"或者false其中的一个。</li>
+    </ul>
+而我说的空的对象（{}）是指一个有原型，有内置属性的纯净的对象。当然你for ... in循环遍历，无法读取任何属性，因为都是内置的。而且<strong>Object构造器的原型其实还是空的对象{}，空的对象的constructor属性所指的构造函数还会是Object</strong>。</p>
+<pre class="brush: plain">
+js> typeof null
+object
+js> Object.prototype
+[object Object]
+js> Object.constructor
+function Function() {
+    [native code]
+}
+js> Object.prototype.constructor
+function Object() {
+    [native code]
+}
+js> Object.prototype.constructor.prototype.constructor === Object
+true
+</pre>
+<p><strong>Js构造对象的利器其实就是一个“改造后”的函数，名叫构造器。</strong>我们可以这样理解，一个普通的函数并没有prototype这个属性（有也是多余的），只有当实实在在要利用prototype属性时才会去创建一个空的对象（{}）指向它，而且这个<strong>原型实例创建后的，其constructor属性总是先默认赋值为当前的函数</strong>。这个地方很关键，一定要加深理解，这里放上一段代码来加深理解：</p>
+<pre class="brush: js">
+js> function MyObject() {}
+js> var obj = new MyObject()
+js> obj.constructor //实例本身的constructor属性默认为MyObject
+function MyObject() {
+}
+js> MyObject.prototype.constructor //注意构造器函数原型（prototype）对象实例的constructor属性默认也为这个构造器函数MyObject
+function MyObject() {
+}
+js> MyObject.prototype //原型为一个空的对象
+[object Object]    
+</pre>    
+<p>讲到了这里，就为我要说的两个原型链做完铺垫了。深呼吸，闭上你的眼睛，放松一下吧。先看下下面的美图。 :)</p>
+<p><img src="/uploads/images/prototype3.png" alt="内部原型链与外部人为构造维护的原型链" title="内部原型链与外部人为构造维护的原型链" align="center" /></p>
+<p>这幅图还配套了代码呢。</p>
+<pre class="brush: js">
+function MyObject() {
+    this.constructor = arguments.callee; //正确维护constructor，以便回溯外部原型链
+}
+MyObject.prototype = new Object(); //人为构建外部原型链
+
+function MyObjectEx() {
+    this.constructor = arguments.callee; //正确维护constructor，以便回溯外部原型链
+}
+MyObjectEx.prototype = new MyObject(); //人为构建外部原型链
+
+obj1 = new MyObjectEx();
+obj2 = new MyObjectEx();
+
+print(obj1.constructor === MyObjectEx); //true
+print(MyObjectEx.prototype instanceof MyObject); //true
+print(MyObjectEx.prototype.constructor === MyObject); //true
+print(MyObject.prototype instanceof Object); //true
+print(MyObject.prototype.constructor === Object); //true
+//完成了所有的回溯
+print(obj1.constructor.prototype.constructor.prototype.constructor === Object); //true
+</pre>
+<p>图虽然很好的回溯了我们开发人员构造的这样一个原型链，但其实看上面的代码就知道，是我们开发人员是要下很多功夫的。我来重点讲解下。前面我提到过要重点关注<strong>构造器函数原型（prototype）对象实例的constructor属性默认也为这个构造器函数</strong>，那如果我只是随意的改变一个构造器函数的原型属性，那就必然出现断链的情况。下面的代码很好的说明了这个情况：</p>
+<pre class="brush: js">
+function MyObject() {}
+function MyObjectEx() {}
+var newprototype = new MyObject();
+MyObjectEx.prototype = newprototype; //本质就是我们常用的MyObjectEx.prototype = new MyObject();
+obj1 = new MyObject();
+obj2 = new MyObjectEx();
+print(obj1.constructor === obj2.constructor) //true 问题就出现了，从obj2无法回溯到MyObjectEx构造器了
+</pre>
+<p>由于<code>obj2.constructor === MyObjectEx.prototype.constructor === newprototype.constructor === MyObject.prototype.constructor === MyObject</code>，所以整个MyObjectEx就出现了问题。那如果只简单的把MyObjectEx.prototype.constructor赋值为MyObjectEx，这行吗？不行的，还是无法完全实现我上面给出的那个图片里的回溯。因为这时候<code>MyObjectEx.prototype.constructor === MyObjectEx</code>，那么obj2就不能通过constructor往上到MyObject，因为<code>obj2.constructor.prototype === MyObjectEx</code>，断链再次发生。那解决的办法就是不改原型的constructor属性，而只在构造函数初始化对象实例时改变对象实例的constructor，这个constructor就会写入它自己的那个表格，而不会到它的原型上去找。这个方法就是：<code>this.constructor = arguments.callee;</code>这就是阿拉丁神灯的咒语。 :)</p>
+<p>至此我觉得我基本上把外部原型链是怎么回事，以及它的正确维护讲透了。现在要开始讲另一条链了。上文中我讲过，每个对象实例都会维护自己的成员，如果要查找的成员在自己维护的这个表格中找不到，那就会沿着原型链往上找，这时的这个原型链就是内部原型链，是Js引擎自己维护的，图中我用.proto这个不可见属性来形象地模拟这个过程，每个对象都可以在内部通过它的.proto属性访问内部原型链的上一级（从外部看就是我们的对象实例的构造器函数的原型实例）的成员列表，而不是通过我们人为维护的外部原型链来回溯的，也就说，子类没有的找到的成员是可以通过这个内部原型链网上找父类的实例的成员列表里是否有的，这也符合面向对象的继承性的约定：子类和父类必然具有相似性。而且关键是，只有引擎维护一个这样的结构才能在new运算构造新的实例时，产生出这样的父子的相似性，而与以后人为破坏继承关系（原型重写，即更改构造函数的prototype所指的对象实例）无关，人为破坏继承关系只会影响以后的new运算构造的新实例。我们要注意<strong>内部链对于我们开发人员来说是不可见的</strong>。一个对此比较好的例子就是delete运算无法删除实例通过从父类继承来的成员。</p>
+<p>是不是有点晕了，我说过看这篇文章要多点耐心。其实也简单，总结起来就是：<strong>外部通过prototype和constructor所维护的原型链是我们开发人员自己要回溯时用的，内部原型链是Js的原型继承机制实现所需的。</strong>原型继承机制很好的维护了继承对象在类属性关系上的层次。</p>
+<p>刚刚提到过原型重写，等于直接破坏继承关系，那如果只是修改原型对象实例的部分成员呢？还记得那张维护成员的列表吗？由于Js的读遍历，由此产生了一个很强大的动态特性，那就是原型修改对于之前的所有new运算产生的对象实例都有效，因为它们如果在自己维护的表里找不到要找的成员，就一定会查找其原型对象实例的那张成员列表，而我们对原型实例进行修改，改的就是它维护的成员列表。然后是否有点惊喜，是否觉得那样的设计原来有这样的用意。其实原型修改加上原型继承就造就了一个很有特色的对象系统，这和Java基于类继承的完全不一样，那就是<strong>对象的基础关系和行为描述是完全分离的！</strong>这就好比xhtml和js是结构和行为的分离一样经典。</p>
+<p>我们再往前看看，我说Object()的原型是一个空的对象（{}），其实这就造就了Js的OO设计中的另外一种独特的美，那就是可以一开始不依赖于接口，只要把对象的继承层次设计好，以后那个具体的层次少什么方法再动态的补上，真是快哉，这不是很敏捷吗？</p>
+<p>讲到这里，读者不知道什么感觉，我也无法预知你的感觉，希望你有点大彻大悟了。这里我又想更深一层的讲一个很烦人的问题，就是不同Js引擎对于继承的理解。先来看下面一段代码在不同浏览器下的效果。</p>
+<pre class="brush: js">
+function MyObject() {
+    this.constructor = null;
+}
+var obj = new MyObject();
+for (var el in obj) {
+    alert(el);
+}
+</pre>
+<p>首先我要说的就是对象实例的constructor属性是内置属性，他是从原型实例继承过来的，默认是不会在for ... in 循环中显示的，但如果我覆盖了这个属性，在IE 6-8和Firefox 2-3下完全是不同的效果。IE6-8下依然不会alert出来，但Firefox 2-3下就可以了。这说明了一个问题，那就是在原型继承的实现过程中，IE的JScript引擎应该只维护了一个成员特性（是否可以在for ... in循环中显示等）的名字列表，以后不管子类实例是否有覆盖父类成员，都只认名字，这样固然开销比较小，但就有失灵活。而对于Firefox 2-3的SpiderMonky Javascript的引擎，则只在开始初始阶段指定这个继承的成员要和父类保持一样的特性，而以后如果覆盖该成员，就会同时重置所有的特性。</p>
+<p>我们知道，面向对象的三大特性是：继承、封装和多态。前面聊了原型继承，我想继承说得差不多了，时候讲讲后面两个主题了。由于Js对象系统的特殊性，依赖于构造函数，而函数在执行期间，只可能是要么可以访问，要么就不行，那就是说：<strong>Js只存在public和private两种封装形式</strong>。</p>
+<p>而对于多态性，首先要知道其实是分为两个过程的，一个过程是类型的模糊（as），一个过程是类型的识别（is）。对于Js这的对象系统，因为任何一个实例的类型都是object，所以可以说Js本身就是类型模糊的。而对于类型的识别，也由于Js的动态特性，它不依赖于是否像Java一样确实为某个类的实例，而只依赖于是否具有要调用的方法，也就是能否正确完成要做的事情，如果能，那就算识别成功了（is ok），这就是经典的动态语言中的“鸭子理论”：走起来像鸭子那就是鸭子。</p>
+<p>其实构建Js的对象系统也不是只有原型继承一种实现方法，类抄写也是可行的。简单的说，类抄写就是不用回溯原型链，直接在自己维护的成员列表里就搞定一切。实现的方法很多，举几个简单的例子：
+<pre class="brush: js">
+function BaseClass(){
+    this.x = 10;
+}
+function SubClass(){
+    var baseObj = new BaseClass();
+    for (var p in baseObj) this[p] = baseObj[p];
+}
+var subObj = new SubClass();
+print(subObj.x); //10
+
+function BaseClass(){
+    this.x = 10;
+}
+function SubClass(){
+    this.baseClass = BaseClass;
+    this.baseClass();
+    delete this.baseClass;
+}
+var subObj = new SubClass();
+print(subObj.x); //10  
+
+function BaseClass(){
+    this.x = 10;
+}
+function SubClass(){
+    BaseClass.call(this);
+}
+var subObj = new SubClass();
+print(subObj.x); //10  
+</pre>   
+</p>
+<p>类抄写的优势就是效率高且不必人为维护原型链，坏处就是内存开销大，但目前的电脑那配置...。所以我觉得是很可行的。相比下，原型继承就要维护原型链，不过它是典型的时间换空间的做法，对于内存开销就要小很多，而且还有一个好处就是可以通过instanceof来做类型的精确检测。</p>
+<p>最后我想顺带提下ECMA规范中指明的，内置对象有：Number、Boolean、String、Object、Function、Array、RegExp、Error、Date、Math以及Global。这些对象在引擎初始化的时候就会被创建好。而内置对象正好是原生对象的一个子集，原生对象还包括了运行时动态创建的Arguments对象。值得一提的是，不是说继承自这些原生对象就可以拥有它们的所有特性，比如Function的可执行性就是无法继承的。而对于Math你是无法去实例化的，它就被实现为了一个对象实例，不是一个构造器函数，对于Global对象是单例的，作为全局都可以访问的对象实例访问，对于浏览器来说可以通过window来访问它的成员。</p>
+<pre class="brush: js">
+js> function MyFunction() {}
+js> MyFunction.prototype = new Function()
+function anonymous() {
+}
+js> (new MyFunction())()
+typein:7: TypeError: new MyFunction is not a function    
+js> new Math()
+typein:1: TypeError: Math is not a constructor
+js> Math
+[object Math]
+js> global
+typein:3: ReferenceError: global is not defined
+js> Global
+typein:4: ReferenceError: Global is not defined
+</pre>
+<p>好了，我罗嗦完了，希望这篇文章对大家有帮助。</p>

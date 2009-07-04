@@ -1,0 +1,48 @@
+<p>今天有个需求就是格式化数字的输入，规则是<em>以小数点为分界线（如果没有就忽略），左边的从低位到高位每3位的以一个逗号分隔，而右边不变化（如果有右边）</em>。举个例子：对于<code>1123456789.123456</code>那么就要格式化为<code>1,123,456,789.123456</code></p><!--more-->
+<p>我很快就出了一个常规的版本1:</p>
+<pre class="brush: js">
+function formatNumber(numstr) {
+    numstr = numstr.replace(/,/g, '');
+    if (isNaN(numstr)) return; //非数字形式直接返回
+    
+    var minus = numstr.indexOf('-') > 0 ? '-' : ''; //判断是否负数
+    
+	var delimiter = ','; //分隔符
+	
+	var a = numstr.split('.',2); //如果有小数点
+	var d = a[1] ? a[1] : '';
+    numstr = a[0];
+
+	var a = [];
+	while(numstr.length > 3) {
+		var t = numstr.substr(numstr.length-3);
+		a.unshift(t);
+		numstr = numstr.substr(0, numstr.length-3);
+	}
+	numstr.length > 0 ? a.unshift(numstr) : '';
+	
+	numstr = a.join(delimiter);
+	numstr = d.length > 0 ? minus + numstr : minus + numstr + '.' + d;
+	return numstr;
+}    
+</pre>
+<p>但问题就来了，写出来后就极度不满意，这么简单的功能也要这么多行代码？有没有更好的办法呢？是有的，那就是利用正则表达式做替换，所以就有了版本2：</p>
+<pre class="brush: js">
+function formatNumber(numstr){
+    return isNaN(numstr.replace(/,/g, '')) ? '' : 
+        numstr.indexOf('.') > 0 ? numstr.replace(/,/g, '').replace(/(\d)(?=(\d{3})+\.\d+$)/g, '$1,') : numstr.replace(/,/g, '').replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+}     
+</pre>
+<p>这个版本感觉就好多了，但觉得indexOf判断很多余，但js又不支持<code>(?&lt;=)</code>，于是就需要绕过这个思路来完成，但怎么办呢？真的佩服<a href="http://hi.baidu.com/akira_cn" target="_blank" title="月影姐姐">月影</a>的功力，利用高级点的String.replace就可以解决问题，这样就有了版本3：</p>
+<pre class="brush: js">
+function formatNumber(numstr){
+    return isNaN(numstr.replace(/,/g, '')) ? '' :
+        numstr.replace(/,/g, '').replace(/(\d{0,3}[.]\d+$)|((\d)(?=(\d{3})+($|\.)))/g, function(capture, first, second) {return second ? [second, first] : first});
+}     
+</pre>
+<p>这里替换函数里还利用到了数组被隐式转换为字符串时调用的toString()方法会把多个数组原始用逗号连接起来，类似作了<code>join(',')操作</code>。到此，我突然觉得可以利用这些特性做很多有趣的事情，比如从以1列到10：</p>
+<pre class="brush: js">
+new Array(11).toString().replace(/,/g, function(capture, index) {print(++index + capture)});    
+</pre>
+<p>打住，我不想继续发表些我的小demo，我想说个现象，那就是我们常说语言只是工具，关键是思路，但我觉得如果不能使好<strong>几把好工具</strong>，那很多创意也无从谈起，这也完全符合古人说得<a href="http://baike.baidu.com/view/60526.htm" target="_blank" title="百度百科中关于熟能生巧的参考">熟能生巧</a>的含义（大兵不也说XXX真有几把刷子）。比如这里，如果你不知道<code>String.replace</code>可以接受一个函数作为参数，你基本就会在正则表达式里折腾，也许你也能很牛的写出一个正则，不用替换函数就解决战斗（如果写出了，记得留言或者给我发email，我很感兴趣），但其实也是你对于正则表达式的理解透彻（这个工具你征服了）这里我特别强调是<strong>几把好的</strong>工具而不是几十上百把，或者不好的工具，是想强调另一个事实，<strong>专注成就梦想</strong>，看着身边很多同事天天谈论这个语言那个语言，这个框架那个模式，仿佛自己站得很高（巨人肩上），原来我还和他们一起说说，一起研究研究，现在我经常说的是，先想下这个框架做了什么事情，是否有本质的提高对于生产力，这个开发理念它诞生有什么意义，解决了谁的问题，弱点是什么，最关键的是，你现在对于自己有什么定位，你把什么工具使好了吗？至少我觉得我还没有如<a href="http://www.doany.net/" target="_blank" title="周爱民">爱民</a>那么透彻般的把一些现象的本质讲好，如<a href="http://hi.baidu.com/akira_cn" target="_blank" title="月影姐姐">月影</a>般写出很多Javascript的极性感的代码，而他们也在摸索也在求知，长路漫漫，吾将上下而求索。</p>
+<p>人的精力是有限的，所以是否能把精力集中起来做一些有意义的事情才是王道，花心对于程序员我理解为浮躁，自己也曾经是一个花心的人，但现在算是靠了岸，动静之间，不变的是本质。当对于某种技艺十分娴熟，自然可以触类旁通，随心所意（只是被浮躁的人理解为大师也很花心啊 :)），成为张真人般的一代大师。</p>

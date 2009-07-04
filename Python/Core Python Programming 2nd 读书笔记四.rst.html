@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第四章：Python对象</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>Python对象</li>
+<li>内建类型</li>
+<li>标准类型运算符<ul>
+<li>值的比较</li>
+<li>对象身份比较</li>
+<li>布尔类型</li>
+</ul>
+</li>
+<li>标准类型内建函数</li>
+<li>标准类型总览</li>
+<li>各种类型</li>
+<li>不支持的类型</li>
+</ul>
+<p>所有的Python对像都拥有三个特性：</p>
+<ul class="simple">
+<li>身份：可以使用 <tt class="docutils literal"><span class="pre">id()</span></tt> 内建函数来得到，可以被认为是该对象的内存地址</li>
+<li>类型：可以使用 <tt class="docutils literal"><span class="pre">type()</span></tt> 内建函数来得到，返回的类型也是一个对象</li>
+<li>值：对象表示的数据项</li>
+</ul>
+<p>Python的标准类型，也就是基本数据类型：</p>
+<ul class="simple">
+<li>数字（分为几个子类型，其中有三个是整型）</li>
+<li>整型</li>
+<li>布尔型</li>
+<li>长整型</li>
+<li>浮点型</li>
+<li>复数型</li>
+<li>字符串</li>
+<li>列表</li>
+<li>元组</li>
+<li>字典</li>
+</ul>
+<p>其他的内建类型：</p>
+<ul class="simple">
+<li>类型对象（类型为type）</li>
+<li>Null 对象 (None)</li>
+<li>文件</li>
+<li>集合/固定集合</li>
+<li>函数/方法</li>
+<li>模块</li>
+<li>类</li>
+</ul>
+<p>以下布尔值为False，其他的都为True：</p>
+<ul class="simple">
+<li>None</li>
+<li>False(布尔类型)</li>
+<li>所有的值为零的数</li>
+<li>0(整型)</li>
+<li>0.0(浮点型)</li>
+<li>0L(长整型)</li>
+<li>0.0+0.0j(复数)</li>
+<li>&quot;&quot;(空字符串)</li>
+<li>[](空列表)</li>
+<li>()(空元组)</li>
+<li>{}(空字典)</li>
+</ul>
+<p>但注意，类的实例有点特殊。 <strong>如果类的实例定义了__nonzero__(self)（优先级较高），或__len__(self)方法，且返回值为0，则这个类实例的布尔值为False</strong></p>
+<p>还有一部分我们了解很少的类型，可以称为是Python的内部类型。</p>
+<ul class="simple">
+<li>代码：代码对象是编译过的Python源代码片段，它是可执行对象。通过调用内建函数 <tt class="docutils literal"><span class="pre">compile()</span></tt> 可以得到代码对象。代码对象可以被 <tt class="docutils literal"><span class="pre">exec</span></tt> 命令或 <tt class="docutils literal"><span class="pre">eval()</span></tt> 内建函数来执行</li>
+<li>帧：帧对象包含Python解释器在运行时所需要知道的所有信息</li>
+<li>跟踪记录：当异常发生时，一个包含针对异常的栈跟踪信息的跟踪记录对象被创建</li>
+<li>切片： <tt class="docutils literal"><span class="pre">[::-1]</span></tt> 可以达到reverse的效果</li>
+<li>省略</li>
+<li>Xrange： 有内建函数 <tt class="docutils literal"><span class="pre">xrange()</span></tt> 生成</li>
+</ul>
+<p>这里演示提前演示下 <tt class="docutils literal"><span class="pre">exec</span></tt> 命令，更多详细的内部对象的知识点可以看 <cite>Core Python Programming 2nd</cite> 的十四章《执行环境》</p>
+<pre class="literal-block">
+&gt;&gt;&gt; exec &quot;&quot;&quot;
+... x = 0
+... print 'x is currently:', x
+... while x &lt; 5:
+...     x += 1
+...     print 'incrementing x to:', x
+... &quot;&quot;&quot;
+x is currently: 0
+incrementing x to: 1
+incrementing x to: 2
+incrementing x to: 3
+incrementing x to: 4
+incrementing x to: 5
+&gt;&gt;&gt;
+</pre>
+<p>不同于很多其它语言，Python中多个比较操作可以在同一行上进行，求值顺序为从左到右</p>
+<pre class="literal-block">
+&gt;&gt;&gt; 4 &lt; 3 &lt; 5 != 2 &lt; 7
+False
+&gt;&gt;&gt; 2 &lt; 5 &lt; 10 != 7 &gt; 3
+True
+</pre>
+<p>运算符 <tt class="docutils literal"><span class="pre">is</span></tt> 和 <tt class="docutils literal"><span class="pre">is</span> <span class="pre">not</span></tt> 比较的是对象是否指向同一个地址</p>
+<p>在做对象比较的过程中，有一点要引起注意，就是 <strong>整数对象和字符串对象是不可变对象，，所以Python 会很高效的缓存它们，目前对于Python2.5.2的整数的缓存范围是(-5, 256)</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">函数</th>
+<th class="head">功能</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">cmp(obj1,</span> <span class="pre">obj2)</span></tt></td>
+<td>比较 obj1 和 obj2, 根据比较结果返回整数 i:
+i &lt; 0 if obj1 &lt; obj2
+i &gt; 0 if obj1 &gt; obj2
+i == 0 if obj1 == obj2</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">repr(obj)</span></tt> 或 <tt class="docutils literal"><span class="pre">`obj`</span></tt></td>
+<td>返回一个对象的字符串表示</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">str(obj)</span></tt></td>
+<td>返回对象适合可读性好的字符串表示</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">type(obj)</span></tt></td>
+<td>得到一个对象的类型，并返回相应的type 对象</td>
+</tr>
+</tbody>
+</table>
+<p><strong>str、repr、``</strong> 大对比：</p>
+<p><tt class="docutils literal"><span class="pre">repr</span></tt> 和 <tt class="docutils literal"><span class="pre">``</span></tt> 是一回事，不过 <tt class="docutils literal"><span class="pre">repr</span></tt> 为内建函数， <tt class="docutils literal"><span class="pre">``</span></tt> 为运算符，目前Python的社区已经开始不鼓励使用 <tt class="docutils literal"><span class="pre">``</span></tt> 了。他们都是返回一个对象Python需要的字符串表示，也通常能用 <tt class="docutils literal"><span class="pre">eval()</span></tt> 内建函数重新得到该对象， <tt class="docutils literal"><span class="pre">newobj</span> <span class="pre">=</span> <span class="pre">eval(repr(oldobj))</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">str</span></tt> 则会返回一个对象的使人更易阅读的字符串表示，通常更适合print语句输出</p>
+<p>注意： <strong>type()返回的是某个类型对象，且Python中一个类型只有唯一一个类型对象</strong></p>
+<p><strong>所有在比较类型的过程中，比较对象身份比比较值性能更优，因为一个类型只有唯一一个类型对象，所以如果两个类型对象的身份是一样，即是同一类型，那么它们类型对象的值也必定相同。</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; import types
+&gt;&gt;&gt; type(123) is types.IntType
+True
+</pre>
+<p>注意： <tt class="docutils literal"><span class="pre">==</span></tt> 号操作符比较的是值而 <tt class="docutils literal"><span class="pre">is</span></tt> 语句比较的是身份</p>
+<p>同时如果要查询多个类型，用 <tt class="docutils literal"><span class="pre">isinstance()</span></tt> 内建函数可以避免写出很多if-elif-else语句，从而提升性能。看个书中的例子：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+
+def displayNumType(num):
+    print num, 'is',
+    if isinstance(num, (int, long, float, complex)):
+        print 'a number of type:', type(num).__name__
+    else:
+        print 'not a number at all!!'
+
+displayNumType(-69)
+displayNumType(9999999999999999999999L)
+displayNumType(98.6)
+displayNumType(-5.2+1.9j)
+displayNumType('xxx')
+</pre>
+<p>这里还有一点关于元类编程的知识点补充，详细的可以看本书的第十三章</p>
+<p>新建一个类是要一个模板的，这个模板就是元类。对于</p>
+<pre class="literal-block">
+class A: pass
+</pre>
+<p>它使用的元类就是 <tt class="docutils literal"><span class="pre">types.ClassType</span></tt> ，字符串表示为&lt;type 'classobj'&gt;；而</p>
+<pre class="literal-block">
+class B(object): pass
+</pre>
+<p>由于没有在类里定义 <tt class="docutils literal"><span class="pre">__metaclass__</span></tt> 属性，就会查看父类的 <tt class="docutils literal"><span class="pre">__metaclass__</span></tt> ，父类是object，它的 <tt class="docutils literal"><span class="pre">__metaclass__</span></tt> 为type， <tt class="docutils literal"><span class="pre">type(object)</span> <span class="pre">is</span> <span class="pre">types.TypeType</span></tt></p>
+<p>所以可以通过加入 <tt class="docutils literal"><span class="pre">__metaclass__</span></tt> 属性来使传统类变为新样式的类</p>
+<p><em>Python 2.2统一了类型和类，所有的内建类型现在也都是类。在这基础之上，原来的所谓内建转换函数象int()、type()、list()等等，现在都成了工厂函数。也就是说虽然他们看上去有点象函数， 实质上他们是类。当你调用它们时，实际上是生成了该类型的一个实例，就象工厂生产货物一样。</em></p>
+<p>有三种不同的模型可以帮助我们对基本类型（也就是标准类型：基本内建数据对象原始类型）进行分类：</p>
+<ul>
+<li><p class="first">存储模型：就是看看这种类型的对象能保存多少个对象，一个能保存单个字面对象的类型我们称它为原子或标量存储，那些可容纳多个对象的类型，我们称之为容器存储</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><p class="first last">分类 Python</p>
+</th>
+<th class="head"><p class="first last">类型</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><p class="first last">标量/原子类型</p>
+</td>
+<td><p class="first last">数值（所有的数值类型），字符串（全部是文字）</p>
+</td>
+</tr>
+<tr><td><p class="first last">容器类型</p>
+</td>
+<td><p class="first last">列表、元组、字典</p>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">更新模型：就是看看对象创建成功之后，它的值是否可以进行更新</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><p class="first last">分类 Python</p>
+</th>
+<th class="head"><p class="first last">类型</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><p class="first last">可变类型</p>
+</td>
+<td><p class="first last">列表， 字典</p>
+</td>
+</tr>
+<tr><td><p class="first last">不可变类型</p>
+</td>
+<td><p class="first last">数字、字符串、元组</p>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">访问模型：中共有三种访问方式：直接存取，顺序，和映射</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><p class="first last">分类 Python</p>
+</th>
+<th class="head"><p class="first last">类型</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><p class="first last">直接访问</p>
+</td>
+<td><p class="first last">数字</p>
+</td>
+</tr>
+<tr><td><p class="first last">顺序访问</p>
+</td>
+<td><p class="first last">字符串、列表、元组</p>
+</td>
+</tr>
+<tr><td><p class="first last">映射访问</p>
+</td>
+<td><p class="first last">字典</p>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>最后看一个汇总的表格：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="26%" />
+<col width="28%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">数据类型</th>
+<th class="head">存储模型</th>
+<th class="head">更新模型</th>
+<th class="head">访问模型</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>数字</td>
+<td>Scalar</td>
+<td>不可更改</td>
+<td>直接访问</td>
+</tr>
+<tr><td>字符串</td>
+<td>Scalar</td>
+<td>不可更改</td>
+<td>顺序访问</td>
+</tr>
+<tr><td>列表</td>
+<td>Container</td>
+<td>可更改</td>
+<td>顺序访问</td>
+</tr>
+<tr><td>元组</td>
+<td>Container</td>
+<td>不可更改</td>
+<td>顺序访问</td>
+</tr>
+<tr><td>字典</td>
+<td>Container</td>
+<td>可更改</td>
+<td>映射访问</td>
+</tr>
+</tbody>
+</table>
+<p>注意：Python没有char或byte类型来保存单一字符或8比特整数，你可以使用长度为1的字符串表示字符或8比特整数。</p>
+<p><strong>其实在Python中，一切都是指针，就是对真实对象的引用</strong></p>
+<p>事实上Python的整数实现等同于C语言的长整数，Python的浮点类型实际上是C语言的双精度浮点类型，不过要保证精度准确还是要使用decimal模块</p>
+</div>
+</body>
+</html>

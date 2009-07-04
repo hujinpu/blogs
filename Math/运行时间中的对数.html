@@ -1,0 +1,74 @@
+<p>如果一个算法用常数时间O(1)将问题的大小消减为其一部分（比如1/2），那么该算法的复杂度就是O(logN)。那如果使用常数时间只是把问题减少一个常数（比如1），那么这种算法的复杂度就是O(N)</p><!--more-->
+<pre class="brush: js">
+/*Program Language: Javascript*/
+/*
+ * 二分查找
+ * 前提：查找序列已排好序
+ * 算法复杂度：O(logN)
+*/
+function binarySearch(searchArray, searchX) {
+    var high = searchArray.length - 1, low = 0, center;
+    while (low <= high) {
+        center = (low + high) >> 1;
+        if (searchArray[center] < searchX) {
+            low = center + 1;
+        } else if (searchArray[center] > searchX) {
+            high = center - 1;
+        } else {
+            return center;
+        }
+    }
+    return -1;
+}
+
+console.log(binarySearch([1,2,3,4,5,6,7], 5)); //显示4
+</pre>
+<p>上面的代码是一个二分查找的例子，说明了其复杂度为O(logN)，这里查找一个数，最多就是做log(searchArray -1) + 2次循环。其实这个例子还告诉我们，对于一些相对稳定的数据，我们应该把他们存储为已排序好的，这样就很方便查找。</p>
+<p>再看一个求最大公因数（最大公约数）的例子，利用的是欧几里德规则。稍后我还会给出证明。</p>
+<pre class="brush: js">
+/*Program Language: Javascript*/
+/*
+ * 欧几里德算法（求最大公因数）
+ * 复杂度：O(logN)
+*/
+function gcd(m, n) {
+    var rem;
+    while (n > 0) {
+        rem = m % n;
+        m = n;
+        n = rem;
+    }
+    return m;
+}
+
+console.log(gcd(50, 15)); //显示5
+</pre>
+<p>好，现在给出欧几里德规则的证明，其实很简单。<em>欧几里德规则：如果x和y是正整数，且有x&gt;=y，那么gcd(x, y)=gcd(x mod y, y)。</em>要证明这个结论成立就只需要证明gcd(x, y) = gcd(x-y, y)成立。因为模运算相当于不断的做减法。</p>
+<p>证明：∵对于任何能够整除x和y的整数，必定可以整除x-y，但不一定是x-y的最大公因数。∴有gcd(x, y)  &lt;= gcd(x-y, y)。.....①<br/>
+同理，∵对于任何能够整除x-y和y的整数，也一定可以整除x和y，∴有gcd(x-y, y) &lt;= gcd(x, y)。......②</br>
+由①②得gcd(x, y) = gcd(x-y, y)，从而原欧几里德规则得证。</p>
+<p>这里还有一个定理是用于计算这个算法复杂度的，那就是：<em>如果m &gt; n，则m mod n &lt; m/2</em>。这里我同样给出它的简单证明。</p>
+<p>要证明这个命题，我们先把n分为两种情况讨论：
+<ol>
+    <li>n &lt;= m/2</li>
+    <li>n &gt; m/2</li>
+</ol>
+对于n &lt;= m/2有m mod n &lt; n，∴m mod n &lt; m/2；对于n &gt; m/2有m mod n = m - n &lt; m/2。因此命题得证。
+</p>
+<p>最后献上一个O(logN)级的求幂算法。</p>
+<pre class="brush: js">
+/*Program Language: Javascript*/
+/*
+ * 算法复杂度：O(logN)
+ */
+function pow(x, n) {
+    if (n == 0) return 1;
+    if (n%2 == 0) {
+        return pow(x*x, n>>1);
+    } else {
+        return pow(x, n-1)*x;
+    }
+}
+
+console.log(pow(2, 16)); //显示65536
+</pre>

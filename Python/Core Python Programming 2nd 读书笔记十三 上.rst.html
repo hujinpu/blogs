@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第十三章：面向对象编程</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>引言</li>
+<li>面向对象编程</li>
+<li>类</li>
+<li>实例</li>
+<li>绑定与方法调用</li>
+<li>子类，派生和继承</li>
+<li>内建函数</li>
+<li>定制类</li>
+<li>私有性</li>
+<li>授权与包装</li>
+<li>新式类的高级特性</li>
+<li>相关模块</li>
+</ul>
+<p>新式类和经典类声明的最大不同在于，所有新式类必须继承至少一个父类，也可以多继承</p>
+<pre class="literal-block">
+&gt;&gt;&gt; class NewStyleClass(object):
+        pass
+</pre>
+<p>object是“所有类之母”。如果你的类没有继承任何其他父类，object将作为默认的父类。它位于所有类继承结构的最上层。如果你没有直接或间接的子类化一个对象，那么你就定义了一个经典类：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; class ClassicClass:
+        pass
+</pre>
+<p>Python中实例化一个类不使用 <tt class="docutils literal"><span class="pre">new</span></tt> 命令，事实是Python根本就没有 <tt class="docutils literal"><span class="pre">new</span></tt> 关键字，就像没有 <tt class="docutils literal"><span class="pre">switch</span></tt> 、 <tt class="docutils literal"><span class="pre">case</span></tt> 一样。</p>
+<p><tt class="docutils literal"><span class="pre">self</span></tt> 参数它在所有的方法声明中都存在，这个参数代表实例对象本身，当你用实例调用方法时，由解释器悄悄地传递给方法的，所以，你不需要自己传递 <tt class="docutils literal"><span class="pre">self</span></tt> 进来，因为它是自动传入的。但静态方法或类方法不需要实例，需要的是类。</p>
+<p><tt class="docutils literal"><span class="pre">__init__()</span></tt> 方法类似于类构造器，它在创建一个新的对象时被调用。</p>
+<p>在Python中， <strong>所有的类属性都是公开的</strong> ，但名字可能被“混淆”了，以阻止未经授权的访问，但仅此而已，再没有其他预防措施了。这就需要在设计时，对数据提供相应的接口，以免客户程序通过不规范的操作来存取封装的数据属性。</p>
+<p>注意Python并不支持纯虚函数（像C++）或者抽象方法（如在JAVA中），这些都强制程序员在子类中定义方法。作为替代方法，你可以简单地在基类方法中引发 <tt class="docutils literal"><span class="pre">NotImplementedError</span></tt> 异常，这样可以获得类似的效果。</p>
+<p>类的静态数据属性直接在class类体最外层定义，不要使用self。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">C.__name__</span></tt> 类Ｃ的名字（字符串）</li>
+<li><tt class="docutils literal"><span class="pre">C.__doc__</span></tt> 类Ｃ的文档字符串</li>
+<li><tt class="docutils literal"><span class="pre">C.__bases__</span></tt> 类Ｃ的所有父类构成的元组</li>
+<li><tt class="docutils literal"><span class="pre">C.__dict__</span></tt> 类Ｃ的属性（内建类型中，不存在这个属性）</li>
+<li><tt class="docutils literal"><span class="pre">C.__module__</span></tt> 类Ｃ定义所在的模块（1.5版本新增）</li>
+<li><tt class="docutils literal"><span class="pre">C.__class__</span></tt> 实例Ｃ对应的类（仅新式类中）</li>
+</ul>
+<p>类的全名是 <tt class="docutils literal"><span class="pre">source_module.class_name</span></tt></p>
+<p>由于类型和类的统一性，当访问任何类的 <tt class="docutils literal"><span class="pre">__class__</span></tt> 属性时，你将发现它就是一个类型对象的实例。换句话说，一个类已是一种类型了。因为经典类并不认同这种等价性（一个经典类是一个类对象，一个类型是一个类型对象），对这些对象来说，这个属性并未定义。</p>
+<p>如果说类是一种数据结构定义类型，那么实例则声明了一个这种类型的变量。</p>
+<p><strong>这里要对于类型和类多说点历史：在Python2.2以前的版本由于没有统一类和类型，当你定义一个类时，你并没有创建一个新的类型，而是仅仅一个类对象。但对于Python2.2以及以后的版本，统一了类和类型，那么当你定义一个（新式的）类后，你已创建了一个新的类型。</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; class NewStyleClass(object):pass
+&gt;&gt;&gt; nsc = NewStyleClass()
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(nsc)
+&lt;class '__main__.NewStyleClass'&gt;
+&gt;&gt;&gt; type(NewStyleClass)
+&lt;type 'type'&gt;
+&gt;&gt;&gt; type(0)
+&lt;type 'int'&gt;
+&gt;&gt;&gt; type(int)
+&lt;type 'type'&gt;
+&gt;&gt;&gt; class ClassicStyleClass: pass
+&gt;&gt;&gt; csc = ClassicStyleClass()
+&gt;&gt;&gt; type(csc)
+&lt;type 'instance'&gt;
+&gt;&gt;&gt; type(ClassicStyleClass)
+&lt;type 'classobj'&gt;
+</pre>
+<p>由于Python具有垃圾对象回收机制（靠引用计数)， <tt class="docutils literal"><span class="pre">__del__</span></tt> 函数要直到该实例对象所有的引用都被清除掉后才会执行</p>
+<p>Python不仅是动态类型，而且在运行时，允许创建实例属性。但如果你使用它了，你还是要小心为好。特别是在条件语句中。</p>
+<p>注意： <strong>构造器</strong> <tt class="docutils literal"><span class="pre">__init__</span></tt> <strong>方法不应该返回任何非None对象，因为实例对象是自动在实例化调用后返回的。</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; class A(object):
+        def __init__(self):
+                return None
+
+
+&gt;&gt;&gt; a = A()
+&gt;&gt;&gt; class B(object):
+        def __init__(self):
+                print 'initialized'
+                return 1
+
+
+&gt;&gt;&gt; b = B()
+initialized
+
+Traceback (most recent call last):
+  File &quot;&lt;pyshell#42&gt;&quot;, line 1, in &lt;module&gt;
+    b = B()
+TypeError: __init__() should return None, not 'int'
+</pre>
+<p>实例的属性可以通过其 <tt class="docutils literal"><span class="pre">__dict__</span></tt> 属性来获得（等同于 <tt class="docutils literal"><span class="pre">vars(instance_name)</span></tt> ），返回的是一个可以修改的字典（最好不要随意修改），字典中仅有实例属性，没有类属性或特殊属性。</p>
+<p>给一个与类属性同名的实例属性赋值，我们会有效地“隐藏”类属性，但一旦我们删除了这个实例属性，类属性又重见天日。但在类属性可变的情况下，一切都不同了，不会自动创建新的实例属性。</p>
+<pre class="literal-block">
+&gt;&gt;&gt; class Foo(object):
+        x = 1
+
+
+&gt;&gt;&gt; f = Foo()
+&gt;&gt;&gt; f
+&lt;__main__.Foo object at 0x00CD4990&gt;
+&gt;&gt;&gt; f.x
+1
+&gt;&gt;&gt; f.__dict__
+{}
+&gt;&gt;&gt; f.x = 200
+&gt;&gt;&gt; f.__dict__
+{'x': 200}
+&gt;&gt;&gt; f.x
+200
+&gt;&gt;&gt; Foo.x
+1
+&gt;&gt;&gt; del f.x
+&gt;&gt;&gt; f.__dict__
+{}
+&gt;&gt;&gt; f.x
+1
+&gt;&gt;&gt; Foo.x
+1
+&gt;&gt;&gt; class Bar(object):
+        x = {2003: 'hello2003'}
+
+
+&gt;&gt;&gt; b = Bar()
+&gt;&gt;&gt; b.x
+{2003: 'hello2003'}
+&gt;&gt;&gt; Bar.x
+{2003: 'hello2003'}
+&gt;&gt;&gt; b.__dict__
+{}
+&gt;&gt;&gt; b.x[2004] = 'hello2004'
+&gt;&gt;&gt; b.x
+{2003: 'hello2003', 2004: 'hello2004'}
+&gt;&gt;&gt; Bar.x
+{2003: 'hello2003', 2004: 'hello2004'}
+&gt;&gt;&gt; b.__dict__
+{}
+</pre>
+<p><tt class="docutils literal"><span class="pre">staticmethod</span></tt> 创建静态方法</p>
+<p><tt class="docutils literal"><span class="pre">classmethod</span></tt> 创建类方法，与静态方法不同，第一个参数会被传入类</p>
+<pre class="literal-block">
+class TestStaticMethod:
+    &#64;staticmethod
+    def foo():
+        print 'calling static method foo()'
+
+class TestClassMethod:
+    &#64;classmethod
+    def foo(cls):
+        print 'calling class method foo()'
+        print 'foo() is part of class:', cls.__name__
+
+TestStaticMethod.foo()
+TestClassMethod.foo()
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<p><a href="http://en.wikipedia.org/wiki/Behavior_driven_development" title="wiki中BDD的参考" target="_blank">BDD</a>是一种开发方法，采用提问回答的方式进行。在你构建应用程序的某个部分之前，你先提出一系列的问题，然后你回答这些问题并通过编写一些代码做测试。在Javascript里有一个很有意思的框架专门用来做这个事情，那就是<a href="http://jania.pe.kr/aw/moin.cgi/JSSpec" title="JSSpec" target="_blank">JSSpec</a>。</p><!--more-->
+<p>首先你要下载JSSpec，然后在你的页面加入必要的Js和Css文件引用。</p>
+<pre class="brush: plain">
+<link rel="stylesheet" type="text/css" href="JSSpec.css" />
+<script type="text/javascript" src="diff_match_patch.js"></script>
+<script type="text/javascript" src="JSSpec.js"></script>
+<script type="text/javascript">// <![CDATA[
+
+// Your spec goes here
+
+// ]]></script>
+</pre>
+<p>在JSSpec中，一切问题描述都是通过调用describe函数，第一个参数就是一系列相关的提问的问题集的名字，第二个参数接受一个Javascript对象，用来描述问题和用代码作答。</p>
+<pre class="brush: js">
+describe('Plus operator', {
+    'should concatenate two strings': function() {
+        value_of("Hello " + "World").should_be("Hello World");
+    }, 
+    'should add two numbers': function() {
+        value_of(1 + 2).should_be(3);
+    },
+    'error test': function() {
+        value_of([1,2,3]).should_hava_memember(1);
+    }
+});
+/*
+显示结果为：
+Plus operator 3 examples 0 failures 1 errors
+*/
+</pre>
+<p>看到没有，这就是JSSpec的威力，我提出了3个问题，如果代码通过测试，就会0 failures，最后我故意调用了一个不存在的should_hava_memember结果就出现了一个error，因为在JSSpec里没有should_hava_memember。</p>
+<p>'before each'或者'after each'可以用来做测试中的赋值操作。注意：before、before_each和'before each'是一回事，after同理。</p>
+<pre class="brush: js">
+describe('Plus operator', {
+    before_each: function() {
+        hw = "Hello World"
+    },
+    'should concatenate two strings': function() {
+        value_of(hw).should_be("Hello World");
+    }
+})
+</pre>
+<p>should_be和should_not_be用来做断言，should_be_empty和should_not_be_empty用来判断数组是否为空，should_be_true和should_be_false判断是否为真。</p>
+<pre class="brush: js">
+value_of('Hello'.toLowerCase()).should_be('hello');
+value_of([1,2,3]).should_be([1,2,3]);
+value_of(new Date(1979,03,27)).should_be(new Date(1979,03,27));
+value_of(document.body.firstChild).should_be(document.body.firstChild);
+value_of([1,2,3]).should_not_be([4,5,6]);
+value_of([]).should_be_empty();
+value_of(1 == 1).should_be_true();
+value_of(1 != 1).should_be_false();
+</pre>
+<p>should_hava、should_have_exactly、should_have_at_least和should_have_at_most用来做范围判断。</p>
+<pre class="brush: js">
+value_of("Hello").should_have(5, "characters"); // "characters" means "length" property of given string
+value_of([1,2,3]).should_have(3, "items"); // "items" means "length" property of given array
+
+value_of({name:'Alan Kang', email:'jania902@gmail.com', accounts:['A', 'B']}).should_have(2, "accounts");
+
+value_of([1,2,3]).should_have_exactly(3, "items");
+value_of([1,2,3]).should_have_at_least(2, "items");
+value_of([1,2,3]).should_have_at_most(4, "items");
+</pre>
+<p>还有should_include和should_not_include，以及可以使用正则表达是的should_match和should_not_match，还有一个should_fail可以强制为测试失败。</p>
+<pre class="brush: js">
+value_of([1,2,3]).should_include(2);
+value_of([1,2,3]).should_not_include(4);
+value_of({a: 1, b: 2}).should_include("a");
+value_of({a: 1, b: 2}).should_not_include("c");
+value_of("Hello World").should_match(/ello/);
+value_of("Hello World").should_not_match(/Bye/);
+value_of(this).should_fail("TODO");
+</pre>
+<p>还可以测试是否为null和undefined。</p>
+<pre class="brush: js">
+value_of(null).should_be(null);
+value_of(null).should_not_be(undefined);
+value_of(null).should_not_be(null);
+</pre>
+<p>JSSpec还为了做浏览器的兼容性，加入了一些全局常量来判断浏览器类型及平台。
+<ul><li>By rendering engine: <ul><li>JSSpec.Browser.Trident </li><li>JSSpec.Browser.Webkit </li><li>JSSpec.Browser.Gecko </li><li>JSSpec.Browser.Presto </li></ul></li><li>By platform: <ul><li>JSSpec.Browser.Mac </li><li>JSSpec.Browser.Ubuntu </li><li>JSSpec.Browser.Win </li></ul></li><li>By browser: <ul><li>JSSpec.Browser.IE </li><li>JSSpec.Browser.IE6 </li><li>JSSpec.Browser.IE7 </li><li>JSSpec.Browser.IE8 </li><li>JSSpec.Browser.FF </li><li>JSSpec.Browser.FF2 </li><li>JSSpec.Browser.FF3 </li><li>JSSpec.Browser.Safari </li></ul></li></ul>
+</p>
+<p>也可以通过自己的Js代码来表明哪些测试是在什么环境进行。</p>
+<pre class="brush: js">
+'should do something [[navigator.appName === "Microsoft Internet Explorer"]]': function() {
+   value_of(...).should_be(...);
+}
+</pre>
+<p>最后我把一个综合的官方例子放到这里：<a href="/jsspec/demo.html" title="demo" target="_blank">demo</a></p>

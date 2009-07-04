@@ -1,0 +1,196 @@
+<p>前面陆陆续续讲完了jQuery.attr、jQuery.fn.wrapAll、jQuery.fn.append、jQuery.fn.insertBefore和jQuery.fn.domManip方法，那我现在对于css wrapXXX就可以很好的理解。css就是利用<code>jQuery.attr(key ,value, 'curCSS')</code>来读写css样式的。而wrapInner其实就是对于<code>jQuery(this).contents()</code>做wrapAll。而wrap则是对每个匹配的元素都做一次wrapAll，而wrapAll其实是对于匹配的一个集合做一次最外层包裹。prepend、before和after都是调用的Dom1的insertBefore(newNode[, oldNode1])</p><!--more-->
+<p>ok，我们又要看个核心了，那就是jQuery.fn.find方法。</p>
+<pre class="brush: js">
+find: function( selector ) {
+    if ( this.length === 1 ) {
+        var ret = this.pushStack( [], "find", selector );
+        ret.length = 0;
+        jQuery.find( selector, this[0], ret );
+        return ret;
+    } else {
+        return this.pushStack( jQuery.unique(jQuery.map(this, function(elem){
+            return jQuery.find( selector, elem );
+        })), "find", selector );
+    }
+},
+</pre>
+<p>如果选择符数组就一个元素，那就是利用pushStack方法得到一个ret，这个ret是个长度为0的数组，当然保留了this的引用到prevObject（jQuery.fn.pushStack方法在<a href="http://w3er.com/blog/2009/03/learning-javascript-by-reading-jquery-source-3/">本系列（三）</a>中有讲解）。但这里其实没有必要做一个<code>ret.length = 0;</code>因为[]就代表了这个结果。然后调用最厉害的jQuery.find方法，这个方法其实指向的是Sizzle，<code>jQuery.find = Sizzle;
+</code>，查找完就返回ret。那如果不是唯一的一个选择元素，那就要一个个做查找，并去掉重复的，再pushStack。这里unique比较简单，就是利用对象的唯一性来做过滤，保证不出现重复。map在<a href="http://w3er.com/blog/2009/03/learning-javascript-by-reading-jquery-source-3/">本系列（三）</a>中有讲解，重点是jQuery的缓存机制，体现就体现在jQuery.fn.data。
+</p>
+<pre class="brush: js">
+jQuery.fn.extend({
+    data: function( key, value ){
+        var parts = key.split(".");
+        parts[1] = parts[1] ? "." + parts[1] : "";
+
+        if ( value === undefined ) {
+            var data = this.triggerHandler("getData" + parts[1] + "!", [parts[0]]);
+
+            if ( data === undefined && this.length )
+                data = jQuery.data( this[0], key );
+
+            return data === undefined && parts[1] ?
+                this.data( parts[0] ) :
+                data;
+        } else
+            return this.trigger("setData" + parts[1] + "!", [parts[0], value]).each(function(){
+                jQuery.data( this, key, value );
+            });
+    },
+</pre>
+<p>首先说下jQuery.fn.data做了什么事情，它会给指定的元素集合里的所有元素都存取key、value。这里先会触发自定义的事件，注意triggerHandler是不会执行浏览器默认行为的。这个方法的行为表现与trigger类似，但有以下三个主要区别：
+<ul>
+    <li>他不会触发浏览器默认事件；</li>
+    <li>只触发jQuery对象集合中第一个元素的事件处理函数；</li>
+    <li>这个方法的返回的是事件处理函数的返回值，而不是据有可链性的jQuery对象。此外，如果最开始的jQuery对象集合为空，则这个方法返回 undefined 。</li>
+</ul>
+关于事件的内容我放到后面再讲解。不过这里终归要调用jQuery.data的，那现在就来分析下jQuery.data。
+</p>
+<pre class="brush: js">
+var expando = "jQuery" + now(), uuid = 0, windowData = {};
+
+jQuery.extend({
+    cache: {},
+
+    data: function( elem, name, data ) {
+        elem = elem == window ?
+            windowData :
+            elem;
+
+        var id = elem[ expando ];
+
+        // Compute a unique ID for the element
+        if ( !id )
+            id = elem[ expando ] = ++uuid;
+
+        // Only generate the data cache if we're
+        // trying to access or manipulate it
+        if ( name && !jQuery.cache[ id ] )
+            jQuery.cache[ id ] = {};
+
+        // Prevent overriding the named cache with undefined values
+        if ( data !== undefined )
+            jQuery.cache[ id ][ name ] = data;
+
+        // Return the named cache data, or the ID for the element
+        return name ?
+            jQuery.cache[ id ][ name ] :
+            id;
+    },
+</pre>
+<p>jQuery.data方法如果没有指定name，就直接返回唯一的id。如果指定了name就取缓存中的值，如果没有存过，就会返回undefined。为了避免以后可能的内存泄漏，不用时请调用jQuery.fn.removeData方法清除不要的数据。</p>
+<p>好了，现在jQuery.fn.find方法大家应该就很明了，但最关键的jQuery.find实际上为Sizzle，这个被外界认为很快速的查找器。我会在下篇文章来分析这个查找器的独特之处。但这里想说下Dom元素查找的话题，本可以另起一篇文章的，既然这里要从jQuery.find到Sizzle，正好就写进这里很合适。如果感兴趣可以先读读<a href="http://ejohn.org/blog/selectors-that-people-actually-use" title="Selectors that People Actually Use" target="_blank">Selectors that People Actually Use</a>。不想看的，我也把文中的最常用的选择符使用率列表放到下面，做这个调查真是good job。</p>
+<table>
+    <thead>
+        <tr>
+            <th>Selector</th>
+            <th>% Used</th>
+            <th># of Uses</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>#id</td>
+            <td>51.290%</td>
+            <td>1431</td>
+        </tr>
+        <tr>
+            <td>.class</td>
+            <td>13.082%</td>
+            <td>365</td>
+        </tr>
+        <tr>
+            <td>tag</td>
+            <td>6.416%</td>
+            <td>179</td>
+        </tr>
+        <tr>
+            <td>tag.class</td>
+            <td>3.978%</td>
+            <td>111</td>
+        </tr>
+        <tr>
+            <td>#id tag</td>
+            <td>2.151%</td>
+            <td>60</td>
+        </tr>
+        <tr>
+            <td>tag#id</td>
+            <td>1.935%</td>
+            <td>54</td>
+        </tr>
+        <tr>
+            <td>#id:visible</td>
+            <td>1.577%</td>
+            <td>44</td>
+        </tr>
+        <tr>
+            <td>#id .class</td>
+            <td>1.434%</td>
+            <td>40</td>
+        </tr>
+        <tr>
+            <td>.class .class</td>
+            <td>1.183%</td>
+            <td>33</td>
+        </tr>
+        <tr>
+            <td>*</td>
+            <td>0.968%</td>
+            <td>27</td>
+        </tr>
+        <tr>
+            <td>#id tag.class</td>
+            <td>0.932%</td>
+            <td>26</td>
+        </tr>
+        <tr>
+            <td>#id:hidden</td>
+            <td>0.789%</td>
+            <td>22</td>
+        </tr>
+        <tr>
+            <td>tag[name=value]</td>
+            <td>0.645%</td>
+            <td>18</td>
+        </tr>
+        <tr>
+            <td>.class tag</td>
+            <td>0.573%</td>
+            <td>16</td>
+        </tr>
+        <tr>
+            <td>[name=value]</td>
+            <td>0.538%</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>tag tag</td>
+            <td>0.502%</td>
+            <td>14</td>
+        </tr>
+        <tr>
+            <td>#id #id</td>
+            <td>0.430%</td>
+            <td>12</td>
+        </tr>
+        <tr>
+            <td>#id tag tag</td>
+            <td>0.358%</td>
+            <td>10</td>
+        </tr>
+    </tbody>
+</table>
+<p>对于我们常做的查找，用选择符时应该有几个好习惯：
+<ol>
+    <li>多用id选择器，毕竟这个是利用效率最高的document.getElementById；</li>
+    <li>利用tag.class代替.class，这样就可以先利用document.getElementsByTag来先做一定的筛选，要知道class选择器需要通过正则解析xhtml，会有很多递归操作。</li>
+    <li>jQuery中尽可能用parent&gt;child，少用parent child，因为只有一层查找，而不是递归查询再下面的多层；</li>
+    <li>做一定的缓存，特别是多次对于同一个查找到的结果（集）做处理；</li>
+    <li>不要用冗余的选择符，这可不是现代的数据库表设计；</li>
+    <li>jQuery中对于表单元素可以适当用用input[name=xxx]、[:someType]；</li>
+    <li>jQuery中可以利用:not，这样有时候可以避免很多的判断，这有点类似于排列组合中的1-。</li>
+    <li>jQuery中相邻元素的选择可以考虑prev + next（1:1）、prev ~ siblings（1:M）。</li>
+</ol>
+好了，这篇就到这里，下篇可以是重头戏哦。预知Sizzle如何，请看下回分解。
+</p>

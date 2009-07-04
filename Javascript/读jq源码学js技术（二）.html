@@ -1,0 +1,219 @@
+<p>这里先说明下，虽然我会精读所有源码，但我不会把所有的jQuery的源码在这个系列的文章中都讲到，我只会选一些有代表性的东东捣鼓下，我觉得一个个函数讲也没有必要，毕竟大家都是有知识有文化的大好青年。:)</p><!--more-->
+<p>先看下jQuery.each，注意这是一个“静态”方法。</p>
+<pre class="brush: js">
+// args is for internal usage only
+each: function( object, callback, args ) {
+    //这里为了不造成全局污染，这也与闭包相关罗
+    var name, i = 0, length = object.length;
+
+    if ( args ) {
+        if ( length === undefined ) {
+            for ( name in object )
+                if ( callback.apply( object[ name ], args ) === false )
+                    break;
+        } else
+            for ( ; i < length; )
+                if ( callback.apply( object[ i++ ], args ) === false )
+                    break;
+
+    // A special, fast, case for the most common use of each
+    } else {
+        if ( length === undefined ) {
+            for ( name in object )
+                //有意思的if
+                if ( callback.call( object[ name ], name, object[ name ] ) === false )
+                    break;
+        } else
+            //有意思的for循环
+            for ( var value = object[0];
+                i < length && callback.call( value, i, value ) !== false; value = object[++i] ){}
+    }
+
+    return object; //注意最后还是会返回这个传入的对象（数组、类数组、普通对象）
+},
+</pre>
+<p>再来看看jQuery.fn（即jQuery.prototype）中的attr方法。jQuery的编码风格真的是力求简练，不过我觉得这个if-else还是加入{}好点，毕竟多个层次了。当然不加不会错，就这个细节，我觉得加上更好。</p>
+<pre class="brush: js">
+attr: function( name, value, type ) {
+    var options = name;
+
+    // Look for the case where we're accessing a style value
+    if ( typeof name === "string" )
+        if ( value === undefined )
+            //这里面的||用得很巧妙
+            return this[0] && jQuery[ type || "attr" ]( this[0], name );
+
+        else {
+            options = {};
+            options[ name ] = value;
+        }
+
+    // Check to see if we're setting style values
+    return this.each(function(i){
+        // Set all the styles
+        for ( name in options )
+            jQuery.attr(
+                type ?
+                    this.style :
+                    this,
+                name, jQuery.prop( this, options[ name ], type, i, name )
+            );
+    });
+},
+</pre>
+<p>如果是仅是读取属性值，比如：<code>$("img").attr("src"); </code>，这只会返回第一个匹配元素的属性值。如果value不为undefined，那么就要调用了jQuery.attr方法，type要么为undefined，要么就是curCSS，如果为curCSS就直接到元素的css属性中去做查找。所以我们有必要进一步分析下它，这个方法很长，我们要多一点耐心看完它。在这里我还是多说一句，就是先讲下jQuery.prop方法，这个方法不长:)。</p>
+<pre class="brush: js">
+prop: function( elem, value, type, i, name ) {
+    // Handle executable functions
+    if ( jQuery.isFunction( value ) )
+        value = value.call( elem, i );
+
+    // Handle passing in a number to a CSS property
+    return typeof value === "number" && type == "curCSS" && !exclude.test( name ) ?
+        value + "px" :
+        value;
+},
+</pre>
+<p>如果value是一个函数，那就执行函数，同时把value值更改为函数的返回值，i是jQuery对象集合里的索引。如果是数字，而且type为curCSS，就要加上px单位，当然要做些判断。里面的exclude是后面定义的一个变量<code>exclude = /z-?index|font-?weight|opacity|zoom|line-?height/i</code>，意思是，如果是exclude匹配的就是不用加上像素单位px，其他的一律加上px。现在就可以开始看jQuery.attr函数了。</p>
+<pre class="brush: js">
+attr: function( elem, name, value ) {
+    // don't set attributes on text and comment nodes
+    if (!elem || elem.nodeType == 3 || elem.nodeType == 8)
+        return undefined;
+
+    var notxml = !jQuery.isXMLDoc( elem ),
+        // Whether we are setting (or getting)
+        set = value !== undefined;
+
+    // Try to normalize/fix the name
+    name = notxml && jQuery.props[ name ] || name;
+
+    // Only do all the following if this is a node (faster for style)
+    // IE elem.getAttribute passes even for style
+    if ( elem.tagName ) {
+
+        // These attributes require special treatment
+        var special = /href|src|style/.test( name );
+
+        // Safari mis-reports the default selected property of a hidden option
+        // Accessing the parent's selectedIndex property fixes it
+        if ( name == "selected" && elem.parentNode )
+            elem.parentNode.selectedIndex;
+
+        // If applicable, access the attribute via the DOM 0 way
+        if ( name in elem && notxml && !special ) {
+            if ( set ){
+                // We can't allow the type property to be changed (since it causes problems in IE)
+                if ( name == "type" && jQuery.nodeName( elem, "input" ) && elem.parentNode )
+                    throw "type property can't be changed";
+
+                elem[ name ] = value;
+            }
+
+            // browsers index elements by id/name on forms, give priority to attributes.
+            if( jQuery.nodeName( elem, "form" ) && elem.getAttributeNode(name) )
+                return elem.getAttributeNode( name ).nodeValue;
+
+            // elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
+            // http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+            if ( name == "tabIndex" ) {
+                var attributeNode = elem.getAttributeNode( "tabIndex" );
+                return attributeNode && attributeNode.specified
+                    ? attributeNode.value
+                    : elem.nodeName.match(/(button|input|object|select|textarea)/i)
+                        ? 0
+                        : elem.nodeName.match(/^(a|area)$/i) && elem.href
+                            ? 0
+                            : undefined;
+            }
+
+            return elem[ name ];
+        }
+
+        if ( !jQuery.support.style && notxml &&  name == "style" )
+            return jQuery.attr( elem.style, "cssText", value );
+
+        if ( set )
+            // convert the value to a string (all browsers do this but IE) see #1070
+            elem.setAttribute( name, "" + value );
+
+        var attr = !jQuery.support.hrefNormalized && notxml && special
+                // Some attributes require a special call on IE
+                ? elem.getAttribute( name, 2 )
+                : elem.getAttribute( name );
+
+        // Non-existent attributes return null, we normalize to undefined
+        return attr === null ? undefined : attr;
+    }
+
+    // elem is actually elem.style ... set the style
+
+    // IE uses filters for opacity
+    if ( !jQuery.support.opacity && name == "opacity" ) {
+        if ( set ) {
+            // IE has trouble with opacity if it does not have layout
+            // Force it by setting the zoom level
+            elem.zoom = 1;
+
+            // Set the alpha filter to set the opacity
+            elem.filter = (elem.filter || "").replace( /alpha\([^)]*\)/, "" ) +
+                (parseInt( value ) + '' == "NaN" ? "" : "alpha(opacity=" + value * 100 + ")");
+        }
+
+        return elem.filter && elem.filter.indexOf("opacity=") >= 0 ?
+            (parseFloat( elem.filter.match(/opacity=([^)]*)/)[1] ) / 100) + '':
+            "";
+    }
+
+    name = name.replace(/-([a-z])/ig, function(all, letter){
+        return letter.toUpperCase();
+    });
+
+    if ( set )
+        elem[ name ] = value;
+
+    return elem[ name ];
+},
+</pre>
+<p>这里我先讲一下nodeType。
+<ol>
+    <li>值1代表是元素（element）</li>
+    <li>值2代表是属性（attribute）</li>
+    <li>值3代表是文本（text）</li>
+    <li>值4代表是CDATA片断（CDATA Section）</li>
+    <li>值5代表是实体参数（Entity Reference）</li>
+    <li>值6代表是实体（Entity）</li>
+    <li>值7代表是处理指令（Processing Instruction）</li>
+    <li>值8代表是注释（Comment）</li>
+    <li>值9代表是文档（Document）</li>
+    <li>值10代表是文档类型（Document Type）</li>
+    <li>值11代表是文档片断（Document Fragment）</li>
+    <li>值12代表是符号（Notation）</li>
+</ol>
+</p>
+<p>那attr方法的第一个判断就很容易理解了，就是如果元素不存在或者是文本或注释就不做处理。跟着后面调用了一个isXMLDoc方法，我们来看它的代码：</p>
+<pre class="brush: js">
+isXMLDoc: function( elem ) {
+    return elem.nodeType === 9 && elem.documentElement.nodeName !== "HTML" ||
+        !!elem.ownerDocument && jQuery.isXMLDoc( elem.ownerDocument );
+},
+</pre>
+<p>这个方法显然是要判断是否是xml文档，这里的一句话return写得很有艺术，先看||优先级要比比较和&amp;&amp;都低，那判断流程就是这样，如果elem是文档，通过elem.documentElement得到文档的根节点的引用，注意只有document对象才有这个属性，再通过其nodeName判断是否为HTML，或者如果element不是文档，就通过ownerDocument找到文档，如果这个节点是document，那么ownerDocument会返回null，这里其实只有一次递归调用。</p>
+<p>jQuery.props是一个集合对象，也就是做一些js取html属性间的转换。这又是一些兼容性方面的细节，值得学习，我们前端开发工程师不就是要和一些不和谐的元素斗争吗？这就有点像专门靠打假为生的315ers，如果哪天没有假货了，这是他们希望的，但他们也就该转行了，不过我们应该情况要好些呵呵。</p>
+<pre class="brush: js">
+jQuery.props = {
+	"for": "htmlFor",
+	"class": "className",
+	"float": styleFloat,
+	cssFloat: styleFloat,
+	styleFloat: styleFloat,
+	readonly: "readOnly",
+	maxlength: "maxLength",
+	cellspacing: "cellSpacing",
+	rowspan: "rowSpan",
+	tabindex: "tabIndex"
+};
+</pre>
+<p>再往下看，只有节点对象才有tagName属性，对于safari的老版本，option会有一个问题，就是默认safari允许不选任何一个，它会构造一个空的option，但我们访问select的selectedIndex就可以默认选第一个，经我测试这个在safari3.2.2已纠正。</p>
+<p>对于input的type类型是不能随便修改的。同时对于form，利用getAttributeNode会比较准确，比如action在Dom0的访问方式下就会被变为绝对地址。再看tabIndex，这里就给出了一个学习链接，大家可以去看看，<a href="http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/" title="Getting, setting, and removing tabindex values with JavaScript" target="_blank">Getting, setting, and removing tabindex values with JavaScript</a>。然后后面的关于style、opacity的兼容性问题，我在本系列文章<a href="http://www.w3er.com/2009/03/learning-javascript-by-reading-jquery-source-1/" title="读jq源码学js技术（一）" target="_blank">（一）</a>中有讲解。不过我觉得jQuery.attr这个方法写得有点凌乱，如果我写框架就会注意条理和层次。</p>
+<p>为了控制篇幅，这篇文章就讲到这里。</p>

@@ -1,0 +1,35 @@
+<p>在Javascript中我们知道给一个函数传递一个数组做为实参，这是按引用传递的，但如果在这个函数里面“覆盖”这个引用，那么会有什么结果呢？请看下面的代码：</p><!--more-->
+<pre class="brush: js">
+var oldArray = [1, 2, 3];
+
+function modifyArray1(oldArray) {
+    oldArray[0] = 'test1'; //改变数组的某个元素是可以的
+    print(oldArray + ' in modifyArray1');
+}
+
+modifyArray1(oldArray);
+print(oldArray + ' out modifyArray1');
+
+print('==========================================');
+
+oldArray = [1, 2, 3]; //复原数组
+
+function modifyArray2(oldArray) {
+    var newArray = ['a', 'b', 'c'];
+    oldArray[0] = 'test2'; //对数组元素的更改是有效的
+    oldArray = newArray; //“覆盖”引用，一旦出了函数的作用域就是无效的
+    print(oldArray + ' in modifyArray2');
+}
+
+modifyArray2(oldArray);
+print(oldArray + ' out modifyArray2');
+</pre>
+<p>可以通过<a href="https://developer.mozilla.org/en/Introduction_to_the_JavaScript_shell" target="_blank" title="mozilla开发中心给出对Javascript shell的介绍">JavaScript shell</a>来执行这段代码。我的输出结果为：</p>
+<pre class="brush: plain">
+test1,2,3 in modifyArray1
+test1,2,3 out modifyArray1
+==========================================
+a,b,c in modifyArray2
+test2,2,3 out modifyArray2
+</pre>
+<p>细心的读者会发现，这里我一直对于覆盖两字做了引号，就是说这里不是覆盖那么回事，只是感觉上像而已。很多时候不能从表象上就想当然的下结论，要深入思考其本质的过程。其实是这样的：先是<code>oldArray = [1,2,3]</code>这时为全局变量，然后是传参的过程是<code>oldArray = oldArray</code>，注意这里的两个oldArray不一样，等号左边的是函数内部的新标识，右边的为全局的oldArray。这时候两个标识都指向了先前全局oldArray的真实数组对象值，也就是同一个值的两个引用（指针）。然后给局部的oldArray[0]赋值'test'，这会直接影响到那个原来全局的值，所以这时候全局的oldArray指向的数组对象值也成了['test',2,3]。而<code>oldArray = newArray</code>做了一个解引用，那么对于先前全局的oldArray所指的数组对象的值的引用计数器就会减少一，而对于newArray所指的值引用计数器就会加一。这时候函数里的oldArray和外面的全局的oldArray他们所指向的值就没有任何关系了。然后跳出函数，由于外部没有引用到函数实例产生的闭包内的任何东西，所以闭关也等待被销毁，再print oldArray其实是全局变量oldArray所指向的值['test',2,3]了。</p>

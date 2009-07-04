@@ -1,0 +1,43 @@
+[new] T <=> [new] R:function(){return T.apply}, R.prototype = T.prototype
+[new] T <=> [new] R:function(){[before call dosth]; var ret = T.apply; [after call dosth]; return ret;},R.prototype = T.prototype
+两个类型只要原型一样、构造器做的事情产生的结果一样，那么它们完全等价
+
+function Hooker(fn){
+    alert("before call hooked");
+    return function(){
+        fn.apply(this, arguments);
+    }
+}
+
+var myFunction = function(){
+    //do sth.
+}
+myFunction = Hooker(myFunction); 
+myFunction();
+
+
+new T <=> var TT = new Function(); TT.prototype = T.prototype; t=new TT; T.apply(t, arguments);
+可以把一个类型的构造器延迟执行
+
+Function.prototype.createInstance = function(){
+    var TT = new Function();
+    TT.prototype = this.prototype;
+    var t = new TT();
+    this.apply(t,arguments);
+    return t;
+}
+
+new T <=> T.apply || new T(T.apply)
+
+var MyFunction = function(){
+    this.m = function(){alert("static m")}
+    this.prototype.m = function(){alert("m")};
+}.$cextends(Function);
+
+//简单实现的Function Template
+var X = new MyFunction("alert(1)");
+var x = new X();
+X.m();
+x.m();
+
+第三范式的作用是用来扩展核心对象的 

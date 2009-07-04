@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>Python里面没有C风格的结束字符NUL，所以你通过 <tt class="docutils literal"><span class="pre">raw_input()</span></tt> 你输入多少个字符， <tt class="docutils literal"><span class="pre">len()</span></tt> 函数的返回值就是多少</p>
+<p>工厂函数 <tt class="docutils literal"><span class="pre">str()</span></tt> 、 <tt class="docutils literal"><span class="pre">unicode</span></tt> 都是 <tt class="docutils literal"><span class="pre">basestring()</span></tt> 的子类，但不能直接调用 <tt class="docutils literal"><span class="pre">basestring()</span></tt></p>
+<p>字符串方法是从Python1.6到2.0慢慢加进来的（它们也被加到了Jython中）。这些方法实现了string模块中的大部分方法，所有这些方法都包含了对Unicode的支持，有一些甚至是专门用于Unicode的。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">方法</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string.capitalize()</td>
+<td>把字符串的第一个字符大写</td>
+</tr>
+<tr><td>string.center(width)</td>
+<td>返回一个原字符串居中，并使用空格填充至长度width的新字符串</td>
+</tr>
+<tr><td>string.count(str, beg=0,</td>
+<td>返回str在string里面出现的次数，如果beg或者end指定则</td>
+</tr>
+<tr><td>end=len(string))</td>
+<td>返回指定范围内str出现的次数</td>
+</tr>
+<tr><td>string.decode(encoding='UTF-8',</td>
+<td>以encoding指定的编码格式解码string，如果出错默认报一个</td>
+</tr>
+<tr><td>errors='strict')</td>
+<td>ValueError的异常，除非errors指定的是'ignore'或者'replace'</td>
+</tr>
+<tr><td>string.encode(encoding='UTF-8',</td>
+<td>以encoding指定的编码格式编码string，如果出错默认报一个</td>
+</tr>
+<tr><td>errors='strict')</td>
+<td>ValueError的异常，除非errors 指定的是'ignore'或者'replace'</td>
+</tr>
+<tr><td>string.endswith(obj, beg=0,</td>
+<td>检查字符串是否以obj结束，如果beg或者end指定则检查指</td>
+</tr>
+<tr><td>end=len(string))</td>
+<td>定的范围内是否以obj结束，如果是，返回True，否则返回False</td>
+</tr>
+<tr><td>string.expandtabs(tabsize=8)</td>
+<td>把字符串string中的tab符号转为空格，默认的空格数tabsize是8</td>
+</tr>
+<tr><td>string.find(str, beg=0,</td>
+<td>检测str是否包含在string 中，如果beg和end指定范围，</td>
+</tr>
+<tr><td>end=len(string))</td>
+<td>则检查是否包含在指定范围内，如果是返回开始的索引值，否则返回-1</td>
+</tr>
+<tr><td>string.index(str, beg=0,</td>
+<td>跟find()方法一样，只不过如果str不在string中会报一个异常</td>
+</tr>
+<tr><td>end=len(string))</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>string.isalnum()</td>
+<td>如果string至少有一个字符并且所有字符都是字母或数字则返回True，否则返回False</td>
+</tr>
+<tr><td>string.isalpha()</td>
+<td>如果string至少有一个字符并且所有字符都是字母则返回True，否则返回False</td>
+</tr>
+<tr><td>string.isdecimal()</td>
+<td>如果string只包含十进制数字则返回True否则返回False</td>
+</tr>
+<tr><td>string.isdigit()</td>
+<td>如果string只包含数字则返回True否则返回False</td>
+</tr>
+<tr><td>string.islower()</td>
+<td>如果string中包含至少一个区分大小写的字符，并且所有这些
+(区分大小写的)字符都是小写，则返回True，否则返回False</td>
+</tr>
+<tr><td>string.isnumeric()</td>
+<td>如果string中只包含数字字符，则返回True，否则返回False（仅对Unicode有效）</td>
+</tr>
+<tr><td>string.isspace()</td>
+<td>如果string 中只包含空格，则返回True，否则返回False.</td>
+</tr>
+<tr><td>string.istitle()</td>
+<td>如果string是标题化的(见title())则返回True，否则返回False</td>
+</tr>
+<tr><td>string.isupper()</td>
+<td>如果string 中包含至少一个区分大小写的字符，并且所有这些（区分
+大小写的)字符都是大写，则返回True，否则返回False</td>
+</tr>
+<tr><td>string.join(seq)</td>
+<td>以string 作为分隔符，将seq中所有的元素
+(的字符串表示)合并为一个新的字符串</td>
+</tr>
+<tr><td>string.ljust(width)</td>
+<td>返回一个原字符串左对齐，并使用空格填充至长度width的新字符串</td>
+</tr>
+<tr><td>string.lower()</td>
+<td>转换string中所有大写字符为小写</td>
+</tr>
+<tr><td>string.lstrip()</td>
+<td>截掉string左边的空格</td>
+</tr>
+<tr><td>string.partition(str)</td>
+<td>有点像find()和split()的结合体，从str出现的第一个位置起，
+把字符串string分成一个3元素的元组(string_pre_str,str,string_post_str)
+，如果string中不包含str则string_pre_str == string</td>
+</tr>
+<tr><td>string.replace(str1, str2,</td>
+<td>把string中的str1替换成str2，如果num 指定，则替换不超过num次</td>
+</tr>
+<tr><td>num=string.count(str1))</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>string.rfind(str, beg=0,</td>
+<td>类似于find()函数，不过是从右边开始查找</td>
+</tr>
+<tr><td>end=len(string))</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>string.rindex( str, beg=0,</td>
+<td>类似于index()，不过是从右边开始</td>
+</tr>
+<tr><td>end=len(string))</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>string.rjust(width)</td>
+<td>返回一个原字符串右对齐，并使用空格填充至长度width的新字符串</td>
+</tr>
+<tr><td>string.rpartition(str)</td>
+<td>类似于partition()函数，不过是从右边开始查找</td>
+</tr>
+<tr><td>string.rstrip()</td>
+<td>删除string字符串末尾的空格</td>
+</tr>
+<tr><td>string.split(str=&quot;&quot;,</td>
+<td>以str为分隔符切片string，如果num有指定值，则仅分隔num个子字符串</td>
+</tr>
+<tr><td>num=string.count(str))</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>string.splitlines(</td>
+<td>按照行分隔，返回一个包含各行作为元素的列表，如果num 指定则仅切片num个行</td>
+</tr>
+<tr><td>num=string.count('n'))</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>string.startswith(obj,</td>
+<td>检查字符串是否是以obj开头，是则返回True，否则返回False。如果</td>
+</tr>
+<tr><td>beg=0,end=len(string))b,</td>
+<td>beg和end指定值，则在指定范围内检查</td>
+</tr>
+<tr><td>string.strip([obj])</td>
+<td>在string上执行lstrip()和rstrip()</td>
+</tr>
+<tr><td>string.swapcase()</td>
+<td>翻转string中的大小写</td>
+</tr>
+<tr><td>string.title()</td>
+<td>返回“标题化”的string，就是说所有单词都是以大写开始，其余
+字母均为小写(见istitle())</td>
+</tr>
+<tr><td>string.translate(str, del=&quot;&quot;)</td>
+<td>根据str给出的表(包含256 个字符)转换string的字符,
+要过滤掉的字符放到del参数中</td>
+</tr>
+<tr><td>string.upper()</td>
+<td>转换string中的小写字母为大写</td>
+</tr>
+<tr><td>string.zfill(width)</td>
+<td>返回长度为width的字符串，原字符串string右对齐，前面填充0</td>
+</tr>
+</tbody>
+</table>
+<p>Python的三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符</p>
+<p>由于字符串的不可改变性，所以字符串的赋值，左值必须是一个完整的对象，比如说一个字符串对象，不能是字符串的一部分.对赋值操作的右值没有这个限制</p>
+<p>Unicode基本术语：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">名词</th>
+<th class="head">意思</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>ASCII</td>
+<td>美国标准信息交换码</td>
+</tr>
+<tr><td>BMP</td>
+<td>基本多文种平面（第零平面）</td>
+</tr>
+<tr><td>BOM</td>
+<td>字节顺序标记（标识字节顺序的字符）</td>
+</tr>
+<tr><td>CJK/CJKV</td>
+<td>中文-日文-韩文(和越南语)的缩写</td>
+</tr>
+<tr><td>Code point</td>
+<td>类似于ASCII值，代表Unicode字符的值，范围在range(1114112)或者说0x000000到0x10FFFF</td>
+</tr>
+<tr><td>Octet</td>
+<td>八位二进制数的位组</td>
+</tr>
+<tr><td>UCS</td>
+<td>通用字符集</td>
+</tr>
+<tr><td>UCS2</td>
+<td>UCS的双字节编码方式（见UTF-16）</td>
+</tr>
+<tr><td>UCS4</td>
+<td>UCS的四字节编码方式.</td>
+</tr>
+<tr><td>UTF</td>
+<td>Unicode或者UCS的转换格式.</td>
+</tr>
+<tr><td>UTF-8</td>
+<td>八位UTF转换格式（无符号字节序列，长度为一到四个字节）</td>
+</tr>
+<tr><td>UTF-16</td>
+<td>16位UTF转换格式(无符号字节序列，通常是16位长[两个字节]，见UCS2</td>
+</tr>
+</tbody>
+</table>
+<p>string模块已经停止了更新，只保留了ASCII码的支持，string模块已经不推荐使用，在任何需要跟Unicode兼容的代码里都不要再用该模块，Python 保留该模块仅仅是为了向后兼容</p>
+<p>新的内建函数 <tt class="docutils literal"><span class="pre">unicode()</span></tt> 和 <tt class="docutils literal"><span class="pre">unichr()</span></tt> 可以看成Unicode版本的 <tt class="docutils literal"><span class="pre">str()</span></tt> 和 <tt class="docutils literal"><span class="pre">chr()</span></tt></p>
+<p><cite>codec</cite> 是 <cite>COder/DECoder</cite> 的首字母组合，它定义了文本跟二进制值的转换方式， <cite>UTF-8</cite> 就是一种 <cite>codec</cite></p>
+<p><strong>每次我们写一个Unicode字符串到磁盘上我们都要用指定的编码器给他“编码”一下，相应地，当我们从这个文件读取数据时，我们必须“解码”该文件，使之成为相应的Unicode字符串对象</strong> ，可以看一个完整的使用 <cite>UTF-8</cite> 编码的例子：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+'''
+An example of reading and writing Unicode strings: Writes
+a Unicode string to a file in utf-8 and reads it back in.
+'''
+CODEC = 'utf-8'
+FILE = 'unicode.txt'
+
+hello_out = u&quot;Hello world\n&quot;
+bytes_out = hello_out.encode(CODEC)
+f = open(FILE, &quot;w&quot;)
+f.write(bytes_out)
+f.close()
+
+f = open(FILE, &quot;r&quot;)
+bytes_in = f.read()
+f.close()
+hello_in = bytes_in.decode(CODEC)
+print hello_in,
+</pre>
+<p>要想规避90%的处理Unicode字符串的问题，其实只要遵守以下的规则：</p>
+<ul class="simple">
+<li>程序中出现字符串时一定要加个前缀u</li>
+<li>不要用 <tt class="docutils literal"><span class="pre">str()</span></tt> 函数，用 <tt class="docutils literal"><span class="pre">unicode()</span></tt> 代替</li>
+<li>不要用过时的string模块--如果传给它的是非ASCII字符，它会把一切搞砸</li>
+<li>不到必须时不要在你的程序里面编解码Unicode字符，只在你要写入文件或数据库或者网络时，才调用 <tt class="docutils literal"><span class="pre">encode()</span></tt> 函数；相应地，只在你需要把数据读回来的时候才调用 <tt class="docutils literal"><span class="pre">decode()</span></tt> 函数</li>
+</ul>
+<p>Python中支持的编码方式更详细、完全的列表见 <a class="reference" href="http://docs.python.org/lib/standard-encodings.html">Python的文档</a></p>
+<p>对于Python的格式化字符串的操作符，%s把Python字符串中的Unicode对象执行了转换操作，所以，输出的应该是u.encode(默认编码)。如果格式化字符串是Unicode对象,所有的参数都将首先强制转换成Unicode然后根据对应的格式串一起进行格式转换。数字首先被转换成普通字符串，然后在转换成Unicode。Python字符串通过默认编码格式转化成Unicode。Unicode对象不变，所有其他格式字符串都需要像上面这样转化，下面是例子:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; u'%s %s' % (u'abc', u'efg')
+u'abc efg'
+</pre>
+</div>
+</body>
+</html>

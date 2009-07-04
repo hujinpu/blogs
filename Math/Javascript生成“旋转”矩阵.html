@@ -1,0 +1,79 @@
+<p>今天看到chinaunix编程大赛里有这样一道题：
+<blockquote>
+    给定一个整数N，生成一个N*N的矩阵，矩阵中元素取值为1至N，1在左上角，其余各数按顺时针方向旋转前进，依次递增放置。<br />
+    例如，当N=4时，矩阵中的内容如下：
+    <pre>
+    1   2   3   4
+    12  13  14  5
+    11  16  15  6
+    10  9   8   7
+    </pre>
+</blockquote>
+</p><!--more-->
+<p>觉得有点意思也比较简单就实现了下，读者注意我写的代码里闭包的应用，正好可以作为我前面写的<a href="http://w3er.com/blog/2009/03/master-javascript-closure/" title="Javascript闭包真经" target="_blank">闭包真经</a>的一个补充实例。</p>
+<pre class="brush: js">
+/*
+ * “旋转的”矩阵算法，类似这样：
+ * 1 2 3
+ * 8 9 4
+ * 7 6 5
+ * Program Language: Javascript
+ */
+function rotateMatrix(n) {
+    var matrix = [], max = n*n, cur, row, col, unum, dnum, lnum, rnum;
+    cur = row = col = unum = dnum = lnum = rnum = 0;
+
+    for (var i = 0; i < n; i++) {
+        matrix[i] = [];
+        matrix[0][i] = ++cur;
+    }
+
+    col = n - 1, rnum++;
+
+    (function(direction) {
+        if (cur == max) return;
+        switch(direction) {
+            case 'down':
+                for (var i = row+1; i < n - dnum; i++) {
+                    matrix[i][col] = ++cur, row++;
+                }
+                dnum++, arguments.callee('left');
+                break;
+            case 'left':
+                for (var i = col-1; i >= lnum; i--) {
+                    matrix[row][i] = ++cur, col--;
+                }
+                lnum++, arguments.callee('up');
+                break;
+            case 'up':
+                for (var i = row-1; i > unum; i--) {
+                    matrix[i][col] = ++cur, row--;
+                }
+                unum++, arguments.callee('right');
+                break;
+            case 'right':
+                for (var i = col+1; i < n-rnum; i++) {
+                    matrix[row][i] = ++cur, col++;
+                }
+                rnum++, arguments.callee('down');
+                break;
+        }
+    })('down')
+
+    return matrix;
+}
+var a = rotateMatrix(10);
+for (var i in a) console.log(a[i]);
+/*显示如下
+ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[36, 37, 38, 39, 40, 41, 42, 43, 44, 11]
+[35, 64, 65, 66, 67, 68, 69, 70, 45, 12]
+[34, 63, 84, 85, 86, 87, 88, 71, 46, 13]
+[33, 62, 83, 96, 97, 98, 89, 72, 47, 14]
+[32, 61, 82, 95, 100, 99, 90, 73, 48, 15]
+[31, 60, 81, 94, 93, 92, 91, 74, 49, 16]
+[30, 59, 80, 79, 78, 77, 76, 75, 50, 17]
+[29, 58, 57, 56, 55, 54, 53, 52, 51, 18]
+[28, 27, 26, 25, 24, 23, 22, 21, 20, 19]
+*/
+</pre>

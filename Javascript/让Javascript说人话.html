@@ -1,0 +1,190 @@
+<p>其实这个源于研究月影mm的Natural Language Programming with JavaScript。实在佩服月影mm的思维，写得太经典了。我稍微做些修改，按我的风格给出了一个版本，并附上注释，希望大家感兴趣。</p><!--more-->
+<pre class="brush: js">
+/*
+ * 让原始函数的所有调用只有执行$commit()时才真正执行
+ */
+Function.prototype.$lazilize = function() {
+
+    if (this._unlazilized) return this; //如果变懒了，就不能再懒了 :)
+
+    var orignalFn = this; //用来记录原始函数
+    var _cache = []; //用来记录要执行的函数
+
+    var ret = function() {
+        var _pointer = this;
+        var _args = arguments;
+
+        _cache.push(function() { //记录要执行的函数
+            return orignalFn.apply(_pointer, _args);
+        });
+
+        return arguments.callee; //链式调用
+    }
+
+    //提交才真正执行
+    ret.$commit =  function() {
+        var ret = null;
+        for(var i = 0; i < _cache.length; i++){
+            ret = _cache[i]();
+        }
+        _cache.length = 0;
+        return ret;
+    }
+
+    ret._unlazilized = orignalFn; //没变懒前的函数
+
+    return ret;
+};
+
+/*
+ * 给各种函数加上惰性，并打成一个包，等待该包的$commit()方法调用才真正真正顺序执行包里的函数
+ */
+Function.prototype.$wrap = function() {
+
+    var orignalFn = this;
+    var wrapperList = []; //包
+
+    var retFn = function() { //执行$wrap后返回的函数
+
+        var _args = arguments;
+        var _callList = [];
+        var _argsStack = [];
+        var _cl = orignalFn.$lazilize().apply(this, _args); //当前惰性的函数
+
+        var ret = {}; //执行$wrap后的函数的返回值
+
+        ret.prevent = function() { //自然语言中表明语句还没有说完
+            _cl = Function.VOID.$lazilize().apply(this);
+        }
+
+        ret.resolve = function() { //自然语言中表明语句说完了
+            _cl = orignalFn.$lazilize().apply(this, _args);
+        }
+
+        ret.argsStack = _argsStack;
+
+        for (var i = 0; i < wrapperList.length; i++) {
+            var wrapper = wrapperList[i];
+            (function(wrapper, i) {
+                ret[wrapper.keyword] = function() {
+                    _callList.push(wrapper.fn.$lazilize().apply(this, arguments));
+                    _argsStack.push(arguments);			
+                    return ret;
+                }
+            })(wrapper, i);
+        }
+
+        ret.$commit = function() {
+            for (var i = 0; i < _callList.length; i++){	
+                ret.__index__ = i;
+                _callList[i].$commit();
+            }
+            _cl.$commit();
+
+            _callList.length = 0;
+            _argsStack.length = 0;
+        }
+
+        ret.getPrevArgs = function() { //得到上一次调用的参数
+            return ret.__index__ ? _argsStack[ret.__index__ - 1] : _args;
+        }
+
+        return ret;
+    }
+
+    retFn.addWrapper = function(keyword, fn) { //往包里加一个函数，以后会被惰性
+        wrapperList.push({keyword: keyword, fn: fn});
+    }
+
+    return retFn;
+};
+
+/*
+ * 利用上面的wrap建立我们说话的语法规则
+ */
+Function.prototype.$gammar = function() {
+
+    var ret = this.$wrap();
+
+    ret.addWrapper("when", function() { //当...时
+        for (var i = 0; i < arguments.length; i++) 
+        if (!arguments[i]) { //如果判断出现false
+            this.prevent(); //防止原始函数执行
+            break;
+        }
+    });
+
+    ret.addWrapper("is", function() { //是...
+        var args = this.getPrevArgs(); //得到先前调用的参数
+        this.resolve(); //话至此就说完了，可以等待$commit执行原始函数了
+        for(var i = 0; i < arguments.length; i++) {
+            if(arguments[i] != args[i]) {
+                this.prevent();
+                break;
+            }
+        }
+    });
+
+    return ret;
+}
+
+//例子
+Foo1 = function(n) {console.log(n)}.$gammar();
+Foo2 = function(n) {console.log(n)}.$gammar();
+Foo3 = function(str) {console.log(n)}.$gammar();
+
+Foo1(50).when(false).is(false).$commit(); //显示50
+var a = 1, b = 2;
+Foo2(10).when(a, b).is(1, 2).$commit(); //显示10
+var your = 'hjp';
+Foo3('hello world').when(your == 'hjp'); //显示hello world
+</pre>
+<p>还可以给对象加上自定义事件，那就可以实现很多东西了，这里给出一个简单的自定义事件实现。</p>
+<pre class="brush: js">
+Function.prototype.addEvent = function(evtName) {
+    var args = arguments;
+    var method = this;
+    var type = evtName;
+
+    return function() {
+        method.apply(this, args);
+        for(each in this.objEvents[type])
+            this.objEvents[type][each](this);
+    }
+}
+
+function MyObject() {
+    this.objEvents = []; //记录事件
+}
+
+MyObject.prototype.doSomeThing = function() {
+    console.log('I want to do something!');
+}.addEvent('onDo');  //onDo事件声明
+
+MyObject.prototype.addEventListener = function(evtName, listener) {
+    this.objEvents[evtName] ?
+        this.objEvents[evtName].push(listener) : this.objEvents[evtName] = [listener];
+}
+
+function do1(sender) {
+    console.log(sender.constructor);
+}
+
+function do2(sender) {
+    console.log('do2');
+}
+
+var obj = new MyObject();
+
+obj.addEventListener('onDo', do1);
+obj.addEventListener('onDo', do2);
+
+obj.doSomeThing();
+/*
+显示
+I want to do something!
+MyObject()
+do2
+*/
+</pre>
+<p>很感谢月影mm，让我学到了很多东西。</p>

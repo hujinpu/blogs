@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第九章：文件和输入输出</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>文件对象<ul>
+<li>文件内建函数</li>
+<li>文件内建方法</li>
+<li>文件内建属性</li>
+</ul>
+</li>
+<li>标准文件</li>
+<li>命令行参数</li>
+<li>文件系统</li>
+<li>文件执行</li>
+<li>持久存储</li>
+<li>相关模块</li>
+</ul>
+<p>文件对象的访问模式：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">文件模式</th>
+<th class="head">操作</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>r</td>
+<td>以读方式打开</td>
+</tr>
+<tr><td>rU或U</td>
+<td>以读方式打开，同时提供通用换行符支持（PEP 278）</td>
+</tr>
+<tr><td>w</td>
+<td>以写方式打开（必要时清空）</td>
+</tr>
+<tr><td>a</td>
+<td>以追加模式打开（从EOF开始，必要时创建新文件）</td>
+</tr>
+<tr><td>r+</td>
+<td>以读写模式打开</td>
+</tr>
+<tr><td>w+</td>
+<td>以读写模式打开（参见w）</td>
+</tr>
+<tr><td>a+</td>
+<td>以读写模式打开（参见a）</td>
+</tr>
+<tr><td>rb</td>
+<td>以二进制读模式打开</td>
+</tr>
+<tr><td>wb</td>
+<td>以二进制写模式打开（参见w）</td>
+</tr>
+<tr><td>ab</td>
+<td>以二进制追加模式打开（参见a）</td>
+</tr>
+<tr><td>rb+</td>
+<td>以二进制读写模式打开（参见r+）</td>
+</tr>
+<tr><td>wb+</td>
+<td>以二进制读写模式打开（参见w+）</td>
+</tr>
+<tr><td>ab+</td>
+<td>以二进制读写模式打开（参见a+）</td>
+</tr>
+</tbody>
+</table>
+<p>对于内建函数 <tt class="docutils literal"><span class="pre">open()</span></tt> 的第三个参数 <cite>buffering</cite> ，如果传的是0表示不缓冲，1表示只缓冲一行数据，任何其它大于1的值代表使用给定值作为缓冲区大小。不提供该参数或者给定负值代表使用系统默认缓冲机制。</p>
+<p><tt class="docutils literal"><span class="pre">open()</span></tt> 和 <tt class="docutils literal"><span class="pre">file()</span></tt> 函数具有相同的功能，可以任意替换。</p>
+<p>一般说来，建议使用 <tt class="docutils literal"><span class="pre">open()</span></tt> 来读写文件，除非您想说明您在处理文件对象才使用 <tt class="docutils literal"><span class="pre">file()</span></tt> ，例如 <tt class="docutils literal"><span class="pre">if</span> <span class="pre">instance(f,</span> <span class="pre">file)</span></tt></p>
+<p>Python 2.3引入了 <cite>UNS</cite> 。当你使用 <tt class="docutils literal"><span class="pre">U</span></tt> 标志打开文件的时候，所有的行分割符（或行结束符，无论它原来是什么）通过Python的输入方法（例如 <tt class="docutils literal"><span class="pre">read*()</span></tt> ）返回时都会被替换为换行符NEWLINE（n）。（ <tt class="docutils literal"><span class="pre">rU</span></tt> 模式也支持 <tt class="docutils literal"><span class="pre">rb</span></tt> 选项）。这个特性还支持包含不同类型行结束符的文件，文件对象的 <tt class="docutils literal"><span class="pre">newlines</span></tt> 属性会记录它曾“看到的”文件的行结束符。</p>
+<p>如果文件刚被打开，程序还没有遇到行结束符，那么文件的 <tt class="docutils literal"><span class="pre">newlines</span></tt> 为 <tt class="docutils literal"><span class="pre">None</span></tt> 。在第一行被读取后，它被设置为第一行的结束符。如果遇到其它类型的行结束符，文件的 <tt class="docutils literal"><span class="pre">newlines</span></tt> 会成为一个包含每种格式的元组。 <strong>注意 UNS 只用于读取文本文件，没有对应的处理文件输出的方法</strong></p>
+<p><strong>当使用输入方法如read()或者readlines()从文件中读取行时，Python并不会删除行结束符。这个操作被留给了程序员，类似地，输出方法write()或writelines()也不会自动加入行结束符。你应该在向文件写入数据前自己完成。</strong></p>
+<p>有助于跨平台开发的 <tt class="docutils literal"><span class="pre">os</span></tt> 模块属性：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">os模块属性</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>linesep</td>
+<td>用于在文件中分隔行的字符串</td>
+</tr>
+<tr><td>sep</td>
+<td>用来分隔文件路径名的字符串</td>
+</tr>
+<tr><td>pathsep</td>
+<td>用于分隔文件路径的字符串</td>
+</tr>
+<tr><td>curdir</td>
+<td>当前工作目录的字符串名称</td>
+</tr>
+<tr><td>pardir</td>
+<td>（当前工作目录的）父目录字符串名称</td>
+</tr>
+</tbody>
+</table>
+<p>文件对象的内建方法列表：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">文件对象的方法</th>
+<th class="head">操作</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>file.close()</td>
+<td>关闭文件</td>
+</tr>
+<tr><td>file.fileno()</td>
+<td>返回文件的描述符（整数值）</td>
+</tr>
+<tr><td>file.flush()</td>
+<td>刷新文件的内部缓冲区</td>
+</tr>
+<tr><td>file.isatty()</td>
+<td>判断file是否是一个类tty设备</td>
+</tr>
+<tr><td>file.next()</td>
+<td>返回文件的下一行（类似于file.readline()），或在没有其它行时
+引发StopIteration异常</td>
+</tr>
+<tr><td>file.read(size=-1)</td>
+<td>从文件读取size个字节，当未给定size或给定负值的时候，读
+取剩余的所有字节，然后作为字符串返回</td>
+</tr>
+<tr><td>file.readinto(buf, size)</td>
+<td>从文件读取size个字节到buf缓冲器（已不支持）</td>
+</tr>
+<tr><td>file.readline(size=-1)</td>
+<td>从文件中读取并返回一行（包括行结束符），或返回最大size个字符</td>
+</tr>
+<tr><td>file.readlines(sizhint=0)</td>
+<td>读取文件的所有行并作为一个列表返回（包含所有的行结束
+符）；如果给定sizhint且大于0，那么将返回总和大约为
+sizhint字节的行（大小由缓冲器容量的下一个值决定）（比
+如说缓冲器的大小只能为4K的倍数，如果sizhint为15k，则
+最后返回的可能是16k）</td>
+</tr>
+<tr><td>file.seek(off, whence=0)</td>
+<td>在文件中移动文件指针，从whence（0代表文件其始，1代
+表当前位置，2代表文件末尾)偏移off字节</td>
+</tr>
+<tr><td>file.tell()</td>
+<td>返回当前在文件中的位置</td>
+</tr>
+<tr><td>file.truncate(size=file.tell())</td>
+<td>截取文件到最大size字节，默认为当前文件位置</td>
+</tr>
+<tr><td>file.write(str)</td>
+<td>向文件写入字符串</td>
+</tr>
+<tr><td>file.writelines(seq)</td>
+<td>向文件写入字符串序列seq；seq应该是一个返回字符串的
+可迭代对象；在Python 2.2前，它只是字符串的列表</td>
+</tr>
+</tbody>
+</table>
+<p>文件对象的属性：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">文件对象的属性</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>file.closed</td>
+<td>True表示文件已经被关闭, 否则为False</td>
+</tr>
+<tr><td>file.encoding</td>
+<td>文件所使用的编码，当Unicode字符串被写入数据时，它们将自动使
+用file.encoding转换为字节字符串；若file.encoding为None时使
+用系统默认编码</td>
+</tr>
+<tr><td>file.mode</td>
+<td>文件打开时使用的访问模式</td>
+</tr>
+<tr><td>file.name</td>
+<td>文件名</td>
+</tr>
+<tr><td>file.newlines</td>
+<td>未读取到行分隔符时为None，只有一种行分隔符时为一个字符串，当
+文件有多种类型的行结束符时，则为一个包含所有当前所遇到的行结束
+符的列表</td>
+</tr>
+<tr><td>file.softspace</td>
+<td>为0表示在输出一数据后，要加上一个空格符，1表示不加。这个属性
+一般程序员用不着，由程序内部使用。</td>
+</tr>
+</tbody>
+</table>
+<p>只要你的程序一执行，那么你就可以访问三个标准文件。这些文件已经被预先打开了，只要知道它们的文件句柄就可以随时访问这些文件它们。分别是标准输入（一般是键盘），标准输出（到显示器的缓冲输出）和标准错误（到屏幕的非缓冲输出）。</p>
+<p>Python中可以通过 <tt class="docutils literal"><span class="pre">sys</span></tt> 模块来访问这些文件的句柄。</p>
+<p><tt class="docutils literal"><span class="pre">sys.argv</span></tt> 是命令行参数的列表， <tt class="docutils literal"><span class="pre">len(sys.argv)</span></tt> 是命令行参数的个数， <tt class="docutils literal"><span class="pre">sys.argv[0]</span></tt> 永远是程序的名称。</p>
+<p><tt class="docutils literal"><span class="pre">os</span></tt> 模块实际上只是真正加载的模块的前端，而真正的那个“模块”明显要依赖与具体的操作系统。这个“真正”的模块可能是以下几种之一： <cite>posix</cite> （适用于Unix操作系统）， <cite>nt</cite> （Win32）， <cite>mac</cite> （旧版本的MacOS）， <cite>dos</cite> （DOS）， <cite>os2</cite> （OS/2）等。你不需要直接导入这些模块，只要导入 <tt class="docutils literal"><span class="pre">os</span></tt> 模块，Python会为你选择正确的模块，你不需要考虑底层的工作。</p>
+<p>模块的文件/目录访问函数：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">函数</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>mkfifo()/mknod()</td>
+<td>创建命名管道/创建文件系统节点</td>
+</tr>
+<tr><td>remove()/unlink()</td>
+<td>删除文件</td>
+</tr>
+<tr><td>rename()/renames()</td>
+<td>重命名文件</td>
+</tr>
+<tr><td>*stat()</td>
+<td>返回文件信息，包括stat()、lstat()、xstat()</td>
+</tr>
+<tr><td>symlink()</td>
+<td>创建符号链接</td>
+</tr>
+<tr><td>utime()</td>
+<td>更新时间戳</td>
+</tr>
+<tr><td>tmpfile()</td>
+<td>创建并打开('w+b')一个新的临时文件</td>
+</tr>
+<tr><td>walk()</td>
+<td>生成一个目录树下的所有文件名目录/文件夹</td>
+</tr>
+<tr><td>chdir()/fchdir()</td>
+<td>改变当前工作目录/通过一个文件描述符改变当前工作目录</td>
+</tr>
+<tr><td>chroot()</td>
+<td>改变当前进程的根目录</td>
+</tr>
+<tr><td>listdir()</td>
+<td>列出指定目录的文件</td>
+</tr>
+<tr><td>getcwd()/getcwdu()</td>
+<td>返回当前工作目录/功能相同，但返回一个 Unicode 对象</td>
+</tr>
+<tr><td>mkdir()/makedirs()</td>
+<td>创建目录/创建多层目录</td>
+</tr>
+<tr><td>rmdir()/removedirs()</td>
+<td>删除目录/删除多层目录</td>
+</tr>
+<tr><td>access()</td>
+<td>检验权限模式</td>
+</tr>
+<tr><td>chmod()</td>
+<td>改变权限模式</td>
+</tr>
+<tr><td>chown()/lchown()</td>
+<td>改变owner和group ID/功能相同，但不会跟踪链接</td>
+</tr>
+<tr><td>umask()</td>
+<td>设置默认权限模式</td>
+</tr>
+<tr><td>open()</td>
+<td>底层的操作系统open（对于文件，使用标准的内建open()函数</td>
+</tr>
+<tr><td>read()/write()</td>
+<td>根据文件描述符读取/写入数据</td>
+</tr>
+<tr><td>dup()/dup2()</td>
+<td>复制文件描述符号/功能相同，但是是复制到另一个文件描述符</td>
+</tr>
+<tr><td>makedev()</td>
+<td>从major和minor设备号创建一个原始设备号</td>
+</tr>
+<tr><td>major()/minor()</td>
+<td>从原始设备号获得major/minor设备号</td>
+</tr>
+</tbody>
+</table>
+<p><tt class="docutils literal"><span class="pre">os.path</span></tt> 模块中的路径名访问函数：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">函数</th>
+<th class="head">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>basename()</td>
+<td>去掉目录路径，返回文件名</td>
+</tr>
+<tr><td>dirname()</td>
+<td>去掉文件名，返回目录路径</td>
+</tr>
+<tr><td>join()</td>
+<td>将分离的各部分组合成一个路径名</td>
+</tr>
+<tr><td>split()</td>
+<td>返回(dirname(), basename())元组</td>
+</tr>
+<tr><td>splitdrive()</td>
+<td>返回(drivename, pathname)元组</td>
+</tr>
+<tr><td>splitext()</td>
+<td>返回(filename, extension)元组</td>
+</tr>
+<tr><td>getatime()</td>
+<td>返回最近访问时间</td>
+</tr>
+<tr><td>getctime()</td>
+<td>返回文件创建时间</td>
+</tr>
+<tr><td>getmtime()</td>
+<td>返回最近文件修改时间</td>
+</tr>
+<tr><td>getsize()</td>
+<td>返回文件大小（以字节为单位）</td>
+</tr>
+<tr><td>exists()</td>
+<td>指定路径（文件或目录）是否存在</td>
+</tr>
+<tr><td>isabs()</td>
+<td>指定路径是否为绝对路径</td>
+</tr>
+<tr><td>isdir()</td>
+<td>指定路径是否存在且为一个目录</td>
+</tr>
+<tr><td>isfile()</td>
+<td>指定路径是否存在且为一个文件</td>
+</tr>
+<tr><td>islink()</td>
+<td>指定路径是否存在且为一个符号链接</td>
+</tr>
+<tr><td>ismount()</td>
+<td>指定路径是否存在且为一个挂载点</td>
+</tr>
+<tr><td>samefile()</td>
+<td>两个路径名是否指向同个文件</td>
+</tr>
+</tbody>
+</table>
+<p>看一段代码：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+
+import os
+for tmpdir in ('/tmp', 'c:/windows/temp'):
+    if os.path.isdir(tmpdir):
+        break
+else:
+    print 'no temp directory available'
+    tmpdir = ''
+
+if tmpdir:
+    os.chdir(tmpdir)
+    cwd = os.getcwd()
+    print '*** current temporary directory'
+    print cwd
+
+    print '*** creating example directory...'
+    os.mkdir('example')
+    os.chdir('example')
+    cwd = os.getcwd()
+    print '*** new working directory:'
+    print cwd
+    print '*** original directory listing:'
+    print os.listdir(cwd)
+
+    print '*** creating test file...'
+    file = open('test', 'w')
+    file.write('foo\n')
+    file.write('bar\n')
+    file.close()
+    print '*** updated directory listing:'
+    print os.listdir(cwd)
+
+    print &quot;*** renaming 'test' to 'filetest.txt'&quot;
+    os.rename('test', 'filetest.txt')
+    print '*** updated directory listing:'
+    print os.listdir(cwd)
+
+    path = os.path.join(cwd, os.listdir(cwd)[0])
+    print '*** full file pathname:'
+    print path
+    print '*** (pathname, basename) == '
+    print os.path.split(path)
+    print '*** (filename, extension) == '
+    print os.path.splitext(os.path.basename(path))
+
+    print '*** displaying file contents:'
+    file = open(path)
+    allLines = file.readlines()
+    file.close()
+    for eachLine in allLines:
+        print eachLine,
+
+    print '*** deleting test file'
+    os.remove(path)
+    print '*** updated directory listing:'
+    print os.listdir(cwd)
+    os.chdir(os.pardir)
+    print '*** deleting test directory'
+    os.rmdir('example')
+    print '*** DONE'
+</pre>
+<p>在本章的最后，作者简单介绍了下 <tt class="docutils literal"><span class="pre">pickle</span></tt> 、 <tt class="docutils literal"><span class="pre">cPickle</span></tt> 和 <tt class="docutils literal"><span class="pre">shelve</span></tt> 模块。</p>
+<p>最完整的解决方案是使用 <tt class="docutils literal"><span class="pre">shelve</span></tt> 模块， <tt class="docutils literal"><span class="pre">shelve</span></tt> 模块使用 <tt class="docutils literal"><span class="pre">anydbm</span></tt> 模块寻找合适的 <tt class="docutils literal"><span class="pre">DBM</span></tt> 模块，然后使用 <tt class="docutils literal"><span class="pre">cPickle</span></tt> 来完成对储存转换过程。 <tt class="docutils literal"><span class="pre">shelve</span></tt> 模块允许对数据库文件进行并发的读访问，但不允许共享读/写访问。</p>
+<p>这里讲得不够，其实在Python的文档里讲得很细致：</p>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/lib/module-pickle.html">http://docs.python.org/lib/module-pickle.html</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/module-cPickle.html">http://docs.python.org/lib/module-cPickle.html</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/module-shelve.html">http://docs.python.org/lib/module-shelve.html</a></li>
+</ul>
+<p>这里放一个 <tt class="docutils literal"><span class="pre">shelve</span></tt> 的代码示例：</p>
+<pre class="literal-block">
+import shelve
+
+d = shelve.open(filename) # open -- file may get suffix added by low-level
+                          # library
+
+d[key] = data   # store data at key (overwrites old data if
+                # using an existing key)
+data = d[key]   # retrieve a COPY of data at key (raise KeyError if no
+                # such key)
+del d[key]      # delete data stored at key (raises KeyError
+                # if no such key)
+flag = d.has_key(key)   # true if the key exists
+klist = d.keys() # a list of all existing keys (slow!)
+
+# as d was opened WITHOUT writeback=True, beware:
+d['xx'] = range(4)  # this works as expected, but...
+d['xx'].append(5)   # *this doesn't!* -- d['xx'] is STILL range(4)!!!
+
+# having opened d without writeback=True, you need to code carefully:
+temp = d['xx']      # extracts the copy
+temp.append(5)      # mutates the copy
+d['xx'] = temp      # stores the copy right back, to persist it
+
+# or, d=shelve.open(filename,writeback=True) would let you just code
+# d['xx'].append(5) and have it work as expected, BUT it would also
+# consume more memory and make the d.close() operation slower.
+
+d.close()       # close it
+</pre>
+</div>
+</body>
+</html>

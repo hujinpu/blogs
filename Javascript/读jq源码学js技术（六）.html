@@ -1,0 +1,76 @@
+<p><a href="http://sizzlejs.com/" title="Sizzle Js" target=="_blank">Sizzle</a>是jQuery升级后的重头戏，在讲解Sizzle之前，我要简单的讲解下RegExp这个全局对象，因为里面用了很多它。它的特殊就是：全局RegExp对象的属性包含不断更新的关于每个匹配出现的信息，而正则表达式对象只包含出现正则表达式匹配的信息。RegExp对象不能直接创建，但始终可以使用。这里一定要搞清楚，正则表达式对象可以通过两种语法构建：</p>
+<ul>
+    <li><code>re = /pattern/[flags]</code>；</li>
+    <li><code>re = new RegExp("pattern",["flags"])</code>，这里很容易和全局的对象实例RegExp搞混。</li>
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>属性</th>
+            <th>简写</th>
+            <th>初始值</th>
+            <th>说明</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>index</td>
+            <td>&nbsp;</td>
+            <td>-1</td>
+            <td>返回查找字符串中第一个成功匹配的开始位置</td>
+        </tr>
+
+        <tr>
+            <td>lastIndex</td>
+            <td>&nbsp;</td>
+            <td>-1</td>
+            <td>返回被查找字符串中下一次成功匹配的开始位置</td>
+        </tr>
+
+        <tr>
+            <td>lastMatch</td>
+            <td>$&amp;</td>
+            <td>空字符串</td>
+            <td>返回任何正则表达式搜索过程中的最后匹配的字符，只读</td>
+        </tr>
+
+        <tr>
+            <td>lastParen</td>
+            <td>$+</td>
+            <td>空字符串</td>
+            <td>如果有的话，返回任何正则表达式查找过程中最后括的子匹配，只读，注意没t</td>
+        </tr>
+
+        <tr>
+            <td>leftContext</td>
+            <td>&nbsp;</td>
+            <td>空字符串</td>
+            <td>返回被查找的字符串中从字符串开始位置到最后匹配之前的位置之间的字符，只读</td>
+        </tr>
+
+        <tr>
+            <td>rightContext</td>
+            <td>&nbsp;</td>
+            <td>空字符串</td>
+            <td>返回被搜索的字符串中从最后一个匹配位置开始到字符串结尾之间的字符，只读</td>
+        </tr>
+
+        <tr>
+            <td>$1 - $9</td>
+            <td>$1 - $9</td>
+            <td>空字符串</td>
+            <td>返回九个在模式匹配期间找到的、最近保存的部分，只读</td>
+        </tr>
+    </tbody>
+</table>
+<p>Ok，可以开始Sizzle之旅了。先看下吓人的N长的正则表达式。<code>var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^[\]]*\]|['"][^'"]*['"]|[^[\]'"]+)+\]|\\.|[^ &gt;+~,(\[\\]+)+|[&gt;+~])(\s*,\s*)?/g</code>，这个正则可以分为部分：</p>
+<ol>
+    <li><code>((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^[\]]*\]|['"][^'"]*['"]|[^[\]'"]+)+\]|\\.|[^ &gt;+~,(\[\\]+)+|[&gt;+~])</code></li>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    <li><code>(\s*,\s*)?</code></li>
+</ol>

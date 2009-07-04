@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>第六章：序列--字符串、列表和元组</p>
+<p>本章主题：</p>
+<ul class="simple">
+<li>序列简介</li>
+<li>字符串</li>
+<li>列表</li>
+<li>元组</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">序列操作符</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>seq[ind]</td>
+<td>获得下标为ind的元素</td>
+</tr>
+<tr><td>seq[ind1:ind2]</td>
+<td>获得下标从ind1到ind2间的元素集合</td>
+</tr>
+<tr><td>seq * expr</td>
+<td>序列重复expr次</td>
+</tr>
+<tr><td>seq1 + seq2</td>
+<td>连接序列seq1和seq2</td>
+</tr>
+<tr><td>obj in seq</td>
+<td>判断obj元素是否包含在seq中</td>
+</tr>
+<tr><td>obj not in seq</td>
+<td>判断obj元素是否不包含在seq中</td>
+</tr>
+</tbody>
+</table>
+<p><strong>对字符串来说，+操作不如把所有的子字符串放到一个列表或可迭代对象中，然后调用一个join方法来把所有的内容连接在一起节约内存。为什么呢？因为从方法调用角度，如果是多个+就相当于多个方法调用，从中间环节的内存消耗来看，多个+要多开销很多临时对象，而join就直接分配一块内存空间，直接复制过去了。对列表来说，推荐用列表类型的extend()方法来把两个或者多个列表对象合并，道理也类似，不过这里还要说说，extend()方法是在原列表对象上进行操作，是in-place的，L.extend(s)等于L[len(L):] = s</strong></p>
+<p>对于切片操作，在第二章，我详细说了下，这里还要提到一点，就是a[::]，由于m、n都没有值，其实他们的值为None，所以，如果想实现这样的效果可以人为的赋值给m、n None，如：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; s = 'abcde'
+&gt;&gt;&gt; for i in [None] + range(-1, -len(s), -1):
+...     print s[:i]
+...
+abcde
+abcd
+abc
+ab
+a
+</pre>
+<p>序列类型转换工厂函数：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">函数</th>
+<th class="head">含义</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>list(iter)</td>
+<td>把可迭代对象转换为列表</td>
+</tr>
+<tr><td>str(obj)</td>
+<td>把obj对象转换成字符串(对象的字符串表示法)</td>
+</tr>
+<tr><td>unicode(obj)</td>
+<td>把对象转换成Unicode字符串(使用默认编码)</td>
+</tr>
+<tr><td>basestring()</td>
+<td>抽象工厂函数，其作用仅仅是为str和unicode函数提供父类，所以不能被
+实例化，也不能被调用</td>
+</tr>
+<tr><td>tuple(iter)</td>
+<td>把一个可迭代对象转换成一个元组对象</td>
+</tr>
+</tbody>
+</table>
+<p>注意： <strong>这些转换实际上是工厂函数，将对象作为参数，并将其内容浅拷贝到新生成的对象中，注意是浅拷贝，就是拷贝的是对对象的索引，而不是重新建立了一个对象</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; a = [1, 3, 6, 9]
+&gt;&gt;&gt; b = list(a)
+&gt;&gt;&gt; a is b
+False
+&gt;&gt;&gt; b[0] is a[0]
+True
+</pre>
+<p>序列类型可用的内建函数：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">函数名</th>
+<th class="head">功能</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>enumerate(iter)</td>
+<td>接受一个可迭代对象作为参数，返回一个enumerate对象(同
+时也是一个迭代器),该对象生成由iter每个元素的index值
+和item值组成的元组(PEP 279)</td>
+</tr>
+<tr><td>len(seq)</td>
+<td>返回seq的长度</td>
+</tr>
+<tr><td>max(iter,key=None) or</td>
+<td>返回iter或(arg0,arg1,...)中的最大值，如果指定了key，</td>
+</tr>
+<tr><td>max(arg0,arg1...,key=None)</td>
+<td>这个key必须是一个可以传给sort()方法的,用于比较的回调函数</td>
+</tr>
+<tr><td>min(iter, key=None) or</td>
+<td>返回iter里面的最小值;或者返回(arg0,arg2,...)里面</td>
+</tr>
+<tr><td>min(arg0, arg1.... key=None)</td>
+<td>的最小值；如果指定了key，这个key必须是一个可以传给sort()方法的，
+用于比较的回调函数</td>
+</tr>
+<tr><td>reversed(seq)</td>
+<td>接受一个序列作为参数,返回一个以逆序访问的迭代器(PEP 322)</td>
+</tr>
+<tr><td>sorted(iter, func=None,</td>
+<td>接受一个可迭代对象作为参数，返回一个有序的列表；可选参数</td>
+</tr>
+<tr><td>key=None, reverse=False)</td>
+<td>func、key和reverse的含义跟list.sort()内建函数的参数含义一样</td>
+</tr>
+<tr><td>sum(seq, init=0)</td>
+<td>返回seq 和可选参数init 的总和, 其效果等同于
+reduce(operator.add,seq,init)</td>
+</tr>
+<tr><td>zip(it0, it1,... itN)</td>
+<td>返回一个列表，其第一个元素是it0,it1,...这些元素的第
+一个元素组成的一个元组，第二个...,类推.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>字符串是一种直接量或者说是一种标量，且Python里面单引号和双引号的作用是相同的</strong></p>
+<p>Python里面没有字符这个类型，而是用长度为1的字符串来表示这个概念，当然，这其实也是一个子串。用方括号加一个或者多于一个索引的方式来获得子串。</p>
+<p>在做比较操作的时候，字符串是按照ASCII值的大小来比较的</p>
+<p><strong>把重复操作作为参数放到循环里面进行是非常低效的！</strong> ，如： <tt class="docutils literal"><span class="pre">while</span> <span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">len(str):</span></tt></p>
+<p>Python的语法允许你在源码中把几个字符串连在一起写</p>
+<pre class="literal-block">
+&gt;&gt;&gt; foo = &quot;hello&quot; 'world!' 'smellcode'
+&gt;&gt;&gt; foo
+'helloworld!smellcode'
+</pre>
+<p>这种写法的好处是你可以把注释也加进来</p>
+<pre class="literal-block">
+&gt;&gt;&gt; f = urllib.urlopen('http://' # protocol
+... 'localhost' # hostname
+... ':8000' # port
+... '/cgi-bin/friends2.py') # file
+</pre>
+<p>字符串格式化符号：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">格式化字符</th>
+<th class="head">转换方式</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>%c</td>
+<td>转换成字符(ASCII 码值，或者长度为一的字符串)</td>
+</tr>
+<tr><td>%r</td>
+<td>优先用repr()函数进行字符串转换</td>
+</tr>
+<tr><td>%s</td>
+<td>优先用str()函数进行字符串转换</td>
+</tr>
+<tr><td>%d/%i</td>
+<td>转成有符号十进制数</td>
+</tr>
+<tr><td>%u</td>
+<td>转成无符号十进制数</td>
+</tr>
+<tr><td>%o</td>
+<td>转成无符号八进制数</td>
+</tr>
+<tr><td>%x/%X</td>
+<td>(Unsigned)转成无符号十六进制数(x/X代表转换后的十六进制字符的大小写)</td>
+</tr>
+<tr><td>%e/%E</td>
+<td>转成科学计数法(e/E控制输出e/E)</td>
+</tr>
+<tr><td>%f/%F</td>
+<td>转成浮点数(小数部分自然截断)</td>
+</tr>
+<tr><td>%g/%G</td>
+<td>%e和%f或者%E和%F的简写</td>
+</tr>
+<tr><td>%%</td>
+<td>输出%</td>
+</tr>
+</tbody>
+</table>
+<p>注意： <em>Python2.4 里面%u/%o/%x/%X在遇到负数的时候会返回一个有符号字符串</em></p>
+<p>格式化操作符辅助指令：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">符号</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>*</td>
+<td>定义宽度或者小数点精度</td>
+</tr>
+<tr><td>-</td>
+<td>用做左对齐</td>
+</tr>
+<tr><td>+</td>
+<td>在正数前面显示加号</td>
+</tr>
+<tr><td>&lt;sp&gt;</td>
+<td>在正数前面显示空格</td>
+</tr>
+<tr><td>#</td>
+<td>在八进制数前面显示零('0')，在十六进制前面显示'0x'或者'0X'(取决于
+用的是'x'还是'X')</td>
+</tr>
+<tr><td>0</td>
+<td>显示的数字前面填充‘0’而不是默认的空格</td>
+</tr>
+<tr><td>%</td>
+<td>'%%'输出一个单一的'%'</td>
+</tr>
+<tr><td>(var)</td>
+<td>映射变量(字典参数)</td>
+</tr>
+<tr><td>m.n</td>
+<td>m是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</td>
+</tr>
+</tbody>
+</table>
+<p>Template对象有两个方法： <tt class="docutils literal"><span class="pre">substitute()</span></tt> 和 <tt class="docutils literal"><span class="pre">safe_substitute()</span></tt> 。前者更为严谨,在key缺少的情况下它会报一个KeyError的异常出来，而后者在缺少key时，直接原封不动的把字符串显示出来。</p>
+<pre class="literal-block">
+&gt;&gt;&gt; from string import Template
+&gt;&gt;&gt; s = Template('There are ${howmany} ${lang} Quotation Sysbols')
+&gt;&gt;&gt; s
+&lt;string.Template object at 0x7ff1c36c&gt;
+&gt;&gt;&gt; print s.substitute(lang='Python', howmany=3)
+There are 3 Python Quotation Sysbols
+&gt;&gt;&gt; print s.substitute(lang='Python')
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/usr/lib/python2.5/string.py&quot;, line 170, in substitute
+    return self.pattern.sub(convert, self.template)
+  File &quot;/usr/lib/python2.5/string.py&quot;, line 160, in convert
+    val = mapping[named]
+KeyError: 'howmany'
+&gt;&gt;&gt; print s.safe_substitute(lang='Python')
+There are ${howmany} Python Quotation Sysbols
+</pre>
+<p>Python中的原始字符串中所有的字符都是直接按照字面的意思来使用，没有转义特殊或不能打印的字符，r可以是小写也可以是大写，但是必须紧靠在第一个引号前</p>
+<pre class="literal-block">
+&gt;&gt;&gt; '\n'
+'\n'
+&gt;&gt;&gt; print '\n'
+
+
+&gt;&gt;&gt; r'\n'
+'\\n'
+&gt;&gt;&gt; print r'\n'
+\n
+&gt;&gt;&gt; f = open(r'C:\windows\temp\readme.txt', 'r') #不会转义\t \r
+&gt;&gt;&gt; import re
+&gt;&gt;&gt; m = re.search(r'\\[rtfvn]', r'Hello World!\n')
+&gt;&gt;&gt; if m is not None:
+...     m.group()
+...
+'\\n'
+&gt;&gt;&gt; #这里用了表示空白字符的反斜线-字符对的正则
+&gt;&gt;&gt; m = re.search('\\[rtfvn]', r'Hello World!\n')
+&gt;&gt;&gt; if m is not None:
+...     m.group()
+...
+&gt;&gt;&gt; m = re.search('\\\\[rtfvn]', r'Hello World!\n') #找两个原始的\ n字符而不是换行
+&gt;&gt;&gt; if m is not None:
+...     m.group()
+...
+'\\n'
+&gt;&gt;&gt; m = re.search(r'\\[rtfvn]', r'Hello World!\n')
+&gt;&gt;&gt; if m is not None:
+...     m.group()
+...
+'\\n'
+</pre>
+<p>Unicode操作符也可以接受原始Unicode字符串，只要我们将Unicode操作符和的原始字符串操作符连接在一起就可以了。但是u要在r之前，如： <tt class="docutils literal"><span class="pre">ur'Hello\nWorld!'</span></tt></p>
+</div>
+</body>
+</html>

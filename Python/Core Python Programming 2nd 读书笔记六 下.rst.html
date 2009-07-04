@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+<!-- -*- mode: rst -*- -->
+<p>对于Python列表，它是可变的，这点和字符串不同，所以你可以通过在等号的左边指定一个索引或者索引范围的方式来更新一个或几个元素，你也可以用 <tt class="docutils literal"><span class="pre">append()</span></tt> 方法来追加元素到列表中去</p>
+<p><tt class="docutils literal"><span class="pre">pop()</span></tt> 方法在删除列表中位置最后的一个元素的同时，也把这个元素作为返回值返回</p>
+<p><tt class="docutils literal"><span class="pre">remove(element)</span></tt> 方法会删除指定的元素，但只会删除一次，不会删除所有相同的element</p>
+<p>再次强调：使用 <tt class="docutils literal"><span class="pre">extend()</span></tt> 方法比连接操作的一个优点是它实际上是把新列表添加到了原有的列表里面，而不是像 <tt class="docutils literal"><span class="pre">+</span></tt> 连接操作那样新建一个列表。</p>
+<p>对于 <tt class="docutils literal"><span class="pre">*</span></tt> 重复操作符可以运用于所有序列对象，包括字符串、列表和元组</p>
+<p><strong>注意：list和tuple工厂函数都不是做的完全转换，而是新生成了一个对象，所以is操作符号会返回false</strong></p>
+<p>列表类型内建函数：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">函数</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>list.append(obj)</td>
+<td>向列表中添加一个对象obj</td>
+</tr>
+<tr><td>list.count(obj)</td>
+<td>返回一个对象obj 在列表中出现的次数</td>
+</tr>
+<tr><td>list.extend(seq)</td>
+<td>把序列seq的内容添加到列表中</td>
+</tr>
+<tr><td>list.index(obj, i=0,</td>
+<td>返回list[k] == obj的k值，并且k的范围在i &lt;= k &lt; j；否则</td>
+</tr>
+<tr><td>j=len(list))</td>
+<td>引发ValueError异常</td>
+</tr>
+<tr><td>list.insert(index, obj)</td>
+<td>在索引量为index 的位置插入对象obj</td>
+</tr>
+<tr><td>list.pop(index=-1)</td>
+<td>删除并返回指定位置的对象,默认是最后一个对象</td>
+</tr>
+<tr><td>list.remove(obj)</td>
+<td>从列表中删除对象obj</td>
+</tr>
+<tr><td>list.reverse()</td>
+<td>原地翻转列表</td>
+</tr>
+<tr><td>list.sort(func=None,</td>
+<td>以指定的方式排序列表中的成员，如果func和key参数指定，</td>
+</tr>
+<tr><td>key=None,reverse=False)</td>
+<td>则按照指定的方式比较各个元素，如果reverse标志被置为True，
+则列表以反序排列（时间复杂度为O(lg(n!))）</td>
+</tr>
+</tbody>
+</table>
+<p>从Python 2.2开始， <tt class="docutils literal"><span class="pre">extend()</span></tt> 方法的参数支持任何可迭代对象，这是有好处的：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; motd = []
+&gt;&gt;&gt; motd.append('MSG OF THE DAY')
+&gt;&gt;&gt; f = open('/etc/motd', 'r')
+&gt;&gt;&gt; motd.extend(f)
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; motd
+['MSG OF THE DAY', 'Welcome to Darwin!\n']
+</pre>
+<p>巧妙的实现堆栈：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+
+stack = []
+
+def pushit():
+    stack.append(raw_input('Enter new string: '))
+
+def popit():
+    if len(stack) == 0:
+        print 'Cannot pop from an empty stack!'
+    else:
+        print 'Removed [', repr(stack.pop()), ']'
+
+def viewstack():
+    if stack:
+        print str(stack)
+    else:
+        print 'empty stack!'
+
+def showmenu():
+    prompt = &quot;&quot;&quot;
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: &quot;&quot;&quot;
+
+    done = 0
+    while not done:
+
+        chosen = 0
+        while not chosen:
+            try:
+                choice = raw_input(prompt)[0]
+            except (IndexError, EOFError, KeyboardInterrupt):
+                choice = 'q'
+            print '\nYou picked: [%s]' % choice
+
+            choice = choice.lower()
+
+            if choice not in 'uovq':
+                print 'invalid option, try again'
+            else:
+                chosen = 1
+
+        if choice == 'q': done = 1
+        if choice == 'u': pushit()
+        if choice == 'o': popit()
+        if choice == 'v': viewstack()
+
+if __name__ == '__main__':
+    showmenu()
+</pre>
+<p>巧妙的实现队列：</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+
+queue = []
+
+def enQ():
+    queue.append(raw_input('Enter new queue element: '))
+
+def deQ():
+    if len(queue) == 0:
+        print 'Cannot dequeue from empty queue!'
+    else:
+        print 'Removed [', repr(queue.pop(0)), ']'
+
+def viewQ():
+    print str(queue)
+
+def showmenu():
+    prompt = &quot;&quot;&quot;
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: &quot;&quot;&quot;
+
+    done = 0
+    while not done:
+
+        chosen = 0
+        while not chosen:
+            try:
+                choice = raw_input(prompt)[0]
+            except (IndexError, EOFError, KeyboardInterrupt):
+                choice = 'q'
+            print '\nYou picked: [%s]' % choice
+
+            choice = choice.lower()
+
+            if choice not in 'devq':
+                print 'invalid option, try again'
+            else:
+                chosen = 1
+
+        if choice == 'q': done = 1
+        if choice == 'e': enQ()
+        if choice == 'd': deQ()
+        if choice == 'v': viewQ()
+
+if __name__ == '__main__':
+    showmenu()
+</pre>
+<p>元组是不可变类型，所以可以用作字典的key，另外当处理一组对象时，这个组默认是元组类型，在赋值时如果左边只有一个变量，而右边是多个值，那么右边也会自动转为元组赋值给左边</p>
+<p><strong>有个关于列表和元组的工厂函数的细节要注意，就是当传入的参数是一个字符串时，会自动把字符串分解为一个个字符，这就意味着你最后得到的不是一个元素的列表或者元组，而是长度为字符串长度的列表或者元组</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; str = 'abcdef'
+&gt;&gt;&gt; list(str)
+['a', 'b', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; tuple(str)
+('a', 'b', 'c', 'd', 'e', 'f')
+</pre>
+<p>虽然元组是不可变的类型，但是我们设法通过替换它的元素来“改变”它：</p>
+<pre class="literal-block">
+&gt;&gt;&gt; t = (['xyz', 123], 23, -103.4)
+&gt;&gt;&gt; t
+(['xyz', 123], 23, -103.40000000000001)
+&gt;&gt;&gt; t[0][1]
+123
+&gt;&gt;&gt; id(t)
+2146530484
+&gt;&gt;&gt; t[0][1] = ['abc', 'def']
+&gt;&gt;&gt; t
+(['xyz', ['abc', 'def']], 23, -103.40000000000001)
+&gt;&gt;&gt; id(t)
+2146530484
+</pre>
+<p>与序列类型相关的模块：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">模块</th>
+<th class="head">内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>array</td>
+<td>一种受限制的可变序列类型,要求所有的元素必须都是相同的类型。</td>
+</tr>
+<tr><td>copy</td>
+<td>提供浅拷贝和深拷贝的能力(详见6.20)</td>
+</tr>
+<tr><td>operator</td>
+<td>包含函数调用形式的序列操作符，比如operator.concat(m,n)
+就相当于连接操作(m+n)</td>
+</tr>
+<tr><td>re</td>
+<td>Perl风格的正则表达式查找(和匹配)；见第15 章</td>
+</tr>
+<tr><td>StringIO/</td>
+<td>把长字符串作为文件来操作，比如read()，seek()函数等，C版的更快一些，</td>
+</tr>
+<tr><td>cStringIO</td>
+<td>但是它不能被继承</td>
+</tr>
+<tr><td>Textwrap</td>
+<td>用作包裹/填充文本的函数，也有一个类</td>
+</tr>
+<tr><td>types</td>
+<td>包含Python支持的所有类型</td>
+</tr>
+<tr><td>collections</td>
+<td>高性能容器数据类型</td>
+</tr>
+</tbody>
+</table>
+<p>序列类型对象的浅拷贝是默认类型拷贝，并可以以下几种方式实施：</p>
+<ol class="arabic simple">
+<li>完全切片操作[:]</li>
+<li>利用工厂函数，比如 <tt class="docutils literal"><span class="pre">list()</span></tt> ， <tt class="docutils literal"><span class="pre">dict()</span></tt> 等</li>
+<li>使用copy模块的 <tt class="docutils literal"><span class="pre">copy</span></tt> 函数</li>
+</ol>
+<p><strong>对一个对象进行浅拷贝其实是新创建了一个类型跟原对象一样，其内容（可变类型的）是原来对象元素的引用，换句话说,这个拷贝的对象本身是新的，但是它的内容不是，但对于不可变类型的对象会显示的被复制，从而创建一个新的不可变的对象，不过对于整型和字符串都会有一定的缓存</strong></p>
+<pre class="literal-block">
+&gt;&gt;&gt; obj1 = ['hello world everybody', [1, 2, 3]]
+&gt;&gt;&gt; obj1
+['hello world everybody', [1, 2, 3]]
+&gt;&gt;&gt; id(obj1)
+2146529260
+&gt;&gt;&gt; id(obj1[0])
+2146479232
+&gt;&gt;&gt; obj2 = list(obj1)
+&gt;&gt;&gt; obj2
+['hello world everybody', [1, 2, 3]]
+&gt;&gt;&gt; id(obj2)
+2146537708
+&gt;&gt;&gt; id(obj2[0])
+2146479232
+&gt;&gt;&gt; obj2[1][0] = 'smellcode'
+&gt;&gt;&gt; obj2
+['hello world everybody', ['smellcode', 2, 3]]
+&gt;&gt;&gt; obj1
+['hello world everybody', ['smellcode', 2, 3]]
+</pre>
+<p>要得到一个完全拷贝或者说深拷贝--创建一个新的容器对象，包含原有对象元素（引用）全新拷贝的引用--需要 <tt class="docutils literal"><span class="pre">copy.deepcopy()</span></tt> 函数</p>
+<pre class="literal-block">
+&gt;&gt;&gt; person = ['name', ['savings', 100.00]]
+&gt;&gt;&gt; hubby = person
+&gt;&gt;&gt; import copy
+&gt;&gt;&gt; wifey = copy.deepcopy(person)
+&gt;&gt;&gt; [id(x) for x in person, hubby, wifey]
+[12242056, 12242056, 12224232]
+&gt;&gt;&gt; hubby[0] = 'joe'
+&gt;&gt;&gt; wifey[0] = 'jane'
+&gt;&gt;&gt; hubby, wifey
+(['joe', ['savings', 100.0]], ['jane', ['savings', 100.0]])
+&gt;&gt;&gt; hubby[1][1] = 50.00
+&gt;&gt;&gt; hubby, wifey
+(['joe', ['savings', 50.0]], ['jane', ['savings', 100.0]])
+&gt;&gt;&gt; [id(x) for x in hubby]
+[12191712, 11826280]
+&gt;&gt;&gt; [id(x) for x in wifey]
+[12114080, 12224792]
+</pre>
+<p>对于拷贝有几点要注意：</p>
+<ul class="simple">
+<li>非容器类型（比如数字、字符串和其他“原子”类型的对象，像代码，类型和xrange 对象等）没有被拷贝一说，浅拷贝是通过完全切片操作来实现的</li>
+<li>如果元组变量只包含原子类型对象，对它的深拷贝将不会进行</li>
+</ul>
+</div>
+</body>
+</html>

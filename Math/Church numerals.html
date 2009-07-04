@@ -1,0 +1,59 @@
+<p>Church numerals的定义是：</p>
+<pre class="brush: plain">
+0 为函数 "lambda s z . z"
+1 为函数 "lambda s z . s z"
+2 为函数 "lambda s z . s (s z)"
+...
+n 为函数 "lambda s z . s (s...(s(s(s z))))"  所有的s应用了n次
+</pre><!--more-->
+<p>注意：<strong>这里的0 1 2等非负整数的含义和平时我们用的是不一样的，它们被重新定义了</strong>。那么有上定义，不难得到数x和数y的基于s和z的表示：</p>
+<pre class="brush: plain">
+x = lambda s z . s (s...(s(s(s z)))) 所有的s应用了x次
+y = lambda s z . s (s...(s(s(s z)))) 所有的s应用了y次
+</pre>
+<p>在这个演算过程中现在我们定义<code>x + y</code> 这个运算，那么我们可以定义这样的一个函数<code>add = lambda s z x y . x s (y s z)</code>，其中形参x和y分别表示要相加的两个数，而s和z这是用来引入Church numerals定义中的两个基，用于最终表示结果的数值。那么这里add其实是有4个参数（s z x y）的函数，所以我们可以做两次<em>Beta Reduction</em></p>
+<pre class="brush: plain">
+第一次Beta Reduction
+add = lambda s z x y . x s (s...括号里所有的s应用了y次...(s(s(s z))))
+第二次Beta Reduction
+add = lambda s z x y . s (s...外层括号里所有的s应用了x - 1次...(s(s(s (s...括号里所有的s应用了y次...(s(s(s z))))))))
+</pre>
+<p>所以其实<code>add = lambda s z x y . s (s...(s(s(s z))))</code>，里面所有的s应用了x + y 次，这就是add函数了。从结果看，也很符合逻辑，那就是s应用一次就是1，那x + y次就是正确的结果x + y了。</p>
+<p>假设我们要算2+3，那过程就是这样的：</p>
+<pre class="brush: plain">
+add s z 2 3 其实为
+x s (s (s (s z))) 也就是
+s (s (s (s (s z)))) 就代表了Church numerals中的5
+</pre>
+<p>下面借着兴致来一个Javascript实现的lambda演算Church numerals，并实现加法x+y</p>
+<pre class="brush: js">
+function lambda(str) {
+    var sections = str.split(/\s*\.\s*/m); //区别参数和函数体
+    var params = sections.shift().split(/\s*/m); //取到参数数组
+    sections = sections.pop().replace(/\s/g, '').split(''); //取到函数体
+    
+    var expr = sections.shift() + '(', startAble = true;
+    
+    while (sections.length) {
+        var tmp = sections.shift();
+        if (tmp.match(/\w/)) {
+            expr =  startAble ? (startAble = false, expr + tmp) : expr + ',' + tmp;
+        } else if (tmp == '(') {
+            expr =  startAble ? expr + sections.shift() + '(' : expr + ',' + sections.shift() + '(';
+            startAble = true;
+        } else if (tmp == ')') {
+            expr += ')';
+        }
+    }
+    return new Function(params, 'return ' + expr + ')');
+}
+
+var add = lambda('s z x y . x s (y s z)'); //定义加法函数
+var z = 0; //为了理解自然点，我把Church numerals中的基z直接换成了0，但希望读者理解为一个代表0的量，而不是整数0
+var s = function(z) {return z + 1}; //统一为了配合上面的0，直接换成了一个加1的运算函数，但要理解为只是带一个参数的函数
+var s2 = lambda('s z . s (s z)'); //定义数字2
+var s3 = lambda('s z . s (s (s z))');  //定义数字3
+
+alert(add(s, z, s2, s3)); //呐喊出5
+</pre>
+<p>对于想深入理解lambda演算的同学，推荐阅读<a href="http://goodmath.blogspot.com/search?q=My+Favorite+Calculus%3A+Lambda" title="goodmath" target="_blank">goodmath的老博客</a>，他的新博客地址是<a href="http://www.scienceblogs.com/goodmath" title="Good Math has moved to ScienceBlogs" target="_blank">http://www.scienceblogs.com/goodmath</a></p>

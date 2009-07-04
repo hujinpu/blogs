@@ -1,0 +1,43 @@
+<p>之所以说是半自动化，是由于并不是一直去通过gzip.php压缩成gzip格式的文件再返回的，而是通过第一次访问后就自动生成了对应的*.css.gz和*.js.gz文件。所以在访问了所有的你的站点的css和js文件后，<strong>请一定记得把下面的这行从你的<a href="http://httpd.apache.org/docs/2.2/howto/htaccess.html" target="_blank" title="apache 2.2官方文档中关于.htaccess文件的参考">.htaccess</a>文件中注释掉，不然浪费了cpu资源：</strong><br /><del><code>RewriteRule (.*.css$|.*.js$) gzip.php?$1 [L]</code></del><br /><ins cite="http://www.w3er.com/2009/02/self-auto-gzip-for-js-and-cssself-auto-gzip-for-js-and-css/"><code>#RewriteRule (.*.css$|.*.js$) gzip.php?$1 [L]</code></ins><br /><!--more--></p>
+<p>下面说下操作步骤：
+<ol>
+<li>先下载核心php程序<a href="http://www.w3er.com/uploads/gzip.php.tar.gz" title="php实现的gzip压缩" class="download">gzip.php.tar.gz</a>，再解压后，把gzip.php放到你网站的根目录（或者与.htaccess文件相同的目录）</li>
+<li>修改你的.htaccess文件，增加如下内容：
+<pre>
+#对要识别gzip的文件的支持
+&lt;Files *.js.gz&gt;
+  AddEncoding gzip .js
+  ForceType application/x-javascript
+&lt;/Files&gt;
+&lt;Files *.css.gz&gt;
+  AddEncoding gzip .css
+  ForceType text/css
+&lt;/Files&gt;
+
+&lt;IfModule mod_rewrite.c&gt;
+RewriteEngine On
+RewriteBase /
+
+#wordpress静态网页，如果沒有使用，就略过
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+#读到css和js文件，就重定向到gzip.php，记得用完就要注释掉
+RewriteRule (.*.css$|.*.js$) gzip.php?$1 [L]
+
+#读到.css，判断如果浏览器支持gzip且.css.gz文件存在，就重导向到css.gz文件
+RewriteCond %{HTTP:Accept-encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule ^(.*)\.css $1.css.gz [L,QSA]
+
+#读到.js，判断如果浏览器支持gzip且.js.gz文件存在，就重导向到js.gz文件
+RewriteCond %{HTTP:Accept-encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule ^(.*)\.js $1.js.gz [L,QSA]
+&lt;/IfModule&gt;
+</pre>
+</li>
+<li>在你可能新出现css和js的地方逛逛，gzip.php程序就会自动生成对应的gzip文件，然后<strong>回到.htaccess文件，注释掉</strong><del><code>RewriteRule (.*.css$|.*.js$) gzip.php?$1 [L]</code></del></li>
+</ol>
+</p>

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>古月居</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="reset-fonts-grids.css" type="text/css" rel="stylesheet" />
+        <style type="text/css">
+            a {text-decoration: none; color: #000;}
+            h1 {font-size: 35px; font-weight: bold; padding: 5px;}
+            h2 {font-size: 20px; font-weight: bold;}
+            h3 {font-size: 20px; font-weight: bord;}
+            sub {font-size: 15px; margin: 0 0 0 5px; padding: 0;}
+
+            #say-somethings p {margin: 10px 0;}
+            #say-somethings label {float: left;}
+            #say-somethings p input[type=text] {width: 20em;}
+            #sub {padding: 0 0 0 3em;}
+
+            #comment-list .comment-title {font-size: 120%; font-weight: bold;
+                margin-bottom: 10px;}
+            #comment-list .comment-content {background: #B5EDBC}
+
+            .header {border-bottom: 3px dashed gray;}
+            .main-content {border-left: 3px dashed gray; font-size: 14px; padding: 3px;}
+            .sidebar {padding: 3px;}
+            .post {margin: 5px; padding: 5px; border-bottom: 2px dotted gray;}
+            .post-metadata {margin: 2px;}
+            .post-content p {text-indent: 2em;}
+            .footer {float: right;}
+            .hidden {display: none;}
+
+        </style>
+        <script type="text/javascript" src="jquery-1.3.2.js"></script>
+        <script type="text/javascript" src="trimpath-template-1.0.38.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                var mainContent = $('#yui-main div.main-content');
+                $.getJSON('http://api.openresty.org/=/model/Post/~/~/?_user=w3er.Public&_callback=?', function(data) {
+                    var result = TrimPath.processDOMTemplate('posts-template', {posts: data});
+                    mainContent.append(result);
+                });
+
+                $('#yui-main div.main-content a').live('click', function(evt) {
+                    $.getJSON('http://api.openresty.org/=/action/GetFullPost/id/' + this.href.substring(this.href.indexOf('#') + 1) + '/?_user=w3er.Public&_callback=?', function(data) {
+                        mainContent.html('');
+                        var result = TrimPath.processDOMTemplate('post-template', {post: data[0][0], comments: data[2]});
+                        mainContent.append(result);  
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="doc3" class="yui-t1">					
+
+            <div id="hd" class="header">
+                <h1><a href="/life/" title="古月居">古月居</a><sub>简约而不简单</sub></h1>
+            </div>
+
+            <div id="bd">
+                <div id="yui-main">
+                    <div class="yui-b main-content">
+                    </div>
+                </div>
+                <div class="yui-b sidebar">
+                    <h2>关于</h2>
+                    <p>仅记录一些生活的琐事罢了</p> 
+                </div>
+            </div>
+
+            <div id="ft" class="footer">
+                <p>Powered by <a href="http://search.cpan.org/dist/OpenResty" title="General-purpose web service platform for web applications ">OpenResty</a> and your web browser.</p>
+            </div>
+        </div>
+        <textarea id="posts-template" class="hidden">
+            <h2>日志更新</h2>
+            {for p in posts}
+            <div class="post">
+                <h3 class="post-title"><a href="#${p.id}" title="${p.title}">${p.title}</a></h3>
+                <p class="post-metadata">
+                <abbr title="${p.created}" class="published updated">发表于 ${p.created.substring(0, 10)}</abbr> | <a href="#${p.id}" class="comment">${p.comments} 条留言</a>                
+                </p>
+                <div class="post-content">${p.content}</div>
+            </div>
+            {forelse}
+            <h3>目前还没有发表任何文章</h3>
+            {/for}
+        </textarea>
+        <textarea id="post-template" class="hidden">
+            <h1><a href="#${post.id}" class="title" title="${post.title}">${post.title}</a></h1>
+            <div class="post-content">${post.content}</div>
+            <hr />
+            <h3>留言列表</h3>
+            <dl id="comment-list">
+                {for c in comments}
+                <dt class="comment-title">在${c.created.substring(0, 10)} ${c.sender} 说：</dt>
+                <dd class="comment-content">${c.body}</dd>
+                {forelse}
+                <dt>没有人留言</dt>
+                {/for}
+            </dl>
+            <hr />
+            <form id="say-somethings">
+                <fieldset>
+                    <legend>给我留言</legend>
+                </fieldset>
+                <p>
+                    <label for="author">姓名：</label>
+                    <input type="text" id="author" name="author" />
+                </p>
+                <p>
+                    <label for="email">邮箱：</label>
+                    <input type="text" id="email" name="email" />
+                </p>
+                <p>
+                    <label for="content">内容：</label>
+                    <textarea id="content" name="content" cols="60" rows="15" />
+                </p>
+                <p id="sub"><input type="submit" value="提交" id="submit" /></p>
+            </form>
+        </textarea>
+    </body>
+</html>

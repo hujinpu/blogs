@@ -1,0 +1,143 @@
+<p>Javascript中的作用域问题一直困扰着我。让我在自己的很多程序中，深陷this的泥潭。所以我打算写这篇文章来解决scope在javascript编程中的问题，让读者能少走弯路，这就是捷径。</p><!--more-->
+<p>每一个小的Javascript程序都是有上下文环境的，就是有父亲或者儿子域。这好像我们都有父母。也许这么说不太清楚，那么在代码中就体现为，一段代码只能使用它内部的变量和它的父亲环境的。那么它自己和它上一级的父亲环境就共同形成了这个scope chain。这就是作用域链，Javascript中，<strong> 代码只能使用自己scope chain中的变量，不能越轨 。</strong></p>
+<p>这就好比你除了能花你的钱，你还能问你的老爸老妈要钱用。
+但这里有个问题，一般情况（比较年少的时候），父母是不会要你的钱的，在Javascript中，父亲环境的代码一般用不到子环境中的变量。这里举个例子：</p>
+<pre class="brush: js">
+var str = '这是外部';
+var outNum = 10000;
+
+var firstFn = function() {
+    var str = '这是内部';
+    var i = 100;
+    alert(str);
+};
+
+var secondFn = function() {
+    alert(outNum);
+};
+
+firstFn();
+
+alert(str);
+
+alert(i);
+</pre>
+<p>这里当调用firstFn函数时，显示的是“这是内部”，而alert(str)时显示的就是“这是外部”。而alert(i)调用时就会报错，说i未定义。当你secondFn函数时，当代码在自己那里找不到outNum时，就会顺着scope chain往上找。（你没钱用时，很有可能就找家里要了。）所以显示的是10000。</p>
+<p>除了建立了这么一条<strong>scope chain</strong>之外，Javascript还在每个执行上下中维护着一个<strong>this</strong>关键字。这是一个比较复杂也让人头疼的话题，让我慢慢来讲，这就好打桥牌，好牌要慢慢叫。
+还是用一个小代码例子来说明问题：</p>
+<pre class="brush: js">
+var whoami = {
+    name: 'smellcode';
+    email: 'smellcode@gmail.com';
+
+    answerToMyName: function() {
+        return this.name;
+    };
+
+    answerToMyEmail: function() {
+        return this.email;
+    };
+};
+</pre>
+<p>这个例子生产了一个名叫whoami的对象，设置了它的name、email属性分别为smellcode、smellcode@gmail.com，同时有两个方法answerToMyName、answerToMyEmail。当whoami.answerToMyName方法被调用时，Javascript建立了一个它的执行时的上下文，提供给call函数使用。<strong>这个上下文会把this关键字设置为最后一个“.”操作符的前面出现的那个对象的引用 。</strong>这里就是whoami。所以answerToMyName方法才能通过this得到whoami里面的name属性smellcode。</p>
+<p>事情没有这么简单，别忘了在OO的编程中，最常用的是new关键字。看看改写过后的上面的代码：</p>
+<pre class="brush: js">
+var whoami = function(name, email) {
+    this.name = name;
+    this.email = email;
+
+    this.answerToMyName = function() {
+        return this.name;
+    };
+
+    this.answerToMyEmail = function() {
+        return this.email;
+    };
+};
+
+var newInstance = new whoami('smellcode', 'smellcode@gmail.com');
+var myName = newInstance.answerToMyName();
+var myEmail = newInstance.answerToMyEmail();
+</pre>
+<p>当定义一个function，而且同时被作为一个有构造函数的类通过new关键字来使用时，这就更加OO了，不是吗，如果有过OOP的经历，这里会很自然。但这里要注意的是，我要告诉你这个this关键字指向的是newInstance这个实例。也就是说，当执行whoami的构造函数时，this被指向了newInstance，这就会使newInstance拥有name和email属性，以及answerToMyName和answerToMyEmail方法，并且这个例子中，name被设置为了smellcode，email被设置为了smellcode@gmail.com。是不是感觉有点似懂非懂？</p>
+<p>其实回头看看之前的代码，这里只是加了一个新的法则，就是<strong>通过new关键字来生产的实例，代码执行一开始时，上下文中this会指向这个新的对象。</strong>后面还是<q>this关键字设置为最后一个“.”操作符的前面出现的那个对象的引用</q>。我喜欢Simple is beautiful!这句话，在中国的禅宗里，很多事情都被看到很简单，其实就是用了一种拆分的方法。这里不就是两条准则解决了这个代码的谜题。</p>
+<p>这里我写个代码，你们说说this指向的什么？</p>
+<pre class="brush: js">
+function guessThis() {
+    return this;
+}
+
+var answerThis = guessThis();
+</pre>
+<p>呵呵，猜到了吗？如果在web页面中，这里就是window对象。因为我们没有用到上面两个准则中的任何一个，那么就会代表默认的全局的this，在网页中就是this。window对象总是存在的，你可理解其为一个浏览器窗口对象。它包含了其它所有的对象如document和所有的全局变量。另外，每个frame或iframe拥有其自身的window对象，其自身的全局空间。</p>
+<p>所以在下面这个代码中3种调用是一回事：</p>
+<pre class="brush: js">
+var helloWorld = function() {
+    alert('hello world!');
+};
+
+helloWorld();
+this.helloWorld();
+window.helloWorld();
+</pre>
+<p>看这段复杂一些的代码：</p>
+<pre class="brush: js">
+var whoami = function(name, email) {
+    this.name = name;
+    this.email = email;
+
+    this.answerToMyName = function() {
+        return this.name;
+    };
+
+    this.answerToMyEmail = function() {
+        return this.email;
+    };
+};
+
+var addHandler = function() {
+    var newInstance = new whoami('smellcode', 'smellcode@gmail.com');
+    var button = document.getElementById('buttonId');
+    button.onclick = newInstance.answerToMyName;
+};
+
+window.onload = addHandler;
+</pre>
+<p>问题又变得复杂了，那么怎么做？很简单分解问题，找答案。仔细看看上面代码，我用了一个最简单的方法给一个html页面中id为buttonId的button加了一个onclick事件的处理器newInstance.answerToMyName。那当你点击这个按钮时，你得到的是什么？smellcode吗？不是，而是undefined 未定义。这是什么回事，我是按那两个规则做的，但怎么和预期的不一样，很简单， 当你用已有的规则解决问题时，它不听你的话了，那这只能说明，你要新的规则了 。好的，我现在就告诉你： <strong>当一个方法，这里就是answerToMyName被作为一个事件处理器时和被一个对象直接调用是不同的。这里的this会成为这个事件的发生者的引用，这里就是你点的这个button。</strong> 显然button没有name的属性，所以answerToMyName方法返回undefined。记住这个新的法则，我将告诉你用新的利剑解决上面的问题。</p>
+<p>不就是this指到了不正确的位置嘛。在Javascript语言里内置了<a href="http://msdn.microsoft.com/en-us/library/h2ak8h2y(VS.85).aspx" title="MSDN中关于call的参考">call</a>和<a href="http://msdn.microsoft.com/en-us/library/4zc42wh1(VS.85).aspx" title="MSDN中关于apply的参考">apply</a>函数来做这个。我不想多说，只告诉你最本质的东西。call和apply起同样的作用，就是立即执行代码然后返回结果。上面不是不想指向button那个dom对象吗？好说。<code>button.onclick = newInstance.answerToMyName.call(newInstance);</code>这里，不是提供一个方法的引用给onclick事件作为事件处理器，而是先立即执行newInstance.answerToMyName方法，而后把结果作为onclick事件的响应。所以就暂时解决了上面的问题。为什么说是暂时呢？你觉得还是有点悬。</p>
+<p>这里说明下apply和call不同之处在于apply第二个参数是个数组。看一个乘法的例子：</p>
+<pre class="brush: js">
+var first_object = {
+    num: 11
+};
+var second_object = {
+    num: 34
+};
+
+function multiply(mult) {
+    return this.num * mult;
+}
+
+multiply.call(first_object, 7); // returns 11 * 7
+multiply.call(second_object, 9); // returns 34 * 9
+</pre>
+<p>好了，上面说用call和apply只是暂时的解决方法，因为你不能得到一个函数的引用，以后再调用它。看好，本篇文章最精华的地方来了。</p>
+<pre class="brush: js">
+Function.prototype.bind = function(obj) {
+    var method = this,
+    var temp = function() {
+        return method.apply(obj, arguments);
+    };
+
+    return temp;
+}
+</pre>
+<p>这是什么，这就是我要告诉你的最终解决方案的代码表现。有了它你就可以“胡作非为了”。上面的问题这样解决<code>button.onclick = newInstance.answerToMyName.bind(newInstance);</code>好了，我来解释一下：<a href="http://msdn.microsoft.com/en-us/library/x844tc74(VS.85).aspx" title="MSDN中关于Function的参考">Function</a>是一个全局对象，如果对于它施加prototype魔法，那么以后你定义的任何function都能用bind这个方法了。这就好像我要动态的增加一个类的方法或者属性，都可以用<code>ClassName.prototype.propertyName或者ClassName.prototype.methodName。</code>明白了吗？</p>
+<p>再看看bind做了什么，这么厉害。<code>newInstance.answerToMyName.bind(newInstance)</code>这句中，要计算出这个事件的handler就必须执行bind方法。这时，让我们利用我上面讲的规则，此时的this是指向answerToMyName的，注意不是newInstance。那么bind方法定义中的method方法就是answerToMyName了。那再看temp里面：<code>answerToMyName.apply(newInstance, arguments)</code>，这句话你应该知道，是让answerToMyName方法马上执行，this指向newInstance，那么返回的就是执行后的结果，这里是smellcode。最后bind返回了temp，<strong>注意这是一个函数。</strong></p>
+<p>所以button.onclick事件绑定的就是一个函数了，这个函数就是这样的：</p>
+<pre class="brush: js">
+function() {
+    return 'smellcode';
+}
+</pre>
+<p>它不依赖于this，所以没有任何问题。OK，是不是good job!最后希望这篇文章能给读者你一点帮助，我觉得特别是当初接触Javascript的（含误解Javascript的）先弄清楚scope，this这些基础的东西。</p>
