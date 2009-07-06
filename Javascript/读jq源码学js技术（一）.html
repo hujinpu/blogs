@@ -70,7 +70,7 @@
 // Give the init function the jQuery prototype for later instantiation
 jQuery.fn.init.prototype = jQuery.fn;
 </pre>
-<p>一开始的<code>jQuery = window.jQuery = window.$</code>是否变为<code>jQuery = top.window.jQuery = top.window.$</code>更好呢？因为这样就可以在iframe里不会独自产生一个jQuery了。再看这个构造函数，有点独特，就是构造对象不用new操作符，如：<code>$('#aaa')</code>。其实本质的构造函数是init函数，所以称它为init的增强，之所以这样做，其实就是一个风格问题，jQuery已经引导使用者直接使用$()操作而不去new $()了。大家可以看下我下面的xxx函数，这就不管你new还是不new都会执行doSomething，因为里面判断了是否是xxx的实例。这也是一种增强型的构造函数。</p>
+<p>一开始的<code>jQuery = window.jQuery = window.$</code>是否变为<code>jQuery = top.window.jQuery = top.window.$</code>更好呢？因为这样就可以在iframe里不会独自产生一个jQuery了，但其实要考虑iframe跨域的限制，所以对于一个优秀的team，基于或者参考学习目前的优秀Javascript框架，建立自己的轮子，好用的轮子还是很有必要的，这里赞一下百度有啊的WED团队，做得不错，很有新意。再看这个构造函数，有点独特，就是构造对象不用new操作符，如：<code>$('#aaa')</code>。其实本质的构造函数是init函数，所以称它为init的增强，之所以这样做，其实就是一个风格问题，jQuery已经引导使用者直接使用$()操作而不去new $()了。大家可以看下我下面的xxx函数，这就不管你new还是不new都会执行doSomething，因为里面判断了是否是xxx的实例。这也是一种增强型的构造函数。</p>
 <pre class="brush: js">
 function xxx(){
     return this instanceof xxx ? this.doSomething() : new xxx();
