@@ -1,0 +1,393 @@
+<p>本早就想写一篇这样的博客，也许是<a href="http://mootools.net/" title="a compact, modular, Object-Oriented JavaScript framework designed for the intermediate to advanced JavaScript developer" target="_blank">mootools</a>的一个系列吧，不过估计最近不会有充足的时间，所以说系列就太挖坑了。感兴趣的同学可以继续，我觉得从mootools的源码出发，可以写出一本不错的Javascript的中级的教材，如果我有时间我会就会发出系列的口号的。</p>
+<p>这次我分析的是mootools的核心，Core.js。我看的版本是1.2.4dev，是从github上clone下来的。<code>git clone git://github.com/mootools/mootools-core.git</code>。Core.js最核心的就是Native函数了，然后还有一些常用的工具，以及对于Object和Array的简单实用扩展，其中Object的扩展类名为Hash。我把分析都详细的写到了代码里，所以大家可以耐心的好好读一下，我相信一定有不少收获。</p>
+<!--more-->
+<pre class="brush: javascript">
+var MooTools = {
+    'version': '1.2.4dev',
+    'build': '%build%'
+};
+
+
+// Native是mootools的绝对核心，所有的类的构造都会由Native函数完成
+var Native = function(options){
+    // 如果没有任何配置，就是一个初始的空的对象
+    options = options || {};
+
+    // 从配置指定类名
+    var name = options.name;
+
+    // 用于对内置对象包装时，保留的原内置对象
+    var legacy = options.legacy;
+
+    // 是否防止原对象的prototype中的方法被覆盖
+    var protect = options.protect;
+
+    // 类需要添加的属性或方法，如果generics不是false就在prototype里添加，同时静态化
+    // 这里methods表明作者希望options.implement传入的都是方法
+    var methods = options.implement;
+
+    // 是否把对象的所有属性和方法静态化，如果不想静态化，只能设置为false值本身
+    var generics = options.generics;
+
+    // 初始化方法
+    var initialize = options.initialize;
+
+    // 用于add方法的后续操作
+    var afterImplement = options.afterImplement || function(){};
+
+    // 如果没有提供initialize方法就使用内置对象作为原型
+    var object = initialize || legacy;
+
+    // 只用generics恒等为false时取false，其它情况都作true处理
+    generics = generics !== false;
+
+    // 设置类的构造器
+    object.constructor = Native;
+
+    // 统一类对象的静态属性$family对象的name值为native，$type函数不会使用这个值
+    object.$family = {name: 'native'};
+
+    // 继承legacy的原型
+    if (legacy && initialize) object.prototype = legacy.prototype;
+    object.prototype.constructor = object;
+
+    if (name){
+        // 类型名统一为小写
+        var family = name.toLowerCase();
+
+        // 写入原型链，这样修改原型就可以让所有实例的$family变化，这在调整父类名称时很有用
+        // 这个原型链的$family是$type函数真正要用到的
+        object.prototype.$family = {name: family};
+
+        // 使object.type(someObject)能判断object与someObject是否为同一类型
+        Native.typize(object, family);
+    }
+
+    // 为对象添加属性或方法的函数（在prototype，以及根据generics同时为object添加成静态属性或方法 ）
+    // 参数名method，表明作者希望add的都是方法
+    var add = function(obj, name, method, force){
+        // 仅当不受保护或者强制覆盖或者对象prototype中不存在该属性或方法时添加
+        if (!protect || force || !obj.prototype[name]) obj.prototype[name] = method;
+
+        // 静态化
+        if (generics) Native.genericize(obj, name, protect);
+
+        // 添加方法后的操作
+        afterImplement.call(obj, name, method);
+        return obj;
+    };
+
+    // 给类对象中的属性或方法取别名
+    object.alias = function(a1, a2, a3){
+        // 如果为object.alias('forEach', 'each')
+        if (typeof a1 == 'string'){
+            var pa1 = this.prototype[a1];
+
+            // 如果pa1有值，也就是a1是prototype中的一个属性或者方法
+            if ((a1 = pa1)) return add(this, a2, a1, a3);
+        }
+
+        // 如果a1是一个集合，那就批处理
+        // 如：object.alias({func1: 'functionOne', func2: 'functionTwo'})
+        for (var a in a1) this.alias(a, a1[a], a2);
+
+        // 支持链式操作
+        return this;
+    };
+
+    // 对类对象进行扩展（增加属性和方法）
+    object.implement = function(a1, a2, a3){
+        if (typeof a1 == 'string') return add(this, a1, a2, a3);
+        for (var p in a1) add(this, p, a1[p], a2);
+
+        // 支持链式操作
+        return this;
+    };
+
+    // 添加配置中指定的扩展实现（增加属性和方法）
+    if (methods) object.implement(methods);
+
+    // 返回类对象
+    return object;
+};
+
+// 静态化类对象的属性或方法
+// check为true则不会覆盖已有的静态同名属性或方法
+Native.genericize = function(object, property, check){
+    if ((!check || !object[property]) && typeof object.prototype[property] == 'function') object[property] = function(){
+        var args = Array.prototype.slice.call(arguments);
+        // 参数列表的第一个参数做为原实例方法的this引用传入
+        return object.prototype[property].apply(args.shift(), args);
+    };
+};
+
+// 同时对多个对象进行扩展（增加属性和方法）
+Native.implement = function(objects, properties){
+    for (var i = 0, l = objects.length; i < l; i++) objects[i].implement(properties);
+};
+
+// 让类实例增加type类型判断方法，利用$type判断是否为同一类或者继承自同一父类
+Native.typize = function(object, family){
+    if (!object.type) object.type = function(item){
+        return ($type(item) === family);
+    };
+};
+
+(function(){
+    // 让Javascript的核心内置对象Native化，即加入一些方便以后扩展的属性和方法，已存在的不会被 覆盖
+    var natives = {'Array': Array, 'Date': Date, 'Function': Function, 'Number': Number, 'RegExp': RegExp, 'String': String};
+    for (var n in natives) new Native({name: n, initialize: natives[n], protect: true});
+
+    // 让Boolean、Native和Object对象实例具有type方法，可以做类型判断
+    var types = {'boolean': Boolean, 'native': Native, 'object': Object};
+    for (var t in types) Native.typize(types[t], t);
+
+    // 将Array和String的实例方法静态化到Array和String本身
+    var generics = {
+        'Array': ["concat", "indexOf", "join", "lastIndexOf", "pop", "push", "reverse", "shift", "slice", "sort", "splice", "toString", "unshift", "valueOf"],
+        'String': ["charAt", "charCodeAt", "concat", "indexOf", "lastIndexOf", "match", "replace", "search", "slice", "split", "substr", "substring", "toLowerCase", "toUpperCase", "valueOf"]
+    };
+    for (var g in generics){
+        for (var i = generics[g].length; i--;) Native.genericize(natives[g], generics[g][i], true);
+    }
+})();
+
+var Hash = new Native({
+
+    // 指定类名，用于$type方法的类型判断
+    name: 'Hash',
+
+    initialize: function(object){
+        // 如果object是Hash对象，则复制一个干净的副本，
+        // 先使用getClean方法得到object对象本身的属性和方法（不包括其prototype的），
+        // 再使用$unlink方法解除属性中值为对象的引用
+        if ($type(object) == 'hash') object = $unlink(object.getClean());
+
+        // 开始复制
+        for (var key in object) this[key] = object[key];
+        return this;
+    }
+
+});
+
+Hash.implement({
+
+    // 遍历Hash实例的属性和方法，执行fn函数，第一参数是属性或者方法的值，第二个参数是key名称
+    forEach: function(fn, bind){
+        for (var key in this){
+            if (this.hasOwnProperty(key)) fn.call(bind, this[key], key, this);
+        }
+    },
+
+    // 得到一个干净的拷贝，不会拷贝继承的属性或方法
+    getClean: function(){
+        var clean = {};
+        for (var key in this){
+            if (this.hasOwnProperty(key)) clean[key] = this[key];
+        }
+        return clean;
+    },
+
+    // 得到Hash实例的属性和方法的总数量，不包括继承的属性和方法
+    getLength: function(){
+        var length = 0;
+        for (var key in this){
+            if (this.hasOwnProperty(key)) length++;
+        }
+        return length;
+    }
+
+});
+
+// 取Hash类的forEach方法别名为each
+Hash.alias('forEach', 'each');
+
+Array.implement({
+
+    // 遍历Array实例，执行fn函数，第一参数是值，第二个参数是数组下标
+    forEach: function(fn, bind){
+        for (var i = 0, l = this.length; i < l; i++) fn.call(bind, this[i], i, this);
+    }
+
+});
+
+// 取Array类的forEach方法别名为each
+Array.alias('forEach', 'each');
+
+// 把传入的迭代对象转换为数组Array
+function $A(iterable){
+    // 如果是DOM集合
+    if (iterable.item){
+        var l = iterable.length, array = new Array(l);
+        while (l--) array[l] = iterable[l];
+        return array;
+    }
+    return Array.prototype.slice.call(iterable);
+};
+
+// 返回一个函数，这个函数返回它接受的参数列表的第i项
+function $arguments(i){
+    return function(){
+        return arguments[i];
+    };
+};
+
+// 检查对象的属性或方法是否已定义或者变量是否已赋值或者是否为0
+function $chk(obj){
+    return !!(obj || obj === 0);
+};
+
+// 通用计时器清除方法，如果timer不存在也不会报错
+function $clear(timer){
+    clearTimeout(timer);
+    clearInterval(timer);
+    return null;
+};
+
+// 检查对象的属性是否已定义或者变量是否已赋值
+// 即对象不是undefined
+function $defined(obj){
+    return (obj != undefined);
+};
+
+// 迭代对象，对里面的所有属性或在方法执行fn(value, key)
+function $each(iterable, fn, bind){
+    // 获取迭代对象的类型名称
+    var type = $type(iterable);
+
+    // 如果为arguments、collection或者array中的一种，则执行Array的each方法，
+    // 其它情况则执行Hash的each方法
+    ((type == 'arguments' || type == 'collection' || type == 'array') ? Array : Hash).each(iterable, fn, bind);
+};
+
+// 空函数
+function $empty(){};
+
+// 通过浅拷贝实现original的扩展，注意不会解除引用
+function $extend(original, extended){
+    for (var key in (extended || {})) original[key] = extended[key];
+    return original;
+};
+
+// 实例化Hash对象的快捷方式
+function $H(object){
+    return new Hash(object);
+};
+
+// 如果传入一个函数，就返还这个函数，如果传入的是一个其它值，则生成一个返回这个值的函数
+function $lambda(value){
+    return ($type(value) == 'function') ? value : function(){
+        return value;
+    };
+};
+
+// 递归合并参数列表中的所有对象，后出现的属性或者方法会覆盖前面出现的，
+// 为深拷贝，会利用$unlink解除引用 
+function $merge(){
+    // 转换arguments为真的Array对象，从而可以使用unshift等Array的方法
+    var args = Array.slice(arguments);
+
+    // 在数组最前面插入一个空对象
+    args.unshift({});
+    return $mixin.apply(null, args);
+};
+
+// 递归合并所有参数列表中的对象的属性和方法，后面的会覆盖前面的
+// 这里的mix就是上面插入的{}空的对象，也是参数列表的第一个参数
+function $mixin(mix){
+    for (var i = 1, l = arguments.length; i < l; i++){
+        var object = arguments[i];
+        // 只对object对象才处理，$merge的参数必须要对象才会启作用
+        if ($type(object) != 'object') continue;
+
+        for (var key in object){
+            var op = object[key], mp = mix[key];
+            mix[key] = (mp && $type(op) == 'object' && $type(mp) == 'object') ? $mixin(mp, op) : $unlink(op);
+        }
+    }
+    return mix;
+};
+
+// 获取传入参数列表中从左至右第一个定义赋值过的对象属性或方法，
+// 或者第一个赋值过的变量的值
+// 即第一个不为undefined的值 
+function $pick(){
+    for (var i = 0, l = arguments.length; i < l; i++){
+        if (arguments[i] != undefined) return arguments[i];
+    }
+    return null;
+};
+
+// 在min和max之间取一个伪随机数
+function $random(min, max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+// 把传入的对象转换为一个数组包裹，如果本身就是数组则直接返回该数组，undefined的则返回空数组
+function $splat(obj){
+    var type = $type(obj);
+    return (type) ? ((type != 'array' && type != 'arguments') ? [obj] : obj) : [];
+};
+
+// 返回当前的时间戳，相当于new Date().getTime()
+var $time = Date.now || function(){
+    // 如果没有Date.now函数，则直接获取new Date对象的valueOf值，这里的+号就起了这个转换作用
+    return +new Date;
+};
+
+// 在简单的try-catch中依次执行参数列表中的所有函数调用
+function $try(){
+    for (var i = 0, l = arguments.length; i < l; i++){
+        try {
+            return arguments[i]();
+        } catch(e){}
+    }
+    return null;
+};
+
+// 判断实例对象是什么类型 
+function $type(obj){
+    if (obj == undefined) return false;
+
+    // NaN或正无穷或负无穷也会返回false
+    if (obj.$family) return (obj.$family.name == 'number' && !isFinite(obj)) ? false : obj.$family.name;
+
+    // 如果是DOM单个节点
+    if (obj.nodeName){
+        switch (obj.nodeType){
+            //Element元素
+            case 1: return 'element';
+            //文本节点
+            case 3: return (/\S/).test(obj.nodeValue) ? 'textnode' : 'whitespace';
+        }
+    } else if (typeof obj.length == 'number'){
+        if (obj.callee) return 'arguments';
+
+        // DOM集合（HTMLElements collection）
+        else if (obj.item) return 'collection';
+    }
+    return typeof obj;
+};
+
+// 解除对象的引用，使其独立，返回的对象被修改而不会影响原来的对象
+function $unlink(object){
+    var unlinked;
+    switch ($type(object)){
+        case 'object':
+            unlinked = {};
+            for (var p in object) unlinked[p] = $unlink(object[p]);
+        break;
+        case 'hash':
+            // Hash里本身又会调用$unlink
+            unlinked = new Hash(object);
+        break;
+        case 'array':
+            unlinked = [];
+            for (var i = 0, l = object.length; i < l; i++) unlinked[i] = $unlink(object[i]);
+        break;
+        default: return object;
+    }
+    return unlinked;
+};
+</pre>
+<p>从我的角度出发，我觉得核心应该写得更加精简，当然这个度是需要数据去说话的，mootools目前这个Core我觉得Hash和Array的扩展是没有必要放到Core.js里的，这样相关的$H也可以去掉，还觉得$chk和$defined写得有点部份重复，浪费代码空间。微核心的好处是能让上面的扩展能更加灵活，从服务于产品的角度就是可以更小，因为可以按需build更小的js，昂贵的流量也就节约了，用户的等待也会减少。同时如果framework服务的业务异常复杂，也可以更灵活的产生少数合理的分枝。这就可以解决framework维护成本和本生性能的矛盾。</p>
